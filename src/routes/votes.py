@@ -1,6 +1,7 @@
 from flask import request
 from flask_socketio import emit
 from src import socketio, db
+from src import state
 from src.state import rooms, _get_public_state
 from src.model import TicketSession, Vote
 
@@ -50,23 +51,41 @@ def reveal_vote(data):
 
     state['revealed'] = True
 
-    # Save to DB (Persistence)
-    # Note: We are saving to a global table.
-    # Ideally, you'd add 'room_id' to the TicketSession model.
-    votes_list = state['votes'].values()
-    if votes_list:
-        new_session = TicketSession(ticket_key=state['ticket_key'], is_public=state['is_public'])
+    if state['votes']:
+        # 1. Create the Session Record
+        new_session = TicketSession(
+            room_id=room_id,  # <--- Saving the Room ID
+            ticket_key=state['ticket_key'],
+            is_public=state['is_public']
+        )
         db.session.add(new_session)
-        db.session.commit()
+        db.session.commit() # Commit to get the new_session.id
 
-        total, count = 0, 0
-        for v in votes_list:
-            # Look up name from participants using the SID logic or store name in vote
-            # Simplified: we just grab the value here.
-            # In a real app, map SID -> Name for the DB record.
-            # For this demo, we'll skip saving individual names to DB to keep code short,
-            # or you can look up the user name from state['participants']
-            pass # (Add your DB saving logic here)
+        # 2. Save Individual Votes
+        total_value = 0
+        vote_count = 0
+
+        # We need the SID to look up the User Name from 'participants'
+        for sid, vote_data in state['votes'].items():
+            participant = state['participants'].get(sid)
+            # Fallback if user disconnected right before reveal
+            user_name = participant['name'] if participant else "Unknown"
+            val = vote_data['value']
+
+            vote_entry = Vote(
+                user_name=user_name,
+                value=val,
+                session_id=new_session.id
+            )
+            db.session.add(vote_entry)
+            
+            total_value += val
+            vote_count += 1
+        
+        # 3. Calculate Average
+        if vote_count > 0:
+            new_session.final_average = total_value / vote_count
+        
         db.session.commit()
 
     emit('state_update', _get_public_state(room_id), to=room_id)

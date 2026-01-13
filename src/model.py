@@ -6,6 +6,7 @@ from datetime import datetime
 # to filter history by team. For now, history remains global.
 class TicketSession(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    room_id = db.Column(db.String(36), nullable=False)
     ticket_key = db.Column(db.String(50), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     is_public = db.Column(db.Boolean, default=True)

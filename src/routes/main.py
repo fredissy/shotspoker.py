@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from src import app
 from src.model import TicketSession
 
@@ -9,5 +9,12 @@ def index():
 
 @app.route('/history')
 def history():
-    sessions = TicketSession.query.order_by(TicketSession.timestamp.desc()).all()
+
+    filter_room_id = request.args.get('room_id')
+    query = TicketSession.query
+
+    if filter_room_id:
+        query = query.filter_by(room_id=filter_room_id)
+    
+    sessions = query.order_by(TicketSession.timestamp.desc()).all()
     return render_template('history.html', sessions=sessions)
