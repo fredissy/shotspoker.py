@@ -36,7 +36,7 @@ def cast_vote(data):
     participant = state['participants'].get(request.sid)
     if participant and participant['role'] == 'observer': return
 
-    state['votes'][request.sid] = {'value': int(data['vote_value'])}
+    state['votes'][request.sid] = {'value': data['vote_value']}
     emit('state_update', _get_public_state(room_id), to=room_id)
 
 @socketio.on('reveal_vote')
@@ -44,10 +44,6 @@ def reveal_vote(data):
     room_id = data['room_id']
     state = rooms.get(room_id)
     if not state: return
-
-    # Admin Check
-    if state['active'] and request.sid != state['admin_sid']:
-        return
 
     state['revealed'] = True
 
@@ -74,13 +70,14 @@ def reveal_vote(data):
 
             vote_entry = Vote(
                 user_name=user_name,
-                value=val,
+                value=str(val),
                 session_id=new_session.id
             )
             db.session.add(vote_entry)
             
-            total_value += val
-            vote_count += 1
+            if str(val).replace('.', '', 1).isdigit():
+                total_value += float(val)
+                vote_count += 1
         
         # 3. Calculate Average
         if vote_count > 0:

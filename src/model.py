@@ -16,5 +16,5 @@ class TicketSession(db.Model):
 class Vote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(50), nullable=False)
-    value = db.Column(db.Integer, nullable=False)
+    value = db.Column(db.String(10), nullable=False)
     session_id = db.Column(db.Integer, db.ForeignKey('ticket_session.id'), nullable=False)

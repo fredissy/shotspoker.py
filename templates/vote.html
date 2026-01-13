@@ -61,6 +61,7 @@
             <div class="col-md-8 text-center">
                 <h5>Cast your vote:</h5>
                 <div class="d-flex justify-content-center gap-2 flex-wrap">
+                    <div class="card p-3 card-select shadow-sm" onclick="castVote(0)">0</div>
                     <div class="card p-3 card-select shadow-sm" onclick="castVote(1)">1</div>
                     <div class="card p-3 card-select shadow-sm" onclick="castVote(2)">2</div>
                     <div class="card p-3 card-select shadow-sm" onclick="castVote(3)">3</div>
@@ -68,10 +69,13 @@
                     <div class="card p-3 card-select shadow-sm" onclick="castVote(8)">8</div>
                     <div class="card p-3 card-select shadow-sm" onclick="castVote(13)">13</div>
                     <div class="card p-3 card-select shadow-sm" onclick="castVote(21)">21</div>
+                    
+                    <div class="card p-3 card-select shadow-sm" onclick="castVote('∞')">∞</div>
+                    <div class="card p-3 card-select shadow-sm" onclick="castVote('?')">?</div>
+                    <div class="card p-3 card-select shadow-sm" onclick="castVote('☕')">☕</div>
                 </div>
             </div>
         </div>
-
         <div id="observerMessage" class="text-center mb-5 alert alert-info" style="display:none;">
             <h4>👀 You are observing this session.</h4>
         </div>
