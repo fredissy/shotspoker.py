@@ -108,8 +108,12 @@ if (state.active) {
             badgeContent = '👀'; 
         } else if (p.display_value === '✅') {
             badgeClass = 'bg-success'; 
-        } else if (!isNaN(p.display_value)) {
+        } else if (p.is_min) {
             badgeClass = 'bg-primary'; 
+        } else if (p.is_max) {
+            badgeClass = 'bg-danger'; 
+        } else if (p.display_value !== null) {
+            badgeClass = 'bg-dark';
         }
 
         li.innerHTML = `
