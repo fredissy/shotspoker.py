@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Poker Room {{ room_id }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        const currentRoomId = "{{ room_id }}";
+        const myRole = "{{ user_role }}"; // <--- This was missing!
+    </script>
+</head>
+<body>
+
+    <div class="container py-5" id="mainApp">
+        
+        <div class="position-absolute top-0 end-0 p-3">
+            <div class="d-flex align-items-center gap-2">
+                <div id="roomInfoDisplay" class="badge bg-light text-dark border room-badge p-2 shadow-sm" style="font-size: 0.9rem;" onclick="copyRoomId()" title="Click to Copy ID">
+                    Room ID: <span id="currentRoomDisplay" class="fw-bold font-monospace">...</span> 📋
+                </div>
+                <button id="logoutBtn" class="btn btn-danger btn-sm shadow-sm" onclick="logout()">
+                    Exit 🚪
+                </button>
+            </div>
+        </div>
+
+        <h1 class="text-center mb-4">Planning Poker</h1>
+
+        <div class="card mb-4">
+            <div class="card-header bg-dark text-white">Controls (Anyone can act as Admin)</div>
+            <div class="card-body">
+                <div class="row g-2 align-items-center">
+                    <div class="col-auto">
+                        <input type="text" id="jiraTicket" class="form-control" placeholder="JIRA Ticket (e.g. PROJ-123)">
+                    </div>
+                    <div class="col-auto">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="publicVote" checked>
+                            <label class="form-check-label" for="publicVote">Public Votes</label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary" onclick="startVote()">Start New Vote</button>
+                        <button class="btn btn-warning" onclick="revealVote()">Reveal Results</button>
+                        <button class="btn btn-secondary" onclick="resetVote()">Reset</button>
+                        <a href="/history" class="btn btn-outline-info ms-2">View History</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-5">
+            <h2 id="currentTicketDisplay">Waiting for session...</h2>
+            <div id="statusMessage" class="text-muted"></div>
+        </div>
+
+        <div id="votingInterface" class="row justify-content-center mb-5" style="display:none;">
+            <div class="col-md-8 text-center">
+                <h5>Cast your vote:</h5>
+                <div class="d-flex justify-content-center gap-2 flex-wrap">
+                    <div class="card p-3 card-select shadow-sm" onclick="castVote(1)">1</div>
+                    <div class="card p-3 card-select shadow-sm" onclick="castVote(2)">2</div>
+                    <div class="card p-3 card-select shadow-sm" onclick="castVote(3)">3</div>
+                    <div class="card p-3 card-select shadow-sm" onclick="castVote(5)">5</div>
+                    <div class="card p-3 card-select shadow-sm" onclick="castVote(8)">8</div>
+                    <div class="card p-3 card-select shadow-sm" onclick="castVote(13)">13</div>
+                    <div class="card p-3 card-select shadow-sm" onclick="castVote(21)">21</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="observerMessage" class="text-center mb-5 alert alert-info" style="display:none;">
+            <h4>👀 You are observing this session.</h4>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Participants</div>
+                    <ul class="list-group list-group-flush" id="votersList">
+                        </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6 text-center">
+                <div class="card">
+                    <div class="card-header">Results Distribution</div>
+                    <div class="card-body">
+                        <div id="chartContainer">
+                            <canvas id="resultsChart"></canvas>
+                        </div>
+                        <p id="chartPlaceholder" class="text-muted mt-5">Waiting for reveal...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/vote.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

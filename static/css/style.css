@@ -1,0 +1,16 @@
+body { background-color: #f8f9fa; }
+.card-select { cursor: pointer; transition: 0.2s; }
+.card-select:hover { transform: scale(1.1); background-color: #0d6efd; color: white; }
+.voted-badge { background-color: #198754; color: white; }
+.waiting-badge { background-color: #ffc107; color: black; }
+#chartContainer { max-width: 400px; margin: 0 auto; }
+
+/* Login Screen Overlay Styles */
+
+.room-badge {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.room-badge:hover {
+    background-color: #e2e6ea;
+}
