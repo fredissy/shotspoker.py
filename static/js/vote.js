@@ -78,19 +78,17 @@ function updateUI(state) {
     const resetBtn = document.querySelector('button[onclick="resetVote()"]');
     const amIAdmin = (socket.id === state.admin_sid);
     
-    if (state.active) {
-        revealBtn.disabled = !amIAdmin;
+if (state.active) {
+        // CHANGED: Anyone can reveal, but Reset might still be restricted to Admin
+        revealBtn.disabled = false; 
+        revealBtn.title = "Reveal results";
+
         resetBtn.disabled = !amIAdmin;
-        if(!amIAdmin) {
-            revealBtn.title = "Only the starter can reveal";
-            resetBtn.title = "Only the starter can reset";
-        } else {
-            revealBtn.title = "";
-            resetBtn.title = "";
-        }
+        resetBtn.title = amIAdmin ? "" : "Only the starter can reset";
+        
     } else {
         revealBtn.disabled = true; 
-        resetBtn.disabled = false; 
+        resetBtn.disabled = false; // Anyone can start a new vote/reset when inactive
     }
 
     // 4. Participants List
