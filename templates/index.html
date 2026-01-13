@@ -83,8 +83,13 @@
 <div class="container py-5" id="mainApp" style="filter: blur(5px);">
     
     <div class="position-absolute top-0 end-0 p-3">
-        <div id="roomInfoDisplay" class="badge bg-light text-dark border room-badge p-2 shadow-sm" style="display:none; font-size: 0.9rem;" onclick="copyRoomId()" title="Click to Copy ID">
-            Room ID: <span id="currentRoomDisplay" class="fw-bold font-monospace">...</span> 📋
+        <div class="position-absolute top-0 end-0 p-3 d-flex align-items-center gap-2">
+            <div id="roomInfoDisplay" class="badge bg-light text-dark border room-badge p-2 shadow-sm" style="display:none; font-size: 0.9rem;" onclick="copyRoomId()" title="Click to Copy ID">
+                Room ID: <span id="currentRoomDisplay" class="fw-bold font-monospace">...</span> 📋
+            </div>
+            <button id="logoutBtn" class="btn btn-danger btn-sm shadow-sm" style="display:none;" onclick="logout()">
+                Exit 🚪
+            </button>
         </div>
     </div>
 
@@ -171,6 +176,36 @@
     // --- Socket Listeners ---
     socket.on('connect', () => {
         console.log("Connected to server");
+        
+        // --- NEW: AUTO-RECONNECT LOGIC ---
+        // Check if we have session data in storage
+        const savedRoom = sessionStorage.getItem('poker_room');
+        const savedName = sessionStorage.getItem('poker_name');
+        const savedRole = sessionStorage.getItem('poker_role');
+
+        // If data exists and we aren't already in a room (avoids double join on disconnect/reconnect)
+        if (savedRoom && savedName && !currentRoomId) {
+            console.log("Restoring session for room:", savedRoom);
+            
+            // Restore visual state for inputs (in case user logs out later)
+            document.getElementById('joinName').value = savedName;
+            document.getElementById('roomIdInput').value = savedRoom;
+            if(savedRole === 'observer') {
+                document.getElementById('roleObserver').checked = true;
+            } else {
+                document.getElementById('roleVoter').checked = true;
+            }
+            
+            // Restore global role variable
+            myRole = savedRole;
+
+            // Trigger the join event
+            socket.emit('join_room_request', { 
+                name: savedName, 
+                role: savedRole, 
+                room_id: savedRoom 
+            });
+        }
     });
 
     socket.on('room_created', (data) => {
@@ -247,12 +282,26 @@
     // --- UI Helpers ---
     function enterApp(roomId) {
         currentRoomId = roomId;
+        
+        // --- NEW: SAVE STATE TO STORAGE ---
+        // Save these details so we can survive a page refresh
+        const name = document.getElementById('joinName').value;
+        // Role might be in DOM or in myRole variable depending on flow, let's grab from DOM to be safe
+        // or rely on what we set in createRoom/joinRoom
+        const role = document.querySelector('input[name="role"]:checked').value;
+        
+        sessionStorage.setItem('poker_room', roomId);
+        sessionStorage.setItem('poker_name', name);
+        sessionStorage.setItem('poker_role', role);
+        // ----------------------------------
+
         document.getElementById('joinScreen').style.display = 'none';
         document.getElementById('mainApp').style.filter = 'none';
         
         // Show Room ID
         document.getElementById('roomInfoDisplay').style.display = 'block';
         document.getElementById('currentRoomDisplay').innerText = roomId;
+        document.getElementById('logoutBtn').style.display = 'block';
     }
 
     function showError(msg) {
@@ -376,6 +425,16 @@
             }
         });
     }
+ 
+    function logout() {
+    // Clear the saved session details
+    sessionStorage.removeItem('poker_room');
+    sessionStorage.removeItem('poker_name');
+    sessionStorage.removeItem('poker_role');
+    
+    // Reload page to return to the Login/Join screen
+    window.location.reload();
+}
 </script>
 </body>
 </html>
