@@ -18,7 +18,19 @@ function castVote(value) {
         room_id: currentRoomId,
         vote_value: value 
     });
-    document.getElementById('statusMessage').innerText = `You selected: ${value}`;
+    
+    // NEW: Visual Logic (Highlight selected, deselect others)
+    const cards = document.querySelectorAll('.card-select');
+    cards.forEach(card => {
+        // Clear previous selection
+        card.classList.remove('card-selected');
+        
+        // Apply selection to the clicked card
+        // (We compare the card's text "1", "2" etc with the vote value)
+        if (card.innerText.trim() == value) {
+            card.classList.add('card-selected');
+        }
+    });
 }
 
 function revealVote() {
@@ -57,6 +69,8 @@ function updateUI(state) {
     } else {
         votingInterface.style.display = 'none';
         observerMessage.style.display = 'none';
+
+        document.querySelectorAll('.card-select').forEach(c => c.classList.remove('card-selected'));
     }
 
     // 3. Admin Buttons (Security Check)

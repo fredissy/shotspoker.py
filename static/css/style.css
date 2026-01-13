@@ -14,3 +14,9 @@ body { background-color: #f8f9fa; }
 .room-badge:hover {
     background-color: #e2e6ea;
 }
+
+.card-selected {
+    transform: scale(1.1);
+    background-color: #0d6efd;
+    color: white;
+}
