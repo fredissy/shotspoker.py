@@ -1,8 +1,23 @@
+import random
 import uuid
 from flask import jsonify, redirect, render_template, request, session, url_for
 from src import app
 from src.model import TicketSession
 from src.state import get_initial_room_state, rooms
+import os
+
+WORDS = []
+try:
+    # Assuming 'res' is at the project root, one level up from 'src'
+    names_path = os.path.join(app.root_path, '..', 'res', 'names.txt')
+    
+    with open(names_path, 'r', encoding='utf-8') as f:
+        # Load words, stripping whitespace and empty lines
+        WORDS = [line.strip() for line in f if line.strip()]
+        
+    print(f"Loaded {len(WORDS)} words for room ID generation.")
+except Exception as e:
+    print(f"Warning: Could not load names.txt ({e}). Fallback to UUIDs.")
 
 # --- Routes ---
 @app.route('/')
@@ -31,11 +46,20 @@ def login():
 
     # Logic for Creating a Room
     if action == 'create':
-        room_id = str(uuid.uuid4())
+        room_id = generate_room_id()
+
+        attempts = 0
+        while room_id in rooms and attempts < 10:
+            room_id = generate_room_id()
+            attempts += 1
+
         rooms[room_id] = get_initial_room_state(deck_type)
     
     # Logic for Joining a Room
     elif action == 'join':
+        if room_id:
+            room_id = room_id.strip().lower()
+
         if not room_id or room_id not in rooms:
             return jsonify({'error': 'Room not found'}), 404
             
@@ -71,3 +95,13 @@ def history():
     
     sessions = query.order_by(TicketSession.timestamp.desc()).all()
     return render_template('history.html', sessions=sessions, current_room=filter_room_id)
+
+def generate_room_id():
+    """Generates a random 3-word dashed string (e.g. 'apple-bridge-candle')."""
+    if len(WORDS) >= 3:
+        # Pick 3 unique words from the list
+        selected = random.sample(WORDS, 3)
+        return "-".join(selected)
+    else:
+        # Fallback if file is missing or has < 3 words
+        return str(uuid.uuid4())

@@ -20,7 +20,7 @@
         <div class="position-absolute top-0 end-0 p-3">
             <div class="d-flex align-items-center gap-2">
                 <div id="roomInfoDisplay" class="badge bg-light text-dark border room-badge p-2 shadow-sm" style="font-size: 0.9rem;" onclick="copyRoomId()" title="Click to Copy ID">
-                    Room ID: <span id="currentRoomDisplay" class="fw-bold font-monospace">...</span> 📋
+                    Room ID: <span id="currentRoomDisplay" class="fw-bold font-monospace">{{ room_id }}</span> 📋
                 </div>
                 <button id="logoutBtn" class="btn btn-danger btn-sm shadow-sm" onclick="logout()">
                     Exit 🚪
