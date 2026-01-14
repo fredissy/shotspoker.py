@@ -5,26 +5,26 @@ let currentQueue = [];
 function startVote() {
     const ticket = document.getElementById('jiraTicket').value;
     const isPublic = document.getElementById('publicVote').checked;
-    if(!ticket) return alert("Please enter a Jira Ticket ID");
-    
-    socket.emit('start_vote', { 
-        room_id: currentRoomId, 
-        ticket_key: ticket, 
-        is_public: isPublic 
+    if (!ticket) return alert("Please enter a Jira Ticket ID");
+
+    socket.emit('start_vote', {
+        room_id: currentRoomId,
+        ticket_key: ticket,
+        is_public: isPublic
     });
 }
 
 function castVote(value) {
-    socket.emit('cast_vote', { 
+    socket.emit('cast_vote', {
         room_id: currentRoomId,
-        vote_value: value 
+        vote_value: value
     });
-    
+
     const cards = document.querySelectorAll('.card-select');
     cards.forEach(card => {
         // Clear previous selection
         card.classList.remove('card-selected');
-        
+
         // Apply selection to the clicked card
         // (We compare the card's text "1", "2" etc with the vote value)
         if (card.innerText.trim() == value) {
@@ -96,6 +96,9 @@ function updateUI(state) {
     document.getElementById('currentTicketDisplay').innerText = 
         state.active ? `Voting on: ${state.ticket_key}` : "Waiting for session...";
     
+    // Define Admin Status
+    const amIAdmin = (socket.id === state.admin_sid);
+    
     // 2. Voting Interface Visibility
     const votingInterface = document.getElementById('votingInterface');
     const observerMessage = document.getElementById('observerMessage');
@@ -111,26 +114,22 @@ function updateUI(state) {
     } else {
         votingInterface.style.display = 'none';
         observerMessage.style.display = 'none';
-
         document.querySelectorAll('.card-select').forEach(c => c.classList.remove('card-selected'));
     }
 
-    // 3. Admin Buttons (Security Check)
+    // 3. Admin Buttons
     const revealBtn = document.querySelector('button[onclick="revealVote()"]');
     const resetBtn = document.querySelector('button[onclick="resetVote()"]');
-    const amIAdmin = (socket.id === state.admin_sid);
     
     if (state.active) {
-        // CHANGED: Anyone can reveal, but Reset might still be restricted to Admin
         revealBtn.disabled = false; 
         revealBtn.title = "Reveal results";
 
         resetBtn.disabled = !amIAdmin;
         resetBtn.title = amIAdmin ? "" : "Only the starter can reset";
-        
     } else {
         revealBtn.disabled = true; 
-        resetBtn.disabled = false; // Anyone can start a new vote/reset when inactive
+        resetBtn.disabled = false; 
     }
 
     // 4. Participants List
@@ -145,7 +144,15 @@ function updateUI(state) {
         let badgeClass = 'bg-secondary';
         let badgeContent = p.display_value || 'Waiting';
 
-        if (p.role === 'observer') {
+        // --- VISIBILITY CHANGE START ---
+        // If revealed AND votes are NOT public, hide the value for EVERYONE.
+        // We only check state.is_public. We do NOT check amIAdmin.
+        if (state.revealed && !state.is_public && p.role !== 'observer' && p.display_value) {
+            badgeContent = "🔒"; 
+            badgeClass = "bg-secondary";
+        } 
+        // --- VISIBILITY CHANGE END ---
+        else if (p.role === 'observer') {
             badgeClass = 'bg-info text-dark';
             badgeContent = '👀'; 
         } else if (p.display_value === '✅') {
@@ -157,6 +164,7 @@ function updateUI(state) {
         } else if (p.display_value !== null) {
             badgeClass = 'bg-dark';
         }
+
         const animationClass = state.revealed ? 'vote-reveal-container flip-in' : '';
 
         li.innerHTML = `
@@ -173,7 +181,8 @@ function updateUI(state) {
         list.appendChild(li);
     });
 
-    // Check for consensus only when votes are revealed. Confettis if so
+    // 5. Consensus Check
+    // We allow confetti even if hidden, as the graph will show 100% consensus anyway
     if (state.revealed && !window.wasRevealed) {
         checkConsensus(state.participants);
         window.wasRevealed = true; 
@@ -181,27 +190,27 @@ function updateUI(state) {
         window.wasRevealed = false;
     }
 
-    // 5. Chart Logic
+    // 6. Chart Logic
     const chartContainer = document.getElementById('chartContainer');
     const placeholder = document.getElementById('chartPlaceholder');
     
+    // --- CHART CHANGE: Always render if revealed, ignoring privacy ---
     if (state.revealed && Object.keys(state.distribution).length > 0) {
         placeholder.style.display = 'none';
         renderChart(state.distribution);
     } else {
         if(myChart) myChart.destroy();
         placeholder.style.display = 'block';
+        placeholder.innerText = "Waiting for reveal...";
     }
 
-    // 6. Update Queue Display
+    // 7. Queue Logic (Unchanged)
     const queueSection = document.getElementById('queueSection');
     const queueList = document.getElementById('queueList');
     const manageBtn = document.querySelector('button[onclick="openQueueModal()"]');
 
     currentQueue = state.queue || [];
-
-    // Only Admin can see the "Manage Queue" button
-    manageBtn.style.display ='inline-block'
+    manageBtn.style.display = 'inline-block';
 
     if (state.queue && state.queue.length > 0) {
         queueSection.style.display = 'block';
@@ -215,13 +224,13 @@ function updateUI(state) {
             
             // Only admin can click to start
             if (socket.id === state.admin_sid) {
-                btn.onclick = () => startFromQueue(ticket);
-                btn.title = "Click to start voting on this ticket";
+            btn.onclick = () => startFromQueue(ticket);
+            btn.title = "Click to start voting on this ticket";
             } else {
                 btn.disabled = true;
                 btn.className += " opacity-75"; // visually indicate read-only
             }
-            
+
             queueList.appendChild(btn);
         });
     } else {
@@ -261,15 +270,15 @@ function openQueueModal() {
 
 function saveQueue() {
     const rawText = document.getElementById('queueInput').value;
-    if(!rawText) return;
+    if (!rawText) return;
 
     const list = rawText.split(/[\n,]+/).map(t => t.trim()).filter(t => t.length > 0);
-    
-    socket.emit('update_queue', { 
-        room_id: currentRoomId, 
-        queue_list: list 
+
+    socket.emit('update_queue', {
+        room_id: currentRoomId,
+        queue_list: list
     });
-    
+
     // Hide modal manually or find the instance
     const el = document.getElementById('queueModal');
     const modal = bootstrap.Modal.getInstance(el);
