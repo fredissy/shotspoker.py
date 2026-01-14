@@ -44,8 +44,12 @@ function resetVote() {
 }
 
 function copyRoomId() {
-    navigator.clipboard.writeText(currentRoomId);
-    alert("Room ID copied to clipboard!");
+    navigator.clipboard.writeText(currentRoomId).then(() => {
+        showToast("📋 Room ID copied to clipboard!", "success");
+    }).catch(err => {
+        console.error(err);
+        showToast("❌ Failed to copy Room ID", "danger");
+    });
 }
 
 function checkConsensus(participants) {
@@ -68,6 +72,22 @@ function triggerConfetti() {
         origin: { y: 0.6 },
         colors: ['#0d6efd', '#ffc107', '#198754'] // Bootstrap Blue, Yellow, Green
     });
+}
+
+function showToast(message, type = 'primary') {
+    const toastEl = document.getElementById('mainToast');
+    const msgEl = document.getElementById('toastMessage');
+
+    // 1. Set the message text
+    msgEl.innerText = message;
+
+    // 2. Set the color (supports 'primary', 'success', 'danger', 'warning')
+    // We reset the class list and re-add the necessary Bootstrap classes
+    toastEl.className = `toast align-items-center text-white bg-${type} border-0`;
+
+    // 3. Show the toast
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
 }
 
 // --- Main UI Update Logic ---
