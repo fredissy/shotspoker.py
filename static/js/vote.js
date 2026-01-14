@@ -215,21 +215,12 @@ function updateUI(state) {
     if (state.queue && state.queue.length > 0) {
         queueSection.style.display = 'block';
         queueList.innerHTML = '';
-        
         state.queue.forEach(ticket => {
-            // Create a clickable badge/chip
             const btn = document.createElement('button');
             btn.className = "btn btn-sm btn-white border shadow-sm text-primary fw-bold";
             btn.innerText = ticket;
-            
-            // Only admin can click to start
-            if (socket.id === state.admin_sid) {
             btn.onclick = () => startFromQueue(ticket);
             btn.title = "Click to start voting on this ticket";
-            } else {
-                btn.disabled = true;
-                btn.className += " opacity-75"; // visually indicate read-only
-            }
 
             queueList.appendChild(btn);
         });
@@ -237,6 +228,7 @@ function updateUI(state) {
         queueSection.style.display = 'none';
     }
 }
+
 
 function renderChart(distribution) {
     const ctx = document.getElementById('resultsChart').getContext('2d');
