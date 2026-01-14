@@ -122,6 +122,21 @@
                 <div class="card">
                     <div class="card-header">Results Distribution</div>
                     <div class="card-body">
+                        <div id="statsRow" class="row text-center mb-3" style="display:none;">
+                            <div class="col-6">
+                                <div class="border rounded p-2 bg-light">
+                                    <small class="text-muted d-block text-uppercase fw-bold" style="font-size:0.7rem;">Average</small>
+                                    <span id="statAverage" class="fs-4 fw-bold text-primary">--</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="border rounded p-2 bg-light">
+                                    <small class="text-muted d-block text-uppercase fw-bold" style="font-size:0.7rem;">Agreement</small>
+                                    <span id="statAgreement" class="fs-4 fw-bold text-success">--</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div id="chartContainer">
                             <canvas id="resultsChart"></canvas>
                         </div>

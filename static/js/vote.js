@@ -199,6 +199,23 @@ function updateUI(state) {
     // 6. Chart Logic
     const chartContainer = document.getElementById('chartContainer');
     const placeholder = document.getElementById('chartPlaceholder');
+    const statsRow = document.getElementById('statsRow');
+    const statAvg = document.getElementById('statAverage');
+    const statAgree = document.getElementById('statAgreement');
+
+    const showStats = state.revealed && (state.is_public || (socket.id === state.admin_sid));
+
+    if (showStats && state.stats) {
+        statsRow.style.display = 'flex';
+        
+        // Handle Average (might be null if only '?' or 'coffee' were voted)
+        statAvg.innerText = (state.stats.average !== null) ? state.stats.average : '-';
+        
+        // Handle Agreement
+        statAgree.innerText = state.stats.agreement + '%';
+    } else {
+        statsRow.style.display = 'none';
+    }
     
     // --- CHART CHANGE: Always render if revealed, ignoring privacy ---
     if (state.revealed && Object.keys(state.distribution).length > 0) {

@@ -1,5 +1,8 @@
 # --- Global State ---
 # Structure: { 'room_uuid': { active: False, ticket_key: '...', ... } }
+from collections import Counter
+
+
 rooms = {}
 
 def get_initial_room_state():
@@ -22,17 +25,31 @@ def _get_public_state(room_id):
 
     min_val = None
     max_val = None
+    average = None
+    agreement = 0
 
     if state['revealed']:
         numeric_votes = []
+        all_votes_count = 0
+        raw_values = []
         for v in state['votes'].values():
             val_str = str(v['value'])
+            raw_values.append(val_str)
             if val_str.replace('.', '', 1).isdigit():
                 numeric_votes.append(float(val_str))
         
-        if numeric_votes:
-            min_val = min(numeric_votes)
-            max_val = max(numeric_votes)
+        count_votes = len(raw_values)
+        if count_votes > 0:
+            if numeric_votes:
+                min_val = min(numeric_votes)
+                max_val = max(numeric_votes)
+                average = round(sum(numeric_votes) / len(numeric_votes), 1)
+            
+            if raw_values:
+                    most_common = Counter(raw_values).most_common(1)
+                    if most_common:
+                        top_vote_count = most_common[0][1]
+                        agreement = int((top_vote_count / count_votes) * 100)
 
     for sid, p in state['participants'].items():
         vote_data = state['votes'].get(p['name'])
@@ -73,5 +90,11 @@ def _get_public_state(room_id):
         'participants': user_list,
         'distribution': vote_counts,
         'admin_sid': state['admin_sid'],
-        'queue': state['queue']
+        'queue': state['queue'],
+        'stats': {
+            'average': average,
+            'agreement': agreement,
+            'min': min_val,
+            'max': max_val
+        }
     }
