@@ -1,4 +1,5 @@
 let myChart = null;
+let currentQueue = [];
 
 // --- Main Game Actions ---
 function startVote() {
@@ -19,7 +20,6 @@ function castVote(value) {
         vote_value: value 
     });
     
-    // NEW: Visual Logic (Highlight selected, deselect others)
     const cards = document.querySelectorAll('.card-select');
     cards.forEach(card => {
         // Clear previous selection
@@ -46,6 +46,28 @@ function resetVote() {
 function copyRoomId() {
     navigator.clipboard.writeText(currentRoomId);
     alert("Room ID copied to clipboard!");
+}
+
+function checkConsensus(participants) {
+    // Extract just the values that are numbers (ignore ?, coffee, etc)
+    const votes = participants
+        .map(p => p.display_value)
+        .filter(v => v !== null && !isNaN(v));
+
+    // If we have more than 1 vote and they are all identical
+    if (votes.length > 1 && votes.every(v => v === votes[0])) {
+        triggerConfetti();
+    }
+}
+
+function triggerConfetti() {
+    // Fire a burst of confetti
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#0d6efd', '#ffc107', '#198754'] // Bootstrap Blue, Yellow, Green
+    });
 }
 
 // --- Main UI Update Logic ---
@@ -78,7 +100,7 @@ function updateUI(state) {
     const resetBtn = document.querySelector('button[onclick="resetVote()"]');
     const amIAdmin = (socket.id === state.admin_sid);
     
-if (state.active) {
+    if (state.active) {
         // CHANGED: Anyone can reveal, but Reset might still be restricted to Admin
         revealBtn.disabled = false; 
         revealBtn.title = "Reveal results";
@@ -115,18 +137,29 @@ if (state.active) {
         } else if (p.display_value !== null) {
             badgeClass = 'bg-dark';
         }
+        const animationClass = state.revealed ? 'vote-reveal-container flip-in' : '';
 
         li.innerHTML = `
             <span>
                 ${p.name} 
                 ${p.role === 'observer' ? '<small class="text-muted ms-1">(Observer)</small>' : ''}
             </span>
-            <span class="badge ${badgeClass} rounded-pill">
-                ${badgeContent}
+            <span class="${animationClass}">
+                <span class="badge ${badgeClass} rounded-pill">
+                    ${badgeContent}
+                </span>
             </span>
         `;
         list.appendChild(li);
     });
+
+    // Check for consensus only when votes are revealed. Confettis if so
+    if (state.revealed && !window.wasRevealed) {
+        checkConsensus(state.participants);
+        window.wasRevealed = true; 
+    } else if (!state.revealed) {
+        window.wasRevealed = false;
+    }
 
     // 5. Chart Logic
     const chartContainer = document.getElementById('chartContainer');
