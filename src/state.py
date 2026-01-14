@@ -14,7 +14,8 @@ def get_initial_room_state():
         'revealed': False,
         'admin_sid': None,
         'participants': {},
-        'queue': []
+        'queue': [],
+        'timer_end': None
     }
 
 def _get_public_state(room_id):
@@ -91,6 +92,7 @@ def _get_public_state(room_id):
         'distribution': vote_counts,
         'admin_sid': state['admin_sid'],
         'queue': state['queue'],
+        'timer_end': state.get('timer_end'),
         'stats': {
             'average': average,
             'agreement': agreement,

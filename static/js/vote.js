@@ -1,5 +1,6 @@
 let myChart = null;
 let currentQueue = [];
+let timerInterval = null;
 
 // --- Main Game Actions ---
 function startVote() {
@@ -12,6 +13,14 @@ function startVote() {
         ticket_key: ticket,
         is_public: isPublic
     });
+}
+
+function startTimer(seconds) {
+    socket.emit('start_timer', { room_id: currentRoomId, duration: seconds });
+}
+
+function stopTimer() {
+    socket.emit('stop_timer', { room_id: currentRoomId });
 }
 
 function castVote(value) {
@@ -247,6 +256,34 @@ function updateUI(state) {
         });
     } else {
         queueSection.style.display = 'none';
+    }
+
+    // 8. Timer :
+    const timerEl = document.getElementById('timerDisplay');
+    if (timerInterval) clearInterval(timerInterval);
+    if (state.timer_end) {
+        timerEl.style.display = 'inline-block';
+        
+        // Start a local countdown loop
+        timerInterval = setInterval(() => {
+            // Get client's current time (in seconds, matching Python's time.time())
+            const now = Date.now() / 1000; 
+            const diff = state.timer_end - now;
+
+            if (diff <= 0) {
+                timerEl.innerText = "0:00";
+                clearInterval(timerInterval);
+                // Optional: Play a "Ding" sound here if you kept the audio file
+            } else {
+                // Format MM:SS
+                const m = Math.floor(diff / 60);
+                const s = Math.floor(diff % 60);
+                timerEl.innerText = `${m}:${s.toString().padStart(2, '0')}`;
+            }
+        }, 100); // Update every 100ms for smoothness
+    } else {
+        timerEl.style.display = 'none';
+        timerEl.innerText = "00:00";
     }
 }
 

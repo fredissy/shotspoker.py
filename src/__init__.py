@@ -22,9 +22,7 @@ socketio = SocketIO(app)
 from src import model
 
 # Import routes/events to ensure they are registered
-from src.routes import main
-from src.routes import rooms
-from src.routes import votes
+from src.routes import main, rooms, votes, timer
 
 with app.app_context():
     db.create_all()

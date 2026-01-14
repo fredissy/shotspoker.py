@@ -47,6 +47,18 @@
                         <button class="btn btn-primary" onclick="startVote()">Start New Vote</button>
                         <button class="btn btn-warning" onclick="revealVote()">Reveal Results</button>
                         <button class="btn btn-secondary" onclick="resetVote()">Reset</button>
+                        <div class="btn-group ms-2">
+                            <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown">
+                                ⏱️ Timer
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" onclick="startTimer(30)">30 Seconds</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="startTimer(60)">1 Minute</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="startTimer(120)">2 Minutes</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="stopTimer()">Stop Timer</a></li>
+                            </ul>
+                        </div>
                         <button class="btn btn-outline-primary ms-2" onclick="openQueueModal()">Manage Queue</button>
                         <a href="/history" class="btn btn-outline-info ms-2">View History</a>
                     </div>
@@ -83,6 +95,9 @@
         </div>
         <div class="text-center mb-5">
             <h2 id="currentTicketDisplay">Waiting for session...</h2>
+            <div id="timerDisplay" class="badge bg-danger fs-4 mb-2 shadow-sm" style="display:none;">
+               0:00
+            </div>
             <div id="statusMessage" class="text-muted"></div>
         </div>
 
