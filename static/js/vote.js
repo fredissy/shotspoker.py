@@ -93,8 +93,14 @@ function showToast(message, type = 'primary') {
 // --- Main UI Update Logic ---
 function updateUI(state) {
     // 1. Header Info
-    document.getElementById('currentTicketDisplay').innerText = 
-        state.active ? `Voting on: ${state.ticket_key}` : "Waiting for session...";
+    let headerText = state.active ? `Voting on: ${state.ticket_key}` : "Waiting for session...";
+    
+    // NEW: Add lock icon if the vote is private
+    if (state.active && !state.is_public) {
+        headerText += " 🔒";
+    }
+
+    document.getElementById('currentTicketDisplay').innerText = headerText;
     
     // Define Admin Status
     const amIAdmin = (socket.id === state.admin_sid);
