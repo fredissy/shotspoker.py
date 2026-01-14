@@ -10,7 +10,8 @@ def get_initial_room_state():
         'votes': {},
         'revealed': False,
         'admin_sid': None,
-        'participants': {}
+        'participants': {},
+        'queue': []
     }
 
 def _get_public_state(room_id):
@@ -71,5 +72,6 @@ def _get_public_state(room_id):
         'revealed': state['revealed'],
         'participants': user_list,
         'distribution': vote_counts,
-        'admin_sid': state['admin_sid']
+        'admin_sid': state['admin_sid'],
+        'queue': state['queue']
     }

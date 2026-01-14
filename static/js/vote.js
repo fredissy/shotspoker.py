@@ -172,6 +172,41 @@ function updateUI(state) {
         if(myChart) myChart.destroy();
         placeholder.style.display = 'block';
     }
+
+    // 6. Update Queue Display
+    const queueSection = document.getElementById('queueSection');
+    const queueList = document.getElementById('queueList');
+    const manageBtn = document.querySelector('button[onclick="openQueueModal()"]');
+
+    currentQueue = state.queue || [];
+
+    // Only Admin can see the "Manage Queue" button
+    manageBtn.style.display ='inline-block'
+
+    if (state.queue && state.queue.length > 0) {
+        queueSection.style.display = 'block';
+        queueList.innerHTML = '';
+        
+        state.queue.forEach(ticket => {
+            // Create a clickable badge/chip
+            const btn = document.createElement('button');
+            btn.className = "btn btn-sm btn-white border shadow-sm text-primary fw-bold";
+            btn.innerText = ticket;
+            
+            // Only admin can click to start
+            if (socket.id === state.admin_sid) {
+                btn.onclick = () => startFromQueue(ticket);
+                btn.title = "Click to start voting on this ticket";
+            } else {
+                btn.disabled = true;
+                btn.className += " opacity-75"; // visually indicate read-only
+            }
+            
+            queueList.appendChild(btn);
+        });
+    } else {
+        queueSection.style.display = 'none';
+    }
 }
 
 function renderChart(distribution) {
@@ -194,4 +229,35 @@ function renderChart(distribution) {
             }]
         }
     });
+}
+
+function openQueueModal() {
+    const textValue = currentQueue.join('\n');
+    document.getElementById('queueInput').value = textValue;
+
+    const modal = new bootstrap.Modal(document.getElementById('queueModal'));
+    modal.show();
+}
+
+function saveQueue() {
+    const rawText = document.getElementById('queueInput').value;
+    if(!rawText) return;
+
+    const list = rawText.split(/[\n,]+/).map(t => t.trim()).filter(t => t.length > 0);
+    
+    socket.emit('update_queue', { 
+        room_id: currentRoomId, 
+        queue_list: list 
+    });
+    
+    // Hide modal manually or find the instance
+    const el = document.getElementById('queueModal');
+    const modal = bootstrap.Modal.getInstance(el);
+    modal.hide();
+}
+
+function startFromQueue(ticketKey) {
+    // Fill the input and start
+    document.getElementById('jiraTicket').value = ticketKey;
+    startVote();
 }

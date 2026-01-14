@@ -22,6 +22,9 @@ def start_vote(data):
     # Let's update admin to whoever started the vote to be flexible.
     state['admin_sid'] = request.sid
 
+    if state['ticket_key'] in state['queue']:
+        state['queue'].remove(state['ticket_key'])
+
     emit('state_update', _get_public_state(room_id), to=room_id)
 
 @socketio.on('cast_vote')
@@ -99,4 +102,16 @@ def reset(data):
     state['ticket_key'] = "Waiting..."
     state['votes'] = {}
     state['revealed'] = False
+    emit('state_update', _get_public_state(room_id), to=room_id)
+
+@socketio.on('update_queue')
+def update_queue(data):
+    room_id = data['room_id']
+    state = rooms.get(room_id)
+    if not state: return
+
+    # Expecting a list of strings
+    new_queue = [t.strip() for t in data['queue_list'] if t.strip()]
+    state['queue'] = new_queue
+    
     emit('state_update', _get_public_state(room_id), to=room_id)
