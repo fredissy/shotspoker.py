@@ -46,12 +46,40 @@
                         <button class="btn btn-primary" onclick="startVote()">Start New Vote</button>
                         <button class="btn btn-warning" onclick="revealVote()">Reveal Results</button>
                         <button class="btn btn-secondary" onclick="resetVote()">Reset</button>
+                        <button class="btn btn-outline-primary ms-2" onclick="openQueueModal()">Manage Queue</button>
                         <a href="/history" class="btn btn-outline-info ms-2">View History</a>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div id="queueSection" class="mb-4" style="display:none;">
+            <div class="card bg-light border-0">
+                <div class="card-body py-2 d-flex align-items-center gap-2 overflow-auto">
+                    <strong class="text-nowrap">Up Next:</strong>
+                    <div id="queueList" class="d-flex gap-2">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="queueModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Set Voting Queue</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="small text-muted">Paste your tickets separated by commas or new lines.</p>
+                        <textarea id="queueInput" class="form-control" rows="10" placeholder="PROJ-101&#10;PROJ-102&#10;PROJ-103"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="saveQueue()">Save Queue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="text-center mb-5">
             <h2 id="currentTicketDisplay">Waiting for session...</h2>
             <div id="statusMessage" class="text-muted"></div>
