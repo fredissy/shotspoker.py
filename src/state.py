@@ -34,7 +34,7 @@ def _get_public_state(room_id):
             max_val = max(numeric_votes)
 
     for sid, p in state['participants'].items():
-        vote_data = state['votes'].get(sid)
+        vote_data = state['votes'].get(p['name'])
         status = "Waiting"
         display_val = None
         is_min = False

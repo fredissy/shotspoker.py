@@ -36,7 +36,9 @@ def cast_vote(data):
     participant = state['participants'].get(request.sid)
     if participant and participant['role'] == 'observer': return
 
-    state['votes'][request.sid] = {'value': data['vote_value']}
+    user_name = participant['name']
+
+    state['votes'][user_name] = {'value': data['vote_value']}
     emit('state_update', _get_public_state(room_id), to=room_id)
 
 @socketio.on('reveal_vote')
@@ -50,36 +52,33 @@ def reveal_vote(data):
     if state['votes']:
         # 1. Create the Session Record
         new_session = TicketSession(
-            room_id=room_id,  # <--- Saving the Room ID
+            room_id=room_id,
             ticket_key=state['ticket_key'],
             is_public=state['is_public']
         )
         db.session.add(new_session)
-        db.session.commit() # Commit to get the new_session.id
+        db.session.commit()
 
         # 2. Save Individual Votes
         total_value = 0
         vote_count = 0
 
-        # We need the SID to look up the User Name from 'participants'
-        for sid, vote_data in state['votes'].items():
-            participant = state['participants'].get(sid)
-            # Fallback if user disconnected right before reveal
-            user_name = participant['name'] if participant else "Unknown"
+        # CHANGE: Iterate over user_names directly
+        for user_name, vote_data in state['votes'].items():
             val = vote_data['value']
 
             vote_entry = Vote(
-                user_name=user_name,
+                user_name=user_name, # We already have the name!
                 value=str(val),
                 session_id=new_session.id
             )
             db.session.add(vote_entry)
             
+            # Math logic (skip symbols)
             if str(val).replace('.', '', 1).isdigit():
                 total_value += float(val)
                 vote_count += 1
         
-        # 3. Calculate Average
         if vote_count > 0:
             new_session.final_average = total_value / vote_count
         
