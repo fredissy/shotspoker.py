@@ -1,6 +1,7 @@
 let myChart = null;
 let currentQueue = [];
 let timerInterval = null;
+let currentDeckRendered = false;
 
 // --- Main Game Actions ---
 function startVote() {
@@ -110,9 +111,29 @@ function updateUI(state) {
     }
 
     document.getElementById('currentTicketDisplay').innerText = headerText;
+    const cardsContainer = document.getElementById('cardsContainer');
     
     // Define Admin Status
     const amIAdmin = (socket.id === state.admin_sid);
+
+
+    // 1. Cards rendering :
+    if (!currentDeckRendered && state.deck) {
+        cardsContainer.innerHTML = ''; // Clear just in case
+        
+        state.deck.forEach(val => {
+            // Create the card div
+            const card = document.createElement('div');
+            card.className = 'card p-3 card-select shadow-sm user-select-none';
+            card.innerText = val;
+            
+            // Add click handler (Need to wrap value in quotes if string)
+            card.onclick = () => castVote(val);
+            
+            cardsContainer.appendChild(card);
+        });
+        currentDeckRendered = true;
+    }
     
     // 2. Voting Interface Visibility
     const votingInterface = document.getElementById('votingInterface');

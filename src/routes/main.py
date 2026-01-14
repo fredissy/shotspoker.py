@@ -24,6 +24,7 @@ def login():
     name = data.get('name')
     role = data.get('role')
     room_id = data.get('room_id')
+    deck_type = data.get('deck_type', 'fibonacci')
 
     if not name:
         return jsonify({'error': 'Name is required'}), 400
@@ -31,7 +32,7 @@ def login():
     # Logic for Creating a Room
     if action == 'create':
         room_id = str(uuid.uuid4())
-        rooms[room_id] = get_initial_room_state()
+        rooms[room_id] = get_initial_room_state(deck_type)
     
     # Logic for Joining a Room
     elif action == 'join':

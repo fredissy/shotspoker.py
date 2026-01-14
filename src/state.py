@@ -1,11 +1,19 @@
 # --- Global State ---
-# Structure: { 'room_uuid': { active: False, ticket_key: '...', ... } }
 from collections import Counter
 
+DECKS = {
+    'fibonacci': ['0', '1', '2', '3', '5', '8', '13', '21', '∞', '?', '☕'],
+    'modified': ['0', '0.5', '1', '2', '3', '5', '8', '13', '20', '40', '100', '∞', '?', '☕'],
+    'tshirt': ['XS', 'S', 'M', 'L', 'XL', 'XXL', '?', '☕'],
+    'powers': ['0', '1', '2', '4', '8', '16', '32', '64', '?', '☕']
+}
 
 rooms = {}
 
-def get_initial_room_state():
+def get_initial_room_state(deck_type='fibonacci'):
+
+    selected_deck = DECKS.get(deck_type, DECKS['fibonacci'])
+
     return {
         'active': False,
         'ticket_key': "Waiting...",
@@ -15,7 +23,8 @@ def get_initial_room_state():
         'admin_sid': None,
         'participants': {},
         'queue': [],
-        'timer_end': None
+        'timer_end': None,
+        'deck_config': selected_deck
     }
 
 def _get_public_state(room_id):
@@ -93,6 +102,7 @@ def _get_public_state(room_id):
         'admin_sid': state['admin_sid'],
         'queue': state['queue'],
         'timer_end': state.get('timer_end'),
+        'deck': state['deck_config'],
         'stats': {
             'average': average,
             'agreement': agreement,

@@ -1,8 +1,13 @@
 function createRoom() {
     const name = document.getElementById('joinName').value;
     const role = document.querySelector('input[name="role"]:checked').value;
+    const deckType = document.getElementById('deckType').value;
     
-    performLogin({ action: 'create', name: name, role: role });
+    performLogin({ action: 'create',
+        name: name,
+        role: role,
+        deck_type: deckType
+    });
 }
 
 function joinRoom() {
@@ -10,7 +15,11 @@ function joinRoom() {
     const rId = document.getElementById('roomIdInput').value;
     const role = document.querySelector('input[name="role"]:checked').value;
     
-    performLogin({ action: 'join', name: name, role: role, room_id: rId });
+    performLogin({ action: 'join',
+        name: name,
+        role: role,
+        room_id: rId
+    });
 }
 
 function performLogin(data) {
