@@ -203,9 +203,7 @@ function updateUI(state) {
     const statAvg = document.getElementById('statAverage');
     const statAgree = document.getElementById('statAgreement');
 
-    const showStats = state.revealed && (state.is_public || (socket.id === state.admin_sid));
-
-    if (showStats && state.stats) {
+    if (state.stats) {
         statsRow.style.display = 'flex';
         
         // Handle Average (might be null if only '?' or 'coffee' were voted)
