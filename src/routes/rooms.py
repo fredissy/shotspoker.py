@@ -26,6 +26,8 @@ def handle_connect():
         if len(state['participants']) == 1:
             state['admin_sid'] = request.sid
 
+        save_room(room_id, state)
+
         # Broadcast update
         emit('state_update', _get_public_state(room_id, state), to=room_id)
         

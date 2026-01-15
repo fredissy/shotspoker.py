@@ -2,7 +2,7 @@ import time
 from flask_socketio import emit
 from src import socketio
 from src.state import _get_public_state
-from src.store import get_room
+from src.store import get_room, save_room
 
 @socketio.on('start_timer')
 def start_timer(data):
@@ -13,7 +13,7 @@ def start_timer(data):
 
     # Calculate target timestamp (current server time + duration)
     state['timer_end'] = time.time() + duration
-    
+    save_room(room_id, state)
     emit('state_update', _get_public_state(room_id, state), to=room_id)
 
 @socketio.on('stop_timer')
@@ -23,4 +23,5 @@ def stop_timer(data):
     if not state: return
 
     state['timer_end'] = None
+    save_room(room_id, state)
     emit('state_update', _get_public_state(room_id, state), to=room_id)
