@@ -8,8 +8,6 @@ DECKS = {
     'powers': ['0', '1', '2', '4', '8', '16', '32', '64', '?', '☕']
 }
 
-rooms = {}
-
 def get_initial_room_state(deck_type='fibonacci'):
 
     selected_deck = DECKS.get(deck_type, DECKS['fibonacci'])
@@ -27,9 +25,7 @@ def get_initial_room_state(deck_type='fibonacci'):
         'deck_config': selected_deck
     }
 
-def _get_public_state(room_id):
-    state = rooms[room_id]
-
+def _get_public_state(room_id, state):
     user_list = []
     vote_counts = {}
 

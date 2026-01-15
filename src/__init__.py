@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from flask import Flask
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
+from redis import Redis
 
 load_dotenv()
 
@@ -22,16 +23,19 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'p}^Pa11FNghwe-Ua_-^i')
 if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
 
+app.config['REDIS_URL'] = os.environ.get('REDIS_URL', 'redis://localhost:6379/0')
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-socketio = SocketIO(app, async_mode='eventlet')
 
-# Import models to ensure they are registered with SQLAlchemy
+redis_client = Redis.from_url(app.config['REDIS_URL'])
+
+socketio = SocketIO(app,
+                    message_queue=app.config['REDIS_URL'],
+                    async_mode='gevent')
+
 from src import model
-
-# Import routes/events to ensure they are registered
 from src.routes import main, rooms, votes, timer
 
 with app.app_context():

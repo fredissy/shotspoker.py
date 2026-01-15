@@ -1,3 +1,5 @@
+from gevent import monkey
+monkey.patch_all()
 from src import app, socketio
 
 if __name__ == "__main__":

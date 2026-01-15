@@ -3,7 +3,8 @@ import uuid
 from flask import jsonify, redirect, render_template, request, session, url_for
 from src import app
 from src.model import TicketSession
-from src.state import get_initial_room_state, rooms
+from src.store import room_exists, save_room
+from src.state import get_initial_room_state
 import os
 
 WORDS = []
@@ -26,7 +27,7 @@ def index():
     if 'room_id' in session and 'user_name' in session:
         room_id = session['room_id']
         # Ensure room still exists in memory (in case server restarted)
-        if room_id in rooms:
+        if room_exists(room_id):
             return redirect(url_for('room', room_id=room_id))
     
     # Otherwise, show login
@@ -49,18 +50,18 @@ def login():
         room_id = generate_room_id()
 
         attempts = 0
-        while room_id in rooms and attempts < 10:
+        while room_exists(room_id) and attempts < 10:
             room_id = generate_room_id()
             attempts += 1
 
-        rooms[room_id] = get_initial_room_state(deck_type)
+        save_room(room_id, get_initial_room_state(deck_type))
     
     # Logic for Joining a Room
     elif action == 'join':
         if room_id:
             room_id = room_id.strip().lower()
 
-        if not room_id or room_id not in rooms:
+        if not room_id or not room_exists:
             return jsonify({'error': 'Room not found'}), 404
             
     # 2. Set Server-Side Session (Cookie)
