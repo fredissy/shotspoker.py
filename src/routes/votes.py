@@ -2,15 +2,16 @@ from flask import request
 from flask_socketio import emit
 from src import socketio, db
 from src import state
-from src.state import rooms, _get_public_state
+from src.state import _get_public_state
 from src.model import TicketSession, Vote
+from src.store import get_room, save_room
 
 # --- Voting Logic (Now Room Aware) ---
 
 @socketio.on('start_vote')
 def start_vote(data):
     room_id = data['room_id']
-    state = rooms.get(room_id)
+    state = get_room(room_id)
     if not state: return
 
     state['active'] = True
@@ -25,12 +26,13 @@ def start_vote(data):
     if state['ticket_key'] in state['queue']:
         state['queue'].remove(state['ticket_key'])
 
-    emit('state_update', _get_public_state(room_id), to=room_id)
+    save_room(room_id, state)
+    emit('state_update', _get_public_state(room_id, state), to=room_id)
 
 @socketio.on('cast_vote')
 def cast_vote(data):
     room_id = data['room_id']
-    state = rooms.get(room_id)
+    state = get_room(room_id)
     if not state: return
 
     if not state['active'] or state['revealed']: return
@@ -42,12 +44,13 @@ def cast_vote(data):
     user_name = participant['name']
 
     state['votes'][user_name] = {'value': data['vote_value']}
-    emit('state_update', _get_public_state(room_id), to=room_id)
+    save_room(room_id, state)
+    emit('state_update', _get_public_state(room_id, state), to=room_id)
 
 @socketio.on('reveal_vote')
 def reveal_vote(data):
     room_id = data['room_id']
-    state = rooms.get(room_id)
+    state = get_room(room_id)
     if not state: return
 
     state['revealed'] = True
@@ -87,12 +90,13 @@ def reveal_vote(data):
         
         db.session.commit()
 
-    emit('state_update', _get_public_state(room_id), to=room_id)
+    save_room(room_id, state)
+    emit('state_update', _get_public_state(room_id, state), to=room_id)
 
 @socketio.on('reset')
 def reset(data):
     room_id = data['room_id']
-    state = rooms.get(room_id)
+    state = get_room(room_id)
     if not state: return
 
     if state['active'] and request.sid != state['admin_sid']:
@@ -102,16 +106,17 @@ def reset(data):
     state['ticket_key'] = "Waiting..."
     state['votes'] = {}
     state['revealed'] = False
-    emit('state_update', _get_public_state(room_id), to=room_id)
+    save_room(room_id, state)
+    emit('state_update', _get_public_state(room_id, state), to=room_id)
 
 @socketio.on('update_queue')
 def update_queue(data):
     room_id = data['room_id']
-    state = rooms.get(room_id)
+    state = get_room(room_id)
     if not state: return
 
     # Expecting a list of strings
     new_queue = [t.strip() for t in data['queue_list'] if t.strip()]
     state['queue'] = new_queue
-    
-    emit('state_update', _get_public_state(room_id), to=room_id)
+    save_room(room_id, state)
+    emit('state_update', _get_public_state(room_id, state), to=room_id)
