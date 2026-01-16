@@ -78,37 +78,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='js/login.js') }}"></script>
-    
-    <script>
-
-        // Minimal JS for this page to handle redirects
-        const socket = io();
-
-        // When room is created/joined, Redirect to the new URL
-        socket.on('room_created', (data) => {
-            saveSessionAndRedirect(data.room_id);
-        });
-        
-        // Allow join check via socket, or just direct redirect if you trust the user
-        socket.on('room_joined', (data) => {
-            saveSessionAndRedirect(data.room_id);
-        });
-
-        socket.on('error_msg', (data) => {
-            showError(data.msg);
-        });
-        
-        function saveSessionAndRedirect(roomId) {
-            // Save info so the next page knows who we are
-            const name = document.getElementById('joinName').value;
-            const role = document.querySelector('input[name="role"]:checked').value;
-            
-            sessionStorage.setItem('poker_name', name);
-            sessionStorage.setItem('poker_role', role);
-            
-            // PERFORM THE REDIRECT
-            window.location.href = `/room/${roomId}`;
-        }
-    </script>
 </body>
 </html>

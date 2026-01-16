@@ -22,17 +22,20 @@ function joinRoom() {
     });
 }
 
-function performLogin(data) {
+function performLogin(payload) {
     fetch('/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify(payload)
     })
     .then(response => response.json())
     .then(data => {
         if (data.error) {
             showError(data.error);
         } else if (data.redirect) {
+            if (payload.name) {
+                localStorage.setItem('poker_saved_name', payload.name);
+            }
             // Success! The server tells us where to go.
             window.location.href = data.redirect;
         }
@@ -45,3 +48,11 @@ function showError(msg) {
     el.innerText = msg;
     el.style.display = 'block';
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+        const savedName = localStorage.getItem('poker_saved_name');
+        const nameInput = document.getElementById('joinName');
+        if (savedName && nameInput) {
+            nameInput.value = savedName;
+        }
+    });
