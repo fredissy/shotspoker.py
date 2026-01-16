@@ -30,8 +30,10 @@ def index():
         if room_exists(room_id):
             return redirect(url_for('room', room_id=room_id))
     
+    prefill_room_id = request.args.get('room_id')
+    
     # Otherwise, show login
-    return render_template('login.html')
+    return render_template('login.html', prefill_room_id=prefill_room_id)
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -81,7 +83,7 @@ def logout():
 def room(room_id):
     # Security: If trying to access room URL without session, kick them out
     if 'room_id' not in session or session['room_id'] != room_id:
-        return redirect(url_for('index'))
+        return redirect(url_for('index', room_id=room_id))
         
     return render_template('vote.html', room_id=room_id, user_role=session.get('user_role'))
 
