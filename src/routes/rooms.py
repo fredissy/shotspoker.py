@@ -15,8 +15,14 @@ def handle_connect():
     if user_name and room_id and room_exists(room_id):
         join_room(room_id)
         
-        # Add to participants list in memory
         state = get_room(room_id)
+
+        # Fix possible stale sessions: remove any existing entries for this user
+        stale_sids = [sid for sid, p in state['participants'].items() if p['name'] == user_name]
+        for sid in stale_sids:
+            del state['participants'][sid]
+        
+        # Add to participants list in memory
         state['participants'][request.sid] = {
             'name': user_name, 
             'role': user_role
