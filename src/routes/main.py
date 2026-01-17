@@ -87,17 +87,29 @@ def room(room_id):
         
     return render_template('vote.html', room_id=room_id, user_role=session.get('user_role'))
 
+
 @app.route('/history')
 def history():
-
     filter_room_id = request.args.get('room_id')
-    query = TicketSession.query
+    
+    # Allow filtering by the current room automatically if not specified
+    if not filter_room_id and 'room_id' in session:
+        filter_room_id = session['room_id']
 
+    query = TicketSession.query
     if filter_room_id:
         query = query.filter_by(room_id=filter_room_id)
     
     sessions = query.order_by(TicketSession.timestamp.desc()).all()
-    return render_template('history.html', sessions=sessions, current_room=filter_room_id)
+
+    return jsonify([{
+            'timestamp': s.timestamp.strftime('%Y-%m-%d %H:%M'),
+            'ticket_key': s.ticket_key,
+            'type': 'Public' if s.is_public else 'Private', # Human readable
+            'average': s.final_average,
+            # Return list of values for the frontend to format (e.g. ['5', '5', '8'])
+            'votes': [v.value for v in s.votes] 
+        } for s in sessions])
 
 def generate_room_id():
     """Generates a random 3-word dashed string (e.g. 'apple-bridge-candle')."""

@@ -361,3 +361,64 @@ function startFromQueue(ticketKey) {
     document.getElementById('jiraTicket').value = ticketKey;
     startVote();
 }
+
+// static/js/vote.js
+
+function openHistoryModal() {
+    const modal = new bootstrap.Modal(document.getElementById('historyModal'));
+    const tbody = document.getElementById('historyTableBody');
+    const loading = document.getElementById('historyLoading');
+
+    tbody.innerHTML = ''; 
+    loading.style.display = 'block';
+    modal.show();
+
+    fetch(`/history?room_id=${currentRoomId}&json=true`)
+        .then(res => res.json())
+        .then(data => {
+            loading.style.display = 'none';
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No history yet.</td></tr>';
+                return;
+            }
+
+            data.forEach(row => {
+                // 1. Format Breakdown (e.g. "5, 5, 8" -> "5 (x2), 8")
+                const counts = {};
+                row.votes.forEach(v => { counts[v] = (counts[v] || 0) + 1; });
+                
+                // Sort keys numerically if possible, otherwise alphabetically
+                const sortedKeys = Object.keys(counts).sort((a,b) => {
+                     return (parseFloat(a) || a) - (parseFloat(b) || b);
+                });
+
+                const breakdownHtml = sortedKeys.map(k => {
+                    const count = counts[k];
+                    // Create a small badge for each vote group
+                    return `<span class="badge bg-light text-dark border me-1">
+                                ${k} ${count > 1 ? `<span class="text-secondary small">x${count}</span>` : ''}
+                            </span>`;
+                }).join('');
+
+                // 2. Format Type Icon
+                const typeIcon = row.type === 'Public' ? '🔓' : '🔒';
+                
+                // 3. Render Row
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><small class="text-muted">${row.timestamp}</small></td>
+                    <td class="fw-bold text-primary">${row.ticket_key}</td>
+                    <td>${typeIcon} <small>${row.type}</small></td>
+                    <td><span class="badge bg-success" style="font-size: 0.9em;">${row.average || '-'}</span></td>
+                    <td>${breakdownHtml}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            loading.style.display = 'none';
+            tbody.innerHTML = '<tr><td colspan="5" class="text-danger text-center">Failed to load history.</td></tr>';
+        });
+}
