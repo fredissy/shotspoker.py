@@ -59,10 +59,11 @@
                     <div class="mb-4">
                         <label class="form-label">Voting Deck</label>
                         <select id="deckType" class="form-select">
-                            <option value="fibonacci" selected>Fibonacci (0, 1, 2, 3, 5...)</option>
-                            <option value="modified">Modified Fibonacci (0, 0.5, 1, 2...)</option>
-                            <option value="tshirt">T-Shirt Sizes (XS, S, M, L...)</option>
-                            <option value="powers">Powers of 2 (1, 2, 4, 8...)</option>
+                            {% for key, values in decks.items() %}
+                                <option value="{{ key }}" {% if key == 'fibonacci' %}selected{% endif %}>
+                                    {{ key|capitalize }} ({{ values[:5]|join(', ') }}...)
+                                </option>
+                            {% endfor %}
                         </select>
                     </div>
 

@@ -4,7 +4,7 @@ from flask import jsonify, redirect, render_template, request, session, url_for
 from src import app
 from src.model import TicketSession
 from src.store import room_exists, save_room
-from src.state import get_initial_room_state
+from src.state import get_initial_room_state, DECKS
 import os
 
 WORDS = []
@@ -33,7 +33,9 @@ def index():
     prefill_room_id = request.args.get('room_id')
     
     # Otherwise, show login
-    return render_template('login.html', prefill_room_id=prefill_room_id)
+    return render_template('login.html',
+                           prefill_room_id=prefill_room_id,
+                           decks=DECKS)
 
 @app.route('/login', methods=['POST'])
 def login():
