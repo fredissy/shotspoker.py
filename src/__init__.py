@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask
+from flask_migrate import Migrate
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 from redis import Redis
@@ -29,6 +30,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+migrate = Migrate(app, db)
+
 redis_client = Redis.from_url(app.config['REDIS_URL'])
 
 socketio = SocketIO(app,
@@ -37,6 +40,3 @@ socketio = SocketIO(app,
 
 from src import model
 from src.routes import main, rooms, votes, timer, healthcheck
-
-with app.app_context():
-    db.create_all()
