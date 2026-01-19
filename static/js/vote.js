@@ -156,6 +156,7 @@ function updateUI(state) {
     // 3. Admin Buttons
     const revealBtn = document.querySelector('button[onclick="revealVote()"]');
     const resetBtn = document.querySelector('button[onclick="resetVote()"]');
+    const startBtn = document.getElementById('startVoteBtn');
     
     if (state.active) {
         revealBtn.disabled = false; 
@@ -163,9 +164,11 @@ function updateUI(state) {
 
         resetBtn.disabled = !amIAdmin;
         resetBtn.title = amIAdmin ? "" : "Only the starter can reset";
+        startBtn.disabled = !state.revealed;
     } else {
         revealBtn.disabled = true; 
         resetBtn.disabled = false; 
+        startBtn.disabled = false;
     }
 
     // 4. Participants List
