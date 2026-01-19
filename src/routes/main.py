@@ -108,7 +108,7 @@ def history():
             'timestamp': s.timestamp.strftime('%Y-%m-%d %H:%M'),
             'ticket_key': s.ticket_key,
             'type': 'Public' if s.is_public else 'Private', # Human readable
-            'average': s.final_average,
+            'average': round(s.final_average, 2),
             # Return list of values for the frontend to format (e.g. ['5', '5', '8'])
             'votes': [v.value for v in s.votes] 
         } for s in sessions])
