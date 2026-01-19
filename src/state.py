@@ -82,6 +82,7 @@ def _get_public_state(room_id, state):
         user_list.append({
             'name': p['name'],
             'role': p['role'],
+            'avatar': p.get('avatar', '👤'),
             'display_value': display_val,
             'is_min': is_min,
             'is_max': is_max

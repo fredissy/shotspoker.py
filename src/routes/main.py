@@ -8,6 +8,11 @@ from src.state import get_initial_room_state, DECKS
 import os
 
 WORDS = []
+
+AVATARS = ['👾', '👽', '🤖', '👻', '​😎', '​​🦁​', '👹', '👺', '💀', 
+           '🦄', '🐲', '🌵', '🥑', '🍄', '🐙', '🐸', '🦊', '​​🙉​​​',
+           '🦁', '🐯', '🐻', '🐨', '🐼', '🐵', '🐔', '🐧', '🧙‍♂️']
+
 try:
     # Assuming 'res' is at the project root, one level up from 'src'
     names_path = os.path.join(app.root_path, '..', 'res', 'names.txt')
@@ -72,6 +77,9 @@ def login():
     session['room_id'] = room_id
     session['user_name'] = name
     session['user_role'] = role
+
+    if 'user_avatar' not in session:
+        session['user_avatar'] = random.choice(AVATARS)
     
     # Tell frontend where to go
     return jsonify({'redirect': url_for('room', room_id=room_id)})
@@ -87,7 +95,11 @@ def room(room_id):
     if 'room_id' not in session or session['room_id'] != room_id:
         return redirect(url_for('index', room_id=room_id))
         
-    return render_template('vote.html', room_id=room_id, user_role=session.get('user_role'))
+    return render_template('vote.html',
+                           room_id=room_id,
+                           user_role=session.get('user_role'),
+                           user_name=session.get('user_name'),
+                           user_avatar=session.get('user_avatar', '👤'))
 
 
 @app.route('/history')

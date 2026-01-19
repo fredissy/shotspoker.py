@@ -31,7 +31,14 @@
         <h1 class="text-center mb-4">Shots Poker</h1>
 
         <div class="card mb-4">
-            <div class="card-header bg-dark text-white">Controls (Anyone can act as Admin)</div>
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <span>Controls (Anyone can act as Admin)</span>
+                
+                <div class="bg-light rounded-pill px-3 py-1 d-flex align-items-center gap-2 shadow-sm border border-secondary">
+                    <span style="font-size: 1.2rem;">{{ user_avatar }}</span> 
+                    <span class="fw-bold text-dark" style="font-size: 0.9rem;">{{ user_name }}</span>
+                </div>
+            </div>
             <div class="card-body">
                 <div class="row g-2 align-items-center">
                     <div class="col-auto">

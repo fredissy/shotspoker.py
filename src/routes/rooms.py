@@ -10,6 +10,7 @@ def handle_connect():
     user_name = session.get('user_name')
     room_id = session.get('room_id')
     user_role = session.get('user_role')
+    user_avatar = session.get('user_avatar', '👤')
 
     # 2. If valid session, auto-join the socket room
     if user_name and room_id and room_exists(room_id):
@@ -25,6 +26,7 @@ def handle_connect():
         # Add to participants list in memory
         state['participants'][request.sid] = {
             'name': user_name, 
+            'avatar': user_avatar,
             'role': user_role
         }
         

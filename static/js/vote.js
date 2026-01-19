@@ -208,7 +208,8 @@ function updateUI(state) {
 
         li.innerHTML = `
             <span>
-                ${p.name} 
+                <span class="fs-5 me-2" role="img">${p.avatar}</span>
+                <span class="fw-bold">${p.name}</span>
                 ${p.role === 'observer' ? '<small class="text-muted ms-1">(Observer)</small>' : ''}
             </span>
             <span class="${animationClass}">
