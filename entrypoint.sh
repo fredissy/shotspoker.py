@@ -2,6 +2,7 @@
 set -eu
 
 echo "Starting Shots Poker"
+echo "Version: ${APP_VERSION:-unknown}"
 echo "Running Database Migrations..."
 flask db upgrade
 
