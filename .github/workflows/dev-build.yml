@@ -56,6 +56,6 @@ jobs:
         with:
           context: .
           build-args: |
-            "APP_VERSION=${APP_VERSION}"
+            "APP_VERSION=${{APP_VERSION}}"
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/shots-poker:latest
