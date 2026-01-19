@@ -263,6 +263,11 @@ function updateUI(state) {
     currentQueue = state.queue || [];
     manageBtn.style.display = 'inline-block';
 
+    const modalList = document.getElementById('modalQueueList');
+    if (modalList && document.getElementById('queueModal').classList.contains('show')) {
+        renderModalQueueList(currentQueue);
+    }
+
     if (state.queue && state.queue.length > 0) {
         queueSection.style.display = 'block';
         queueList.innerHTML = '';
@@ -332,28 +337,64 @@ function renderChart(distribution) {
 }
 
 function openQueueModal() {
-    const textValue = currentQueue.join('\n');
-    document.getElementById('queueInput').value = textValue;
-
+    // Just render current state and show
+    renderModalQueueList(currentQueue);
+    
+    // Clear the input
+    document.getElementById('queueAddInput').value = '';
     const modal = new bootstrap.Modal(document.getElementById('queueModal'));
     modal.show();
 }
 
-function saveQueue() {
-    const rawText = document.getElementById('queueInput').value;
-    if (!rawText) return;
+function renderModalQueueList(queue) {
+    const list = document.getElementById('modalQueueList');
+    const emptyMsg = document.getElementById('emptyQueueMsg');
+    list.innerHTML = '';
+    
+    if (!queue || queue.length === 0) {
+        emptyMsg.style.display = 'block';
+        return;
+    }
+    emptyMsg.style.display = 'none';
+    
+    queue.forEach(ticket => {
+        const li = document.createElement('li');
+        li.className = "list-group-item d-flex justify-content-between align-items-center p-2";
+        li.innerHTML = `
+            <span>${ticket}</span>
+            <button class="btn btn-sm btn-outline-danger border-0" onclick="removeQueueItem('${ticket}')">
+                <i class="bi bi-trash"></i> ✕
+            </button>
+        `;
+        list.appendChild(li);
+    });
+}
 
-    const list = rawText.split(/[\n,]+/).map(t => t.trim()).filter(t => t.length > 0);
+function addQueueItems() {
+    const input = document.getElementById('queueAddInput');
+    const rawText = input.value;
+    if (!rawText.trim()) return;
 
-    socket.emit('update_queue', {
+    // Split by newline or comma to handle bulk paste
+    const tickets = rawText.split(/[\n,]+/)
+        .map(t => t.trim())
+        .filter(t => t.length > 0);
+
+    socket.emit('queue_add', {
         room_id: currentRoomId,
-        queue_list: list
+        tickets: tickets
     });
 
-    // Hide modal manually or find the instance
-    const el = document.getElementById('queueModal');
-    const modal = bootstrap.Modal.getInstance(el);
-    modal.hide();
+    input.value = ''; // Clear input immediately for UX
+    input.focus();
+}
+
+function removeQueueItem(ticket) {
+    socket.emit('queue_remove', {
+        room_id: currentRoomId,
+        ticket: ticket
+    });
+    // No need to manually remove from DOM, the 'state_update' event will do it
 }
 
 function startFromQueue(ticketKey) {

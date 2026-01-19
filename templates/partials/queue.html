@@ -1,0 +1,30 @@
+<div class="modal fade" id="queueModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Set Voting Queue</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <textarea id="queueAddInput" class="form-control" rows="1"
+                        placeholder="Paste ticket(s) here..."></textarea>
+                    <button class="btn btn-primary" onclick="addQueueItems()">Add</button>
+                </div>
+
+                <hr>
+
+                <h6 class="text-muted">Current Queue</h6>
+                <ul class="list-group list-group-flush" id="modalQueueList">
+                </ul>
+
+                <div id="emptyQueueMsg" class="text-center text-muted mt-3" style="display:none;">
+                    <small>Queue is empty</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

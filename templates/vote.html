@@ -78,23 +78,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="queueModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Set Voting Queue</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="small text-muted">Paste your tickets separated by commas or new lines.</p>
-                        <textarea id="queueInput" class="form-control" rows="10" placeholder="PROJ-101&#10;PROJ-102&#10;PROJ-103"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="saveQueue()">Save Queue</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% include 'partials/queue.html' %}
         <div class="text-center mb-5">
             <h2 id="currentTicketDisplay">Waiting for session...</h2>
             <div id="timerDisplay" class="badge bg-danger fs-4 mb-2 shadow-sm" style="display:none;">
