@@ -4,6 +4,7 @@ from src import socketio, db
 from src.state import _get_public_state
 from src.model import TicketSession, Vote
 from src.store import get_room, save_room
+from markupsafe import escape
 
 # --- Voting Logic (Now Room Aware) ---
 
@@ -72,8 +73,11 @@ def reveal_vote(data):
         for user_name, vote_data in state['votes'].items():
             val = vote_data['value']
 
+            safe_name = escape(user_name)
+            safe_name = safe_name[:100]
+
             vote_entry = Vote(
-                user_name=user_name, # We already have the name!
+                user_name=safe_name,
                 value=str(val),
                 session_id=new_session.id
             )
