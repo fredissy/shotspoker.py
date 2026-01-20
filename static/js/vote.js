@@ -102,6 +102,17 @@ function showToast(message, type = 'primary') {
 
 // --- Main UI Update Logic ---
 function updateUI(state) {
+
+    if (state.participants) {
+        const me = state.participants.find(p => p.name === myName);
+        if (me) {
+            myRole = me.role;
+            // Sync the toggle switch visually (in case change came from server)
+            const switchEl = document.getElementById('roleSwitch');
+            if (switchEl) switchEl.checked = (myRole === 'observer');
+        }
+    }
+    
     // 1. Header Info
     let headerText = state.active ? `Voting on: ${state.ticket_key}` : "Waiting for session...";
     
@@ -466,4 +477,16 @@ function openHistoryModal() {
             loading.style.display = 'none';
             tbody.innerHTML = '<tr><td colspan="5" class="text-danger text-center">Failed to load history.</td></tr>';
         });
+}
+
+function toggleRole() {
+    const isObserver = document.getElementById('roleSwitch').checked;
+    const newRole = isObserver ? 'observer' : 'voter';
+    
+    myRole = newRole;
+    
+    socket.emit('switch_role', {
+        room_id: currentRoomId,
+        role: newRole
+    });
 }

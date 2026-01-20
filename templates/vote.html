@@ -11,7 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
         const currentRoomId = "{{ room_id }}";
-        const myRole = "{{ user_role }}"; // <--- This was missing!
+        let myRole = "{{ user_role }}";
+        const myName = "{{ user_name }}";
     </script>
 </head>
 <body>
@@ -23,6 +24,15 @@
                 <div id="roomInfoDisplay" class="badge bg-light text-dark border room-badge p-2 shadow-sm" style="font-size: 0.9rem;" onclick="copyRoomId()" title="Click to Copy ID">
                     Room ID: <span id="currentRoomDisplay" class="fw-bold font-monospace">{{ room_id }}</span> 📋
                 </div>
+                <div class="form-check form-switch d-inline-block me-2 align-middle">
+                    <input class="form-check-input" type="checkbox" id="roleSwitch" 
+                        onchange="toggleRole()" 
+                        {% if user_role == 'observer' %}checked{% endif %}>
+                    <label class="form-check-label fw-bold" for="roleSwitch" style="font-size: 0.9rem;">
+                        👀 Observer
+                    </label>
+                </div>
+
                 <button id="logoutBtn" class="btn btn-danger btn-sm shadow-sm" onclick="logout()">
                     Exit 🚪
                 </button>
