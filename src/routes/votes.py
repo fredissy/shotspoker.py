@@ -1,10 +1,9 @@
-from flask import request, session
+from flask import request
 from flask_socketio import emit
 from src import socketio, db
 from src.state import _get_public_state
 from src.model import TicketSession, Vote
 from src.store import get_room, save_room
-import re
 
 # --- Voting Logic (Now Room Aware) ---
 
@@ -73,10 +72,8 @@ def reveal_vote(data):
         for user_name, vote_data in state['votes'].items():
             val = vote_data['value']
 
-            safe_username = re.sub('<[^<]+?>', '', user_name)[:50]
-
             vote_entry = Vote(
-                user_name=safe_username,
+                user_name=user_name, # We already have the name!
                 value=str(val),
                 session_id=new_session.id
             )
