@@ -2,6 +2,8 @@ let myChart = null;
 let timerInterval = null;
 let currentDeckRendered = false;
 let wasRevealed = false;
+let lastDistribution = null;
+let currentChartType = 'bar';
 
 function updateUI(state) {
     updateUserRole(state);
@@ -249,43 +251,93 @@ function updateStatsAndChart(state) {
 }
 
 function renderChart(distribution) {
+    lastDistribution = distribution; // Save for toggling
     const ctxEl = document.getElementById('resultsChart');
-    if (!ctxEl) return;
-    const ctx = ctxEl.getContext('2d');
 
-    const labels = Object.keys(distribution);
-    const data = Object.values(distribution);
+    // 1. Prepare Data (Sorted)
+    const sortedLabels = Object.keys(distribution).sort((a, b) => {
+        const valA = parseFloat(a);
+        const valB = parseFloat(b);
+        if (!isNaN(valA) && !isNaN(valB)) return valA - valB;
+        if (isNaN(valA)) return 1;
+        if (isNaN(valB)) return -1;
+        return 0;
+    });
+    const data = sortedLabels.map(label => distribution[label]);
+
+    const numericLabels = sortedLabels.filter(l => !isNaN(parseFloat(l)));
+    const minVal = numericLabels.length ? numericLabels[0] : null;
+    const maxVal = numericLabels.length ? numericLabels[numericLabels.length - 1] : null;
+
+    const backgroundColors = sortedLabels.map(label => {
+        const val = parseFloat(label);
+        if (isNaN(val)) return '#6c757d'; 
+        if (label == minVal && label == maxVal) return '#198754'; 
+        if (label == minVal) return '#0d6efd'; 
+        if (label == maxVal) return '#dc3545'; 
+        return '#343a40'; 
+    });
+
+        // 3. Configuration for specific types
+    const isPie = (currentChartType === 'pie');
+
+    const configOptions = {
+        responsive: true,
+        animation: { duration: 500 },
+        plugins: {
+            legend: { display: isPie }, // Show legend only for Pie
+            tooltip: { enabled: true }
+        },
+        scales: isPie ? {} : { // Hide scales for Pie, Show for Bar
+            y: {
+                beginAtZero: true,
+                title: { display: true, text: 'Count' },
+                ticks: { stepSize: 1 }
+            },
+            x: {
+                grid: { display: false }
+            }
+        }
+    };
 
     if (myChart) {
-        // --- FIX: Update existing chart instead of destroying it ---
-        myChart.data.labels = labels;
-        myChart.data.datasets[0].data = data;
-
-        // 'none' mode prevents the animation from re-playing,
-        // making the update instant and stable.
-        myChart.update('none');
-    } else {
-        // Create it for the first time (with animation)
-        if (typeof Chart !== 'undefined') {
+        // If switching types, we often need to destroy to reset axis configs cleanly
+        if (myChart.config.type !== currentChartType) {
+            myChart.destroy();
             myChart = new Chart(ctx, {
-                type: 'pie',
+                type: currentChartType,
                 data: {
-                    labels: labels,
+                    labels: sortedLabels,
                     datasets: [{
                         label: 'Votes',
                         data: data,
-                        backgroundColor: [
-                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
-                        ]
+                        backgroundColor: backgroundColors,
+                        borderWidth: 1
                     }]
                 },
-                options: {
-                    animation: {
-                        duration: 500 // Only animate on creation
-                    }
-                }
+                options: configOptions
             });
+        } else {
+            // Same type, just update data
+            myChart.data.labels = sortedLabels;
+            myChart.data.datasets[0].data = data;
+            myChart.data.datasets[0].backgroundColor = backgroundColors;
+            myChart.update('none');
         }
+    } else {
+         myChart = new Chart(ctx, {
+            type: currentChartType,
+            data: {
+                 labels: sortedLabels,
+                datasets: [{
+                    label: 'Votes',
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    borderWidth: 1
+                }]
+            },
+            options: configOptions
+        });
     }
 }
 
@@ -414,4 +466,12 @@ function openHistoryModal() {
             if (loading) loading.style.display = 'none';
             if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-danger text-center">Failed to load history.</td></tr>';
         });
+}
+
+function switchChartType(type) {
+    currentChartType = type;
+    if (lastDistribution) {
+        // Re-render immediately using the last known data
+        renderChart(lastDistribution);
+    }
 }
