@@ -5,7 +5,7 @@
     <title>[Room {{ room_id }}] Shots Poker</title>
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css', v=timestamp) }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/socket.io@4.8.3/client-dist/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
@@ -174,15 +174,52 @@
     <div id="reactionContainer" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 1050;">
     </div>
 
-    <div class="position-fixed bottom-0 start-50 translate-middle-x mb-4 p-2 bg-light rounded-pill shadow-lg border" style="z-index: 1060;">
-        <div class="d-flex gap-2">
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👍')">👍</button>
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👏')">👏</button>
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🎉')">🎉</button>
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🤯')">🤯</button>
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('☕')">☕</button>
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🚀')">🚀</button>
+    <div id="reactionToolbar" class="position-fixed bottom-0 start-50 translate-middle-x mb-4 p-2 bg-light rounded-pill shadow-lg border" style="z-index: 1060;">
+    <div class="d-flex gap-1 align-items-center">
+        
+        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👍')" title="Thumbs Up">👍</button>
+        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👏')" title="Applause">👏</button>
+        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🎉')" title="Party">🎉</button>
+        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🤯')" title="Mind Blown">🤯</button>
+        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🚀')" title="Rocket">🚀</button>
+
+        <div class="vr mx-1 text-secondary"></div>
+
+        <div class="btn-group dropup">
+            <button type="button" class="btn btn-sm btn-outline-secondary border-0 fs-5 rounded-circle" data-bs-toggle="dropdown" aria-expanded="false" title="More Reactions">
+                ➕
+            </button>
+            
+            <ul class="dropdown-menu p-3 shadow-lg border-0 rounded-4 mb-2 text-center" style="min-width: 350px;">
+                <li><h6 class="dropdown-header">Feedback</h6></li>
+                <li class="d-flex justify-content-center gap-2 mb-2">
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('❤️')">❤️</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('🔥')">🔥</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('💯')">💯</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('👎')">👎</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('💩')">💩</button>
+                </li>
+                
+                <li><h6 class="dropdown-header">Work Status</h6></li>
+                <li class="d-flex justify-content-center gap-2 mb-2">
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('🐛')" title="Bug">🐛</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('🐌')" title="Too Slow">🐌</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('🛑')" title="Stop">🛑</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('🤷')" title="Don't Know">🤷</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('☕')" title="Coffee Break">☕</button>
+                </li>
+
+                <li><h6 class="dropdown-header">Fun</h6></li>
+                <li class="d-flex justify-content-center gap-2">
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('👻')">👻</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('🤡')">🤡</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('🍕')">🍕</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('🍺')">🍺</button>
+                    <button class="btn btn-light fs-4 p-1" onclick="sendReaction('💸')">💸</button>
+                </li>
+            </ul>
         </div>
+
     </div>
     {% include 'partials/toast.html.j2' %}
     {% include 'partials/history.html.j2' %}
