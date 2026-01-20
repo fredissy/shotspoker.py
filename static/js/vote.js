@@ -112,7 +112,7 @@ function updateUI(state) {
             if (switchEl) switchEl.checked = (myRole === 'observer');
         }
     }
-    
+
     // 1. Header Info
     let headerText = state.active ? `Voting on: ${state.ticket_key}` : "Waiting for session...";
     
@@ -331,7 +331,7 @@ function updateUI(state) {
 
 function renderChart(distribution) {
     const ctx = document.getElementById('resultsChart').getContext('2d');
-    const labels = Object.keys(distribution).map(k => `Vote ${k}`);
+    const labels = Object.keys(distribution);
     const data = Object.values(distribution);
 
     if (myChart) myChart.destroy();
