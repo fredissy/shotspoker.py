@@ -61,8 +61,8 @@ def login():
     if not clean_name:
         return jsonify({'error': 'Name is required'}), 400
 
-    if len(clean_name) > 50:
-        clean_name = clean_name[:50]
+    if len(clean_name) > 100:
+        clean_name = clean_name[:100]
 
     # Logic for Creating a Room
     if action == 'create':
