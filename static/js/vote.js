@@ -170,8 +170,8 @@ function updateUI(state) {
     const startBtn = document.getElementById('startVoteBtn');
     
     if (state.active) {
-        revealBtn.disabled = false; 
-        revealBtn.title = "Reveal results";
+        revealBtn.disabled = state.revealed; 
+        revealBtn.title = state.revealed ? "Results are already visible" : "Reveal results";
 
         resetBtn.disabled = !amIAdmin;
         resetBtn.title = amIAdmin ? "" : "Only the starter can reset";
