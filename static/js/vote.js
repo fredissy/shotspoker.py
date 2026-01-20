@@ -189,6 +189,10 @@ function updateUI(state) {
     
     participants.forEach(p => {
         const li = document.createElement('li');
+
+        const opacity = p.status === 'offline' ? '0.5' : '1';
+        li.style.opacity = opacity;
+
         li.className = "list-group-item d-flex justify-content-between align-items-center";
         
         let badgeClass = 'bg-secondary';
@@ -266,6 +270,7 @@ function updateUI(state) {
         renderChart(state.distribution);
     } else {
         if(myChart) myChart.destroy();
+        myChart = null;
         placeholder.style.display = 'block';
         placeholder.innerText = "Waiting for reveal...";
     }
@@ -334,21 +339,35 @@ function renderChart(distribution) {
     const labels = Object.keys(distribution);
     const data = Object.values(distribution);
 
-    if (myChart) myChart.destroy();
-
-    myChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Votes',
-                data: data,
-                backgroundColor: [
-                    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
-                ]
-            }]
-        }
-    });
+    if (myChart) {
+        // --- FIX: Update existing chart instead of destroying it ---
+        myChart.data.labels = labels;
+        myChart.data.datasets[0].data = data;
+        
+        // 'none' mode prevents the animation from re-playing, 
+        // making the update instant and stable.
+        myChart.update('none'); 
+    } else {
+        // Create it for the first time (with animation)
+        myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Votes',
+                    data: data,
+                    backgroundColor: [
+                        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+                    ]
+                }]
+            },
+            options: {
+                animation: {
+                    duration: 500 // Only animate on creation
+                }
+            }
+        });
+    }
 }
 
 function openQueueModal() {
