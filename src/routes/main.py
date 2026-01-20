@@ -1,11 +1,16 @@
 import random
 import uuid
+import time
 from flask import jsonify, redirect, render_template, request, session, url_for
 from src import app
 from src.model import TicketSession
 from src.store import room_exists, save_room
 from src.state import get_initial_room_state, DECKS
 import os
+
+@app.context_processor
+def inject_timestamp():
+    return {'timestamp': int(time.time())}
 
 WORDS = []
 
