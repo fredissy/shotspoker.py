@@ -49,22 +49,18 @@ function resetVote() {
     if (statusMessage) statusMessage.innerText = '';
 }
 
-// 3. Animation Logic
 function createFloatingEmoji(emoji) {
     const container = document.getElementById('reactionContainer');
     const el = document.createElement('div');
     el.innerText = emoji;
     
     // Randomize starting position (horizontal)
-    const randomLeft = Math.floor(Math.random() * 80) + 10; // Keep within 10-90% width
-    
-    // Randomize size slightly
-    const size = Math.floor(Math.random() * 20) + 20; // 20px to 40px
+    const randomLeft = Math.floor(Math.random() * 80) + 10;
+    const size = Math.floor(Math.random() * 20) + 20;
 
-    // Apply styles
     el.style.position = 'absolute';
     el.style.left = randomLeft + '%';
-    el.style.bottom = '60px'; // Start above the toolbar
+    el.style.bottom = '60px'; 
     el.style.fontSize = size + 'px';
     el.style.opacity = '1';
     el.style.pointerEvents = 'none';
@@ -72,18 +68,14 @@ function createFloatingEmoji(emoji) {
     
     container.appendChild(el);
 
-    // Trigger animation in next frame
-    requestAnimationFrame(() => {
-        // Float up by random amount (200px to 500px)
+    setTimeout(() => {
         const floatDistance = Math.floor(Math.random() * 300) + 200;
-        // Random slight rotation
         const rotate = Math.floor(Math.random() * 60) - 30;
         
         el.style.transform = `translateY(-${floatDistance}px) rotate(${rotate}deg)`;
         el.style.opacity = '0';
-    });
+    }, 50);
 
-    // Cleanup after animation
     setTimeout(() => {
         el.remove();
     }, 3000);

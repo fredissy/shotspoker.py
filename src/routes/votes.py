@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, session
 from flask_socketio import emit
 from src import socketio, db
 from src.state import _get_public_state
