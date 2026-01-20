@@ -144,7 +144,17 @@
 
             <div class="col-md-6 text-center">
                 <div class="card">
-                    <div class="card-header">Results Distribution</div>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Results Distribution</span>
+                        
+                        <div class="btn-group btn-group-sm" role="group">
+                            <input type="radio" class="btn-check" name="chartType" id="chartBar" autocomplete="off" checked onclick="switchChartType('bar')">
+                            <label class="btn btn-outline-secondary" for="chartBar">📊 Bar</label>
+
+                            <input type="radio" class="btn-check" name="chartType" id="chartPie" autocomplete="off" onclick="switchChartType('pie')">
+                            <label class="btn btn-outline-secondary" for="chartPie">🍰 Pie</label>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <div id="statsRow" class="row text-center mb-3" style="display:none;">
                             <div class="col-6">
