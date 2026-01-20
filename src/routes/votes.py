@@ -115,3 +115,11 @@ def reset(data):
     save_room(room_id, state)
     emit('state_update', _get_public_state(room_id, state), to=room_id)
 
+@socketio.on('send_reaction')
+def send_reaction(data):
+    room_id = data['room_id']
+    # Broadcast the reaction to everyone (including the sender)
+    emit('trigger_reaction', {
+        'emoji': data['emoji'],
+        'sender': session.get('user_name', 'Anon')
+    }, to=room_id)

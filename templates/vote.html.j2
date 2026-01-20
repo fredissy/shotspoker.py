@@ -170,6 +170,20 @@
             </div>
         </div>
     </div>
+
+    <div id="reactionContainer" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 1050;">
+    </div>
+
+    <div class="position-fixed bottom-0 start-50 translate-middle-x mb-4 p-2 bg-light rounded-pill shadow-lg border" style="z-index: 1060;">
+        <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👍')">👍</button>
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👏')">👏</button>
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🎉')">🎉</button>
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🤯')">🤯</button>
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('☕')">☕</button>
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🚀')">🚀</button>
+        </div>
+    </div>
     {% include 'partials/toast.html.j2' %}
     {% include 'partials/history.html.j2' %}
 
