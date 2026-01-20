@@ -6,6 +6,7 @@ from src import app
 from src.model import TicketSession
 from src.store import room_exists, save_room
 from src.state import get_initial_room_state, DECKS
+from markupsafe import escape
 import os
 
 @app.context_processor
@@ -51,13 +52,17 @@ def index():
 def login():
     data = request.json
     action = data.get('action') # 'create' or 'join'
-    name = data.get('name')
+    raw_name = data.get('name', '').strip()
+    clean_name = escape(raw_name)
     role = data.get('role')
     room_id = data.get('room_id')
     deck_type = data.get('deck_type', 'fibonacci')
 
-    if not name:
+    if not clean_name:
         return jsonify({'error': 'Name is required'}), 400
+
+    if len(clean_name) > 100:
+        clean_name = clean_name[:100]
 
     # Logic for Creating a Room
     if action == 'create':
@@ -80,7 +85,7 @@ def login():
             
     # 2. Set Server-Side Session (Cookie)
     session['room_id'] = room_id
-    session['user_name'] = name
+    session['user_name'] = clean_name
     session['user_role'] = role
 
     if 'user_avatar' not in session:
