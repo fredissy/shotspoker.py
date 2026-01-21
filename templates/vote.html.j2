@@ -20,22 +20,8 @@
     <div class="container py-5" id="mainApp">
         
         <div class="position-absolute top-0 end-0 p-3">
-            <div class="d-flex align-items-center gap-2">
-                <div id="roomInfoDisplay" class="badge bg-light text-dark border room-badge p-2 shadow-sm" style="font-size: 0.9rem;" onclick="copyRoomId()" title="Click to Copy ID">
-                    Room ID: <span id="currentRoomDisplay" class="fw-bold font-monospace">{{ room_id }}</span> 📋
-                </div>
-                <div class="form-check form-switch d-inline-block me-2 align-middle">
-                    <input class="form-check-input" type="checkbox" id="roleSwitch" 
-                        onchange="toggleRole()" 
-                        {% if user_role == 'observer' %}checked{% endif %}>
-                    <label class="form-check-label fw-bold" for="roleSwitch" style="font-size: 0.9rem;">
-                        👀 Observer
-                    </label>
-                </div>
-
-                <button id="logoutBtn" class="btn btn-danger btn-sm shadow-sm" onclick="logout()">
-                    Exit 🚪
-                </button>
+            <div id="roomInfoDisplay" class="badge bg-light text-dark border room-badge p-2 shadow-sm" style="font-size: 0.9rem;" onclick="copyRoomId()" title="Click to Copy ID">
+                Room ID: <span id="currentRoomDisplay" class="fw-bold font-monospace">{{ room_id }}</span> 📋
             </div>
         </div>
 
@@ -45,9 +31,41 @@
             <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
                 <span>Controls (Anyone can act as Admin)</span>
                 
-                <div class="bg-light rounded-pill px-3 py-1 d-flex align-items-center gap-2 shadow-sm border border-secondary">
-                    <span style="font-size: 1.2rem;">{{ user_avatar }}</span> 
-                    <span class="fw-bold text-dark" style="font-size: 0.9rem;">{{ user_name }}</span>
+                <div class="dropdown">
+                    <div class="bg-light rounded-pill px-3 py-1 d-flex align-items-center gap-2 shadow-sm border border-secondary" 
+                        style="cursor: pointer;" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false">
+                        <span style="font-size: 1.2rem;">{{ user_avatar }}</span> 
+                        <span class="fw-bold text-dark" style="font-size: 0.9rem;">{{ user_name }}</span>
+                        <small class="text-muted ms-1">▼</small>
+                    </div>
+
+                    <ul class="dropdown-menu dropdown-menu-end p-3 shadow" style="min-width: 220px;">
+                        <li><h6 class="dropdown-header">User Settings</h6></li>
+                        
+                        <li>
+                            <div class="dropdown-item-text">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="roleSwitch" 
+                                        onchange="toggleRole()" 
+                                        {% if user_role == 'observer' %}checked{% endif %}>
+                                    <label class="form-check-label" for="roleSwitch" style="cursor:pointer;">
+                                        👀 Observer Mode
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        <li>
+                            <button class="dropdown-item text-danger d-flex justify-content-between align-items-center" onclick="logout()">
+                                <span>Exit Room</span>
+                                <span>🚪</span>
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="card-body">
