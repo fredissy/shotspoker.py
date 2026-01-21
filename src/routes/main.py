@@ -4,6 +4,7 @@ import time
 from flask import jsonify, redirect, render_template, request, session, url_for
 from src import app
 from src.model import TicketSession
+from src.utils import choose_user_avatar
 from src.store import room_exists, save_room
 from src.state import get_initial_room_state, DECKS
 from markupsafe import escape
@@ -14,10 +15,6 @@ def inject_timestamp():
     return {'timestamp': int(time.time())}
 
 WORDS = []
-
-AVATARS = ['👾', '👽', '🤖', '👻', '​😎', '​​🦁​', '👹', '👺', '💀', 
-           '🦄', '🐲', '🌵', '🥑', '🍄', '🐙', '🐸', '🦊', '​​🙉​​​',
-           '🦁', '🐯', '🐻', '🐨', '🐼', '🐵', '🐔', '🐧', '🧙‍♂️']
 
 try:
     # Assuming 'res' is at the project root, one level up from 'src'
@@ -89,7 +86,7 @@ def login():
     session['user_role'] = role
 
     if 'user_avatar' not in session:
-        session['user_avatar'] = random.choice(AVATARS)
+        session['user_avatar'] = choose_user_avatar(clean_name)
     
     # Tell frontend where to go
     return jsonify({'redirect': url_for('room', room_id=room_id)})
