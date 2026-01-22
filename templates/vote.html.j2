@@ -96,7 +96,7 @@
             </div>
         </div>
 
-        {% include 'partials/queue.html' %}
+        {% include 'partials/queue.html.j2' %}
         <div class="text-center mb-5">
             <h2 id="currentTicketDisplay">Waiting for session...</h2>
             <div id="timerDisplay" class="badge bg-danger fs-4 mb-2 shadow-sm" style="display:none;">
@@ -152,8 +152,8 @@
             </div>
         </div>
     </div>
-    {% include 'partials/toast.html' %}
-    {% include 'partials/history.html' %}
+    {% include 'partials/toast.html.j2' %}
+    {% include 'partials/history.html.j2' %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='js/vote.js', v=timestamp) }}"></script>

@@ -41,7 +41,7 @@ def index():
     prefill_room_id = request.args.get('room_id')
     
     # Otherwise, show login
-    return render_template('login.html',
+    return render_template('login.html.j2',
                            prefill_room_id=prefill_room_id,
                            decks=DECKS)
 
@@ -102,7 +102,7 @@ def room(room_id):
     if 'room_id' not in session or session['room_id'] != room_id:
         return redirect(url_for('index', room_id=room_id))
         
-    return render_template('vote.html',
+    return render_template('vote.html.j2',
                            room_id=room_id,
                            user_role=session.get('user_role'),
                            user_name=session.get('user_name'),
