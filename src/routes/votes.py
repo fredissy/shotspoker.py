@@ -4,6 +4,7 @@ from src import socketio, db
 from src.state import _get_public_state
 from src.model import TicketSession, Vote
 from src.store import get_room, save_room
+from src.utils import clean_jira_key
 from markupsafe import escape
 
 # --- Voting Logic (Now Room Aware) ---
@@ -14,8 +15,10 @@ def start_vote(data):
     state = get_room(room_id)
     if not state: return
 
+    clean_key = clean_jira_key(data['ticket_key'])
+
     state['active'] = True
-    state['ticket_key'] = data['ticket_key']
+    state['ticket_key'] = clean_key
     state['is_public'] = data['is_public']
     state['votes'] = {}
     state['revealed'] = False

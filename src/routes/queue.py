@@ -1,7 +1,8 @@
 from flask_socketio import emit
 from src.state import _get_public_state
 from src.store import get_room, change_room
-from src import socketio, db
+from src import socketio
+from src.utils import clean_jira_key
 
 @socketio.on('queue_add')
 def queue_add(data):
@@ -16,7 +17,7 @@ def queue_add(data):
         current_set = set(state['queue'])
         
         for ticket in new_tickets:
-            clean_ticket = ticket.strip()
+            clean_ticket = clean_jira_key(ticket.strip())
             if clean_ticket and clean_ticket not in current_set:
                 state['queue'].append(clean_ticket)
                 current_set.add(clean_ticket) # Update local set for next iteration
