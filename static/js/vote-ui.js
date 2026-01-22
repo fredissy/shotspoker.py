@@ -252,7 +252,7 @@ function updateStatsAndChart(state) {
 
 function renderChart(distribution) {
     lastDistribution = distribution; // Save for toggling
-    const ctxEl = document.getElementById('resultsChart');
+    const ctx = document.getElementById('resultsChart').getContext('2d');
 
     // 1. Prepare Data (Sorted)
     const sortedLabels = Object.keys(distribution).sort((a, b) => {
