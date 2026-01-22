@@ -291,7 +291,7 @@ function renderChart(distribution) {
         scales: isPie ? {} : { // Hide scales for Pie, Show for Bar
             y: {
                 beginAtZero: true,
-                title: { display: true, text: 'Count' },
+                title: { display: true, text: 'Nb of votes' },
                 ticks: { stepSize: 1 }
             },
             x: {
@@ -301,7 +301,6 @@ function renderChart(distribution) {
     };
 
     if (myChart) {
-        // If switching types, we often need to destroy to reset axis configs cleanly
         if (myChart.config.type !== currentChartType) {
             myChart.destroy();
             myChart = new Chart(ctx, {
