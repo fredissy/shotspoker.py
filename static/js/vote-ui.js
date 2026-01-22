@@ -105,7 +105,7 @@ function updateAdminButtons(state) {
     const startBtn = document.getElementById('startVoteBtn');
 
     // Define Admin Status
-    const amIAdmin = (socket.id === state.admin_sid);
+    const amIAdmin = (socket && socket.id === state.admin_sid);
 
     if (revealBtn) {
         if (state.active) {
@@ -235,8 +235,7 @@ function updateStatsAndChart(state) {
         if (statsRow) statsRow.style.display = 'none';
     }
 
-    // --- CHART CHANGE: Always render if revealed, ignoring privacy ---
-    if (state.revealed && Object.keys(state.distribution).length > 0) {
+    if (state.revealed && state.distribution && Object.keys(state.distribution).length > 0) {
         if (placeholder) placeholder.style.display = 'none';
         renderChart(state.distribution);
     } else {
@@ -354,12 +353,16 @@ function openHistoryModal() {
     const modalEl = document.getElementById('historyModal');
     if (!modalEl) return;
 
-    const modal = new bootstrap.Modal(modalEl);
     const tbody = document.getElementById('historyTableBody');
     const loading = document.getElementById('historyLoading');
-
+    
     if (tbody) tbody.innerHTML = '';
     if (loading) loading.style.display = 'block';
+    if (typeof bootstrap === 'undefined' || !bootstrap.Modal) {
+        console.error('Bootstrap Modal is not available. Cannot open history modal.');
+        return;
+    }
+    const modal = new bootstrap.Modal(modalEl);
     modal.show();
 
     fetch(`/history?room_id=${currentRoomId}&json=true`)

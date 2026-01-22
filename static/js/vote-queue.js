@@ -9,7 +9,8 @@ function updateQueueUI(state) {
     if (manageBtn) manageBtn.style.display = 'inline-block';
 
     const modalList = document.getElementById('modalQueueList');
-    if (modalList && document.getElementById('queueModal') && document.getElementById('queueModal').classList.contains('show')) {
+    const queueModal = document.getElementById('queueModal');
+    if (modalList && queueModal && queueModal.classList.contains('show')) {
         renderModalQueueList(currentQueue);
     }
 
@@ -42,6 +43,10 @@ function openQueueModal() {
 
     const modalEl = document.getElementById('queueModal');
     if (modalEl) {
+        if (typeof bootstrap === 'undefined' || !bootstrap.Modal) {
+            console.error('Bootstrap Modal is not available. Cannot open queue modal.');
+            return;
+        }
         const modal = new bootstrap.Modal(modalEl);
         modal.show();
     }
