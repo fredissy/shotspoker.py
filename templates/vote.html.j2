@@ -156,6 +156,8 @@
     {% include 'partials/history.html.j2' %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/vote-queue.js', v=timestamp) }}"></script>
+    <script src="{{ url_for('static', filename='js/vote-ui.js', v=timestamp) }}"></script>
     <script src="{{ url_for('static', filename='js/vote.js', v=timestamp) }}"></script>
     <script src="{{ url_for('static', filename='js/main.js', v=timestamp) }}"></script>
 
