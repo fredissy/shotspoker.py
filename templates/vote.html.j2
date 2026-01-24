@@ -175,14 +175,15 @@
     </div>
 
     <div id="reactionToolbar" class="position-fixed bottom-0 start-50 translate-middle-x mb-4 p-2 bg-light rounded-pill shadow-lg border" style="z-index: 1060;">
-    <div class="d-flex gap-1 align-items-center">
-        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👍')" title="Thumbs Up">👍</button>
-        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👏')" title="Applause">👏</button>
-        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🎉')" title="Party">🎉</button>
-        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🤯')" title="Mind Blown">🤯</button>
-        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🚀')" title="Rocket">🚀</button>
-        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐛')" title="Bug">🐛</button>
-        <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐌')" title="Too Slow">🐌</button>
+        <div class="d-flex gap-1 align-items-center">
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👍')" title="Thumbs Up">👍</button>
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👏')" title="Applause">👏</button>
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🎉')" title="Party">🎉</button>
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🤯')" title="Mind Blown">🤯</button>
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🚀')" title="Rocket">🚀</button>
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐛')" title="Bug">🐛</button>
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐌')" title="Too Slow">🐌</button>
+        </div>
     </div>
     {% include 'partials/toast.html.j2' %}
     {% include 'partials/history.html.j2' %}

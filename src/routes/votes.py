@@ -118,8 +118,24 @@ def reset(data):
 @socketio.on('send_reaction')
 def send_reaction(data):
     room_id = data['room_id']
+    
+    state = get_room(room_id)
+    if not state:
+        return
+    participant = state['participants'].get(request.sid)
+    if not participant:
+        return
+    emoji = data.get('emoji', '')
+    if not isinstance(emoji, str):
+        return
+    emoji = emoji.strip()
+    if not emoji:
+        return
+    MAX_EMOJI_LENGTH = 10
+    safe_emoji = escape(emoji)[:MAX_EMOJI_LENGTH]
+    sender_name = participant.get('name') or session.get('user_name', 'Anon')
     # Broadcast the reaction to everyone (including the sender)
     emit('trigger_reaction', {
-        'emoji': data['emoji'],
-        'sender': session.get('user_name', 'Anon')
+        'emoji': safe_emoji,
+        'sender': sender_name
     }, to=room_id)

@@ -51,6 +51,9 @@ function resetVote() {
 
 function createFloatingEmoji(emoji) {
     const container = document.getElementById('reactionContainer');
+
+    if (!container) return;
+
     const el = document.createElement('div');
     el.innerText = emoji;
     
@@ -64,7 +67,7 @@ function createFloatingEmoji(emoji) {
     el.style.fontSize = size + 'px';
     el.style.opacity = '1';
     el.style.pointerEvents = 'none';
-    el.style.transition = 'transform 3s ease-in, opacity 3s ease-in';
+    el.style.transition = 'transform 3s ease-out, opacity 3s ease-out';
     
     container.appendChild(el);
 
