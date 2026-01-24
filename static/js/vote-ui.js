@@ -252,7 +252,9 @@ function updateStatsAndChart(state) {
 
 function renderChart(distribution) {
     lastDistribution = distribution; // Save for toggling
-    const ctx = document.getElementById('resultsChart').getContext('2d');
+    const ctxEl = document.getElementById('resultsChart');
+    if (!ctxEl) return;
+    const ctx = ctxEl.getContext('2d');
 
     // 1. Prepare Data (Sorted)
     const sortedLabels = Object.keys(distribution).sort((a, b) => {
@@ -272,13 +274,13 @@ function renderChart(distribution) {
     const backgroundColors = sortedLabels.map(label => {
         const val = parseFloat(label);
         if (isNaN(val)) return '#6c757d'; 
-        if (label == minVal && label == maxVal) return '#198754'; 
-        if (label == minVal) return '#0d6efd'; 
-        if (label == maxVal) return '#dc3545'; 
+        if (label === minVal && label == maxVal) return '#198754'; 
+        if (label === minVal) return '#0d6efd'; 
+        if (label === maxVal) return '#dc3545'; 
         return '#343a40'; 
     });
 
-        // 3. Configuration for specific types
+    // 3. Configuration for specific types
     const isPie = (currentChartType === 'pie');
 
     const configOptions = {
@@ -291,7 +293,7 @@ function renderChart(distribution) {
         scales: isPie ? {} : { // Hide scales for Pie, Show for Bar
             y: {
                 beginAtZero: true,
-                title: { display: true, text: 'Nb of votes' },
+                title: { display: true, text: 'Number of votes' },
                 ticks: { stepSize: 1 }
             },
             x: {
@@ -324,10 +326,10 @@ function renderChart(distribution) {
             myChart.update('none');
         }
     } else {
-         myChart = new Chart(ctx, {
+        myChart = new Chart(ctx, {
             type: currentChartType,
             data: {
-                 labels: sortedLabels,
+                labels: sortedLabels,
                 datasets: [{
                     label: 'Votes',
                     data: data,
