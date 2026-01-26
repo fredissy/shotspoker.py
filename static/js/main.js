@@ -15,6 +15,11 @@ socket.on('notification', (data) => {
     console.log(data.msg);
 });
 
+socket.on('room_closed', (data) => {
+    // alert(data.msg || "The room has been closed.");
+    window.location.href = '/';
+});
+
 // --- Actions ---
 function logout() {
     // Hit the server route to clear the cookie

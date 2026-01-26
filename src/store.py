@@ -46,6 +46,7 @@ def get_room(room_id):
 
 def save_room(room_id, state):
     """Save room state to Redis or memory (Direct Write)."""
+    state['last_updated'] = time.time()
     if app.config['USE_REDIS']:
         redis_client.set(f"room:{room_id}", json.dumps(state), ex=ROOM_TTL)
     else:

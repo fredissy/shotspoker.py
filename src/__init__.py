@@ -63,4 +63,4 @@ else:
     socketio = SocketIO(app, async_mode='gevent')
 
 from src import model
-from src.routes import main, rooms, votes, timer, healthcheck, queue, roles
+from src.routes import main, rooms, votes, timer, healthcheck, queue, roles, admin
