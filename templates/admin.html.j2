@@ -12,6 +12,13 @@
             <a href="/" class="btn btn-outline-primary">Back to Home</a>
         </div>
 
+        <div class="alert alert-info">
+            Storage Mode: <strong>{{ storage_mode }}</strong>
+            {% if storage_mode == 'In-Memory' %}
+            (Single instance - data will be lost on restart)
+            {% endif %}
+        </div>
+
         <div class="card shadow-sm">
             <div class="card-body">
                 <table class="table table-hover align-middle">
