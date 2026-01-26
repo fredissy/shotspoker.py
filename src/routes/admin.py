@@ -1,5 +1,6 @@
 from datetime import datetime
-from flask import Blueprint, render_template, request, jsonify, redirect, url_for
+from functools import wraps
+from flask import Response, render_template, redirect, request, url_for
 from src import app, socketio, redis_client
 from src.store import get_room, room_exists, _memory_store, _memory_store_lock
 
@@ -7,6 +8,25 @@ from src.store import get_room, room_exists, _memory_store, _memory_store_lock
 def format_ts(ts):
     if not ts: return "-"
     return datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+def check_auth(username, password):
+    """Checks if username/password combination is valid."""
+    return username == app.config['ADMIN_USERNAME'] and password == app.config['ADMIN_PASSWORD']
+
+def authenticate():
+    """Sends a 401 response that enables basic auth"""
+    return Response(
+        'Could not verify your access level for that URL.\n'
+        'You have to login with proper credentials', 401,
+        {'WWW-Authenticate': 'Basic realm="Login Required"'})
+
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or not check_auth(auth.username, auth.password):
+            return authenticate()
+        return f(*args, **kwargs)
+    return decorated
 
 def get_all_room_ids():
     """Get all room IDs from Redis or memory."""
@@ -40,6 +60,7 @@ def delete_room_data(room_id):
                 del _memory_store[key]
 
 @app.route('/admin')
+@requires_auth
 def admin_panel():
     rooms_data = []
     
@@ -69,6 +90,7 @@ def admin_panel():
     return render_template('admin.html.j2', rooms=rooms_data, storage_mode=storage_mode)
 
 @app.route('/admin/delete/<room_id>', methods=['POST'])
+@requires_auth
 def delete_room(room_id):
     if room_exists(room_id):
         # 1. Notify all users in that room to leave
