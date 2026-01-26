@@ -27,6 +27,9 @@ app.config['REDIS_URL'] = os.environ.get('REDIS_URL', '')
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+app.config['ADMIN_USERNAME'] = os.environ.get('ADMIN_USERNAME', None)
+app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', None)
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -63,4 +66,4 @@ else:
     socketio = SocketIO(app, async_mode='gevent')
 
 from src import model
-from src.routes import main, rooms, votes, timer, healthcheck, queue, roles
+from src.routes import main, rooms, votes, timer, healthcheck, queue, roles, admin

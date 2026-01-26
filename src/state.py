@@ -1,5 +1,6 @@
 # --- Global State ---
 from collections import Counter
+import time
 
 DECKS = {
     'fibonacci': ['0', '1', '2', '3', '5', '8', '13', '21', '∞', '?', '☕'],
@@ -11,8 +12,11 @@ DECKS = {
 def get_initial_room_state(deck_type='fibonacci'):
 
     selected_deck = DECKS.get(deck_type, DECKS['fibonacci'])
+    now = time.time()
 
     return {
+        'created_at': now,
+        'last_updated': now,
         'active': False,
         'ticket_key': "Waiting...",
         'is_public': True,
