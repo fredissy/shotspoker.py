@@ -1,8 +1,8 @@
 from flask import request, session
 from flask_socketio import emit
-from src import socketio, db
+from datetime import datetime
+from src import socketio
 from src.state import _get_public_state
-from src.model import TicketSession, Vote
 from src.store import get_room, save_room
 from src.utils import clean_jira_key, get_allowed_custom_emojis
 from markupsafe import escape
@@ -25,9 +25,11 @@ def start_vote(data):
     state['is_public'] = data['is_public']
     state['votes'] = {}
     state['revealed'] = False
-    # Admin can change dynamically, or we stick to original creator.
-    # Let's update admin to whoever started the vote to be flexible.
     state['admin_sid'] = request.sid
+
+    # Init history list if it doesn't exist (migration for old rooms)
+    if 'history' not in state:
+        state['history'] = []
 
     if state['ticket_key'] in state['queue']:
         state['queue'].remove(state['ticket_key'])
@@ -61,43 +63,39 @@ def reveal_vote(data):
 
     state['revealed'] = True
 
+    # --- HISTORY SAVING (REDIS VERSION) ---
     if state['votes']:
-        # 1. Create the Session Record
-        new_session = TicketSession(
-            room_id=room_id,
-            ticket_key=state['ticket_key'],
-            is_public=state['is_public']
-        )
-        db.session.add(new_session)
-        db.session.commit()
-
-        # 2. Save Individual Votes
         total_value = 0
         vote_count = 0
+        raw_votes_list = []
 
-        # CHANGE: Iterate over user_names directly
         for user_name, vote_data in state['votes'].items():
             val = vote_data['value']
-
-            safe_name = escape(user_name)
-            safe_name = safe_name[:100]
-
-            vote_entry = Vote(
-                user_name=safe_name,
-                value=str(val),
-                session_id=new_session.id
-            )
-            db.session.add(vote_entry)
+            raw_votes_list.append(val)
             
             # Math logic (skip symbols)
             if str(val).replace('.', '', 1).isdigit():
                 total_value += float(val)
                 vote_count += 1
         
-        if vote_count > 0:
-            new_session.final_average = total_value / vote_count
-        
-        db.session.commit()
+        final_average = round(total_value / vote_count, 1) if vote_count > 0 else None
+
+        # Create the history entry
+        history_entry = {
+            'ticket_key': state['ticket_key'],
+            'timestamp': datetime.utcnow().isoformat() + 'Z', # ISO format for JS
+            'average': final_average,
+            'is_public': state['is_public'],
+            'type': 'Public' if state['is_public'] else 'Private',
+            'votes': raw_votes_list # Save simple list of values e.g. ["5", "8", "5"]
+        }
+
+        # Append to room state
+        if 'history' not in state:
+            state['history'] = []
+
+        state['history'].insert(0, history_entry)
+    # --------------------------------------
 
     save_room(room_id, state)
     emit('state_update', _get_public_state(room_id, state), to=room_id)
@@ -121,7 +119,7 @@ def reset(data):
 @socketio.on('send_reaction')
 def send_reaction(data):
     room_id = data['room_id']
-    
+
     state = get_room(room_id)
     if not state:
         return
