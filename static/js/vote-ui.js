@@ -243,6 +243,7 @@ function updateStatsAndChart(state) {
     } else {
         if(myChart) myChart.destroy();
         myChart = null;
+        lastDistribution = null;
         if (placeholder) {
             placeholder.style.display = 'block';
             placeholder.innerText = "Waiting for reveal...";
