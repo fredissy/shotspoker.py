@@ -45,7 +45,7 @@ Displaying results :
 
 1. Clone the repository :
 
-```git clone https://github.com/yourusername/shots-poker.git```
+```git clone https://github.com/fredissy/shots-poker.git```
 
 ```cd shots-poker```
 
