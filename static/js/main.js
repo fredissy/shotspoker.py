@@ -42,3 +42,47 @@ function sendReaction(emoji) {
 socket.on('trigger_reaction', (data) => {
     createFloatingEmoji(data.emoji);
 });
+
+// static/js/main.js
+
+// --- Konami Code Easter Egg ---
+const konamiCode = [
+    "ArrowUp", "ArrowUp", 
+    "ArrowDown", "ArrowDown", 
+    "ArrowLeft", "ArrowRight", 
+    "ArrowLeft", "ArrowRight", 
+    "b", "a"
+];
+let konamiIndex = 0;
+
+document.addEventListener('keydown', (e) => {
+    // 1. Check if the key matches the current step in the sequence
+    if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++; // Move to next step
+
+        // 2. If sequence is complete, trigger the egg!
+        if (konamiIndex === konamiCode.length) {
+            activateBarrelRoll();
+            konamiIndex = 0; // Reset
+        }
+    } else {
+        konamiIndex = 0; // Mistake made, reset progress
+    }
+});
+
+function activateBarrelRoll() {
+    const body = document.body;
+    
+    // Add class to trigger animation
+    body.classList.add('do-a-barrel-roll');
+    
+    // Send a toast notification for fun
+    if (typeof showToast === 'function') {
+        showToast("🎮 Cheat Code Activated!", "warning");
+    }
+
+    // Remove class after 1s so it can be triggered again
+    setTimeout(() => {
+        body.classList.remove('do-a-barrel-roll');
+    }, 1000);
+}
