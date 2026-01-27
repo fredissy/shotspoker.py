@@ -3,7 +3,6 @@ import uuid
 import time
 from flask import jsonify, redirect, render_template, request, session, url_for
 from src import app
-from src.model import TicketSession
 from src.utils import choose_user_avatar, get_allowed_custom_emojis
 from src.store import room_exists, save_room
 from src.state import get_initial_room_state, DECKS
@@ -114,26 +113,21 @@ def room(room_id):
 
 @app.route('/history')
 def history():
-    filter_room_id = request.args.get('room_id')
+    """Fetch history directly from Redis Room State"""
+    room_id = request.args.get('room_id')
     
-    # Allow filtering by the current room automatically if not specified
-    if not filter_room_id and 'room_id' in session:
-        filter_room_id = session['room_id']
+    if not room_id:
+        return jsonify([])
 
-    query = TicketSession.query
-    if filter_room_id:
-        query = query.filter_by(room_id=filter_room_id)
+    state = get_room(room_id)
+    if not state or 'history' not in state:
+        return jsonify([])
+
+    # Reverse to show newest first?
+    # history_data = state['history'][::-1]
+    history_data = state['history']
     
-    sessions = query.order_by(TicketSession.timestamp.desc()).all()
-
-    return jsonify([{
-            'timestamp': s.timestamp.strftime('%Y-%m-%dT%H:%M:%SZ'),
-            'ticket_key': s.ticket_key,
-            'type': 'Public' if s.is_public else 'Private', # Human readable
-            'average': round(s.final_average, 2),
-            # Return list of values for the frontend to format (e.g. ['5', '5', '8'])
-            'votes': [v.value for v in s.votes] 
-        } for s in sessions])
+    return jsonify(history_data)
 
 def generate_room_id():
     """Generates a random 3-word dashed string (e.g. 'apple-bridge-candle')."""
