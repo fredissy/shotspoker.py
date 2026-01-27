@@ -124,7 +124,7 @@ def history():
     sessions = query.order_by(TicketSession.timestamp.desc()).all()
 
     return jsonify([{
-            'timestamp': s.timestamp.strftime('%Y-%m-%d %H:%M'),
+            'timestamp': s.timestamp.strftime('%Y-%m-%dT%H:%M:%SZ'),
             'ticket_key': s.ticket_key,
             'type': 'Public' if s.is_public else 'Private', # Human readable
             'average': round(s.final_average, 2),

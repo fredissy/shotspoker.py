@@ -450,10 +450,15 @@ function openHistoryModal() {
                 // 2. Format Type Icon
                 const typeIcon = row.type === 'Public' ? '🔓' : '🔒';
 
+                // Fix timestamp formatting
+                const dateObj = new Date(row.timestamp);
+                // Convert to local time string
+                const localTime = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
                 // 3. Render Row
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td><small class="text-muted">${row.timestamp}</small></td>
+                    <td><small class="text-muted">${localTime}</small></td>
                     <td class="fw-bold text-primary">${row.ticket_key}</td>
                     <td>${typeIcon} <small>${row.type}</small></td>
                     <td><span class="badge bg-success" style="font-size: 0.9em;">${row.average || '-'}</span></td>
