@@ -32,7 +32,8 @@
                 <span>Controls (Anyone can act as Admin)</span>
                 
                 <div class="dropdown">
-                    <div class="bg-light rounded-pill px-3 py-1 d-flex align-items-center gap-2 shadow-sm border border-secondary" 
+                    <div class="bg-light rounded-pill px-3 py-1 d-flex align-items-center gap-2 shadow-sm border border-secondary"
+                        id="userChip"
                         style="cursor: pointer;" 
                         data-bs-toggle="dropdown" 
                         aria-expanded="false">
@@ -53,6 +54,12 @@
                                         {% if user_role == 'observer' %}checked{% endif %}>
                                 </div>
                             </div>
+                        </li>
+                        <li>
+                            <button class="dropdown-item" onclick="toggleTheme()">
+                                <span>💡​</span>
+                                <span>Dark Mode</span>
+                            </button>
                         </li>
                         <li>
                             <button class="dropdown-item" onclick="logout()">
@@ -153,13 +160,13 @@
                     <div class="card-body">
                         <div id="statsRow" class="row text-center mb-3" style="display:none;">
                             <div class="col-6">
-                                <div class="border rounded p-2 bg-light">
+                                <div class="border rounded p-2 bg-light stat-box">
                                     <small class="text-muted d-block text-uppercase fw-bold" style="font-size:0.7rem;">Average</small>
                                     <span id="statAverage" class="fs-4 fw-bold text-primary">--</span>
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="border rounded p-2 bg-light">
+                                <div class="border rounded p-2 bg-light stat-box">
                                     <small class="text-muted d-block text-uppercase fw-bold" style="font-size:0.7rem;">Agreement</small>
                                     <span id="statAgreement" class="fs-4 fw-bold text-success">--</span>
                                 </div>
