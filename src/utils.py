@@ -6,9 +6,9 @@ AVATARS = ['👾', '👽', '🤖', '👨🏻‍💻', '​😎', '​​🦁​'
            '🦄', '🐲', '🌵', '🥑', '🍄', '🐙', '🐸', '🦊', '​​🙉​​​',
            '🦁', '🐯', '🐻', '🐨', '🐼', '🐵', '🐔', '🐧', '🧙‍♂️']
 
-# Calculate base directory (project root) relative to this file
-_BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-_EMOJI_DIR = os.path.join(_BASE_DIR, 'static', 'img', 'emojis')
+# Calculate emoji directory path following the same pattern as in __init__.py
+_BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+_EMOJI_DIR = os.path.join(_BASE_DIR, '..', 'static', 'img', 'emojis')
 
 
 def choose_user_avatar(username):
