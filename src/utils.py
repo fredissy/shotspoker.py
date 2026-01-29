@@ -1,11 +1,15 @@
 
 import os
 
-EMOJI_REL_PATH = '../static/img/emojis'
 VALID_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.webp'}
 AVATARS = ['👾', '👽', '🤖', '👨🏻‍💻', '​😎', '​​🦁​', '👹', '👺', '💀', 
            '🦄', '🐲', '🌵', '🥑', '🍄', '🐙', '🐸', '🦊', '​​🙉​​​',
            '🦁', '🐯', '🐻', '🐨', '🐼', '🐵', '🐔', '🐧', '🧙‍♂️']
+
+# Calculate base directory (project root) relative to this file
+_BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+_EMOJI_DIR = os.path.join(_BASE_DIR, 'static', 'img', 'emojis')
+
 
 def choose_user_avatar(username):
     if not username:
@@ -41,14 +45,11 @@ def get_allowed_custom_emojis():
     Scans the static/img/emojis directory and returns a set of valid web paths.
     Example: {'/static/img/emojis/dog.png', '/static/img/emojis/cat.gif'}
     """
-    # Calculate absolute path relative to this file (src/utils.py)
-    base_dir = os.path.dirname(__file__)
-    emoji_dir = os.path.join(base_dir, EMOJI_REL_PATH)
-    
+    # Use absolute path calculated from project root for robustness
     allowed = set()
     
-    if os.path.exists(emoji_dir):
-        for filename in os.listdir(emoji_dir):
+    if os.path.exists(_EMOJI_DIR):
+        for filename in os.listdir(_EMOJI_DIR):
             # Check extension
             if any(filename.lower().endswith(ext) for ext in VALID_EXTENSIONS):
                 # Construct the web-accessible path
