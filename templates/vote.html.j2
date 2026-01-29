@@ -189,12 +189,12 @@
             <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐛')" title="Bug">🐛</button>
             <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐌')" title="Too Slow">🐌</button>
             {% for emoji_path in custom_emojis %}
-            <button class="btn btn-sm btn-outline-light border-0 p-1" 
+            <button class="btn btn-sm btn-outline-light border-0 fs-4" 
                     onclick="sendReaction('{{ emoji_path }}')" 
                     title="Reaction">
                 <img src="{{ url_for('static', filename=emoji_path.replace('/static/', '')) }}" 
                     alt="emoji" 
-                    style="width: 32px; height: 32px;">
+                    style="width: 32.95px; height: 32px;">
             </button>
             {% endfor %}
         </div>
