@@ -117,6 +117,10 @@ def reset(data):
 
 @socketio.on('send_reaction')
 def send_reaction(data):
+    # Constants for emoji validation and truncation
+    MAX_STANDARD_EMOJI_LENGTH = 10  # Max length for standard Unicode emojis
+    MAX_EMOJI_LENGTH = 100  # Max length for truncation (includes custom emoji paths)
+    
     room_id = data['room_id']
     
     state = get_room(room_id)
@@ -137,12 +141,11 @@ def send_reaction(data):
     # 1. Dynamic Allowlist Check
     if emoji in ALLOWED_CUSTOM_IMAGES:
         is_valid = True
-    elif len(emoji) <= 10:
+    elif len(emoji) <= MAX_STANDARD_EMOJI_LENGTH:
         is_valid = True
         
     if not is_valid: return
     
-    MAX_EMOJI_LENGTH = 100
     safe_emoji = escape(emoji)[:MAX_EMOJI_LENGTH]
     sender_name = participant.get('name') or session.get('user_name', 'Anon')
     # Broadcast the reaction to everyone (including the sender)
