@@ -4,7 +4,7 @@ import time
 from flask import jsonify, redirect, render_template, request, session, url_for
 from src import app
 from src.model import TicketSession
-from src.utils import choose_user_avatar
+from src.utils import choose_user_avatar, get_allowed_custom_emojis
 from src.store import room_exists, save_room
 from src.state import get_initial_room_state, DECKS
 from markupsafe import escape
@@ -101,9 +101,12 @@ def room(room_id):
     # Security: If trying to access room URL without session, kick them out
     if 'room_id' not in session or session['room_id'] != room_id:
         return redirect(url_for('index', room_id=room_id))
+    
+    custom_emojis = sorted(list(get_allowed_custom_emojis()))
         
     return render_template('vote.html.j2',
                            room_id=room_id,
+                           custom_emojis=custom_emojis,
                            user_role=session.get('user_role'),
                            user_name=session.get('user_name'),
                            user_avatar=session.get('user_avatar', '👤'))
