@@ -188,6 +188,15 @@
             <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🚀')" title="Rocket">🚀</button>
             <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐛')" title="Bug">🐛</button>
             <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐌')" title="Too Slow">🐌</button>
+            {% for emoji_path in custom_emojis %}
+            <button class="btn btn-sm btn-outline-light border-0 p-1" 
+                    onclick="sendReaction('{{ emoji_path }}')" 
+                    title="Reaction">
+                <img src="{{ url_for('static', filename=emoji_path.replace('/static/', '')) }}" 
+                    alt="emoji" 
+                    style="width: 32px; height: 32px;">
+            </button>
+            {% endfor %}
         </div>
     </div>
     {% include 'partials/toast.html.j2' %}

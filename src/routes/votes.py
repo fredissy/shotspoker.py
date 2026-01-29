@@ -4,10 +4,10 @@ from src import socketio, db
 from src.state import _get_public_state
 from src.model import TicketSession, Vote
 from src.store import get_room, save_room
-from src.utils import clean_jira_key
+from src.utils import clean_jira_key, get_allowed_custom_emojis
 from markupsafe import escape
 
-# --- Voting Logic (Now Room Aware) ---
+ALLOWED_CUSTOM_IMAGES = get_allowed_custom_emojis()
 
 @socketio.on('start_vote')
 def start_vote(data):
@@ -131,7 +131,18 @@ def send_reaction(data):
     emoji = emoji.strip()
     if not emoji:
         return
-    MAX_EMOJI_LENGTH = 10
+    
+    is_valid = False
+    
+    # 1. Dynamic Allowlist Check
+    if emoji in ALLOWED_CUSTOM_IMAGES:
+        is_valid = True
+    elif len(emoji) <= 10:
+        is_valid = True
+        
+    if not is_valid: return
+    
+    MAX_EMOJI_LENGTH = 100
     safe_emoji = escape(emoji)[:MAX_EMOJI_LENGTH]
     sender_name = participant.get('name') or session.get('user_name', 'Anon')
     # Broadcast the reaction to everyone (including the sender)

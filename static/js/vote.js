@@ -55,7 +55,16 @@ function createFloatingEmoji(emoji) {
     if (!container) return;
 
     const el = document.createElement('div');
-    el.innerText = emoji;
+    if (emoji.indexOf('/') > -1 || emoji.indexOf('.png') > -1) {
+        const img = document.createElement('img');
+        img.src = emoji;
+        img.style.width = '32px';
+        img.style.height = '32px';
+        img.style.objectFit = 'contain';
+        el.appendChild(img);
+    } else {
+        el.innerText = emoji;
+    }
     
     // Randomize starting position (horizontal)
     const randomLeft = Math.floor(Math.random() * 80) + 10;

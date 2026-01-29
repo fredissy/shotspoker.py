@@ -1,6 +1,8 @@
 
-from random import choice
+import os
 
+EMOJI_REL_PATH = '../static/img/emojis'
+VALID_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.webp'}
 AVATARS = ['👾', '👽', '🤖', '👨🏻‍💻', '​😎', '​​🦁​', '👹', '👺', '💀', 
            '🦄', '🐲', '🌵', '🥑', '🍄', '🐙', '🐸', '🦊', '​​🙉​​​',
            '🦁', '🐯', '🐻', '🐨', '🐼', '🐵', '🐔', '🐧', '🧙‍♂️']
@@ -32,3 +34,25 @@ def clean_jira_key(raw_key):
             key = key.split(delimiter)[0]
             
     return key
+
+
+def get_allowed_custom_emojis():
+    """
+    Scans the static/img/emojis directory and returns a set of valid web paths.
+    Example: {'/static/img/emojis/dog.png', '/static/img/emojis/cat.gif'}
+    """
+    # Calculate absolute path relative to this file (src/utils.py)
+    base_dir = os.path.dirname(__file__)
+    emoji_dir = os.path.join(base_dir, EMOJI_REL_PATH)
+    
+    allowed = set()
+    
+    if os.path.exists(emoji_dir):
+        for filename in os.listdir(emoji_dir):
+            # Check extension
+            if any(filename.lower().endswith(ext) for ext in VALID_EXTENSIONS):
+                # Construct the web-accessible path
+                web_path = f'/static/img/emojis/{filename}'
+                allowed.add(web_path)
+                
+    return allowed
