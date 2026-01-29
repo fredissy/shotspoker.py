@@ -45,7 +45,7 @@ def get_allowed_custom_emojis():
     Scans the static/img/emojis directory and returns a set of valid web paths.
     Example: {'/static/img/emojis/dog.png', '/static/img/emojis/cat.gif'}
     """
-    # Use absolute path calculated from project root for robustness
+    # Use path calculation pattern consistent with __init__.py
     allowed = set()
     
     if os.path.exists(_EMOJI_DIR):
