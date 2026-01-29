@@ -58,16 +58,24 @@ def get_allowed_custom_emojis():
             file_real_path = os.path.realpath(file_path)
             
             # Security check: ensure the resolved path is still within emoji_dir
-            if not file_real_path.startswith(emoji_dir_real + os.sep):
+            # Use os.path.commonpath to verify the file is under the emoji directory
+            try:
+                common = os.path.commonpath([emoji_dir_real, file_real_path])
+                if common != emoji_dir_real:
+                    continue
+            except ValueError:
+                # Paths are on different drives (Windows) or one is relative
                 continue
             
             # Only include regular files, not directories
             if not os.path.isfile(file_real_path):
                 continue
             
-            # Check extension
+            # Check extension on the symlink name (filename), not the resolved file
+            # This preserves the user-facing URL structure even when symlinks are used
             if any(filename.lower().endswith(ext) for ext in VALID_EXTENSIONS):
-                # Construct the web-accessible path
+                # Construct the web-accessible path using the original filename
+                # This preserves symlink names in URLs for consistent user experience
                 web_path = f'/static/img/emojis/{filename}'
                 allowed.add(web_path)
                 
