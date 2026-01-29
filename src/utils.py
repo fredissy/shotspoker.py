@@ -45,10 +45,26 @@ def get_allowed_custom_emojis():
     base_dir = os.path.dirname(__file__)
     emoji_dir = os.path.join(base_dir, EMOJI_REL_PATH)
     
+    # Resolve to absolute path to prevent path traversal
+    emoji_dir_real = os.path.realpath(emoji_dir)
+    
     allowed = set()
     
-    if os.path.exists(emoji_dir):
-        for filename in os.listdir(emoji_dir):
+    if os.path.exists(emoji_dir_real):
+        for filename in os.listdir(emoji_dir_real):
+            file_path = os.path.join(emoji_dir_real, filename)
+            
+            # Resolve symbolic links and verify the file is within the intended directory
+            file_real_path = os.path.realpath(file_path)
+            
+            # Security check: ensure the resolved path is still within emoji_dir
+            if not file_real_path.startswith(emoji_dir_real + os.sep):
+                continue
+            
+            # Only include regular files, not directories
+            if not os.path.isfile(file_real_path):
+                continue
+            
             # Check extension
             if any(filename.lower().endswith(ext) for ext in VALID_EXTENSIONS):
                 # Construct the web-accessible path
