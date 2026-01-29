@@ -188,14 +188,17 @@
             <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🚀')" title="Rocket">🚀</button>
             <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐛')" title="Bug">🐛</button>
             <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐌')" title="Too Slow">🐌</button>
+            {% set static_prefix = '/static/' %}
             {% for emoji_path in custom_emojis %}
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" 
-                    onclick="sendReaction('{{ emoji_path }}')" 
-                    title="Reaction">
-                <img src="{{ url_for('static', filename=emoji_path.replace('/static/', '')) }}" 
-                    alt="emoji" 
-                    style="width: 32.95px; height: 32px;">
-            </button>
+                {% set emoji_filename = emoji_path.split('/')[-1] %}
+                {% set emoji_title = emoji_filename.rsplit('.', 1)[0] | replace('_', ' ') | replace('-', ' ') | title %}
+                <button class="btn btn-sm btn-outline-light border-0 fs-4" 
+                        onclick="sendReaction('{{ emoji_path|tojson }}')" 
+                        title="{{ emoji_title }}">
+                    <img src="{{ url_for('static', filename=(emoji_path[static_prefix|length:] if emoji_path.startswith(static_prefix) else emoji_path)) }}" 
+                        alt="emoji" 
+                        style="width: 32.95px; height: 32.95px;">
+                </button>
             {% endfor %}
         </div>
     </div>

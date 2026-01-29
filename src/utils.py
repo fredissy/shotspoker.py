@@ -44,15 +44,29 @@ def get_allowed_custom_emojis():
     # Calculate absolute path relative to this file (src/utils.py)
     base_dir = os.path.dirname(__file__)
     emoji_dir = os.path.join(base_dir, EMOJI_REL_PATH)
+
+    if not os.path.exists(emoji_dir):
+        print(f"Custom emoji directory does not exist: {emoji_dir}", flush=True)
+        return set()
     
     allowed = set()
     
-    if os.path.exists(emoji_dir):
-        for filename in os.listdir(emoji_dir):
-            # Check extension
-            if any(filename.lower().endswith(ext) for ext in VALID_EXTENSIONS):
-                # Construct the web-accessible path
-                web_path = f'/static/img/emojis/{filename}'
-                allowed.add(web_path)
+    emoji_dir_real = os.path.realpath(emoji_dir)
+    if os.path.exists(emoji_dir_real):
+        for filename in os.listdir(emoji_dir_real):
+            file_real_path = os.path.realpath(os.path.join(emoji_dir_real, filename))
+            
+            # Verify path is within emoji_dir, not traversed elsewhere
+            try:
+                if os.path.commonpath([emoji_dir_real, file_real_path]) != emoji_dir_real:
+                    continue
+            except ValueError:
+                continue
                 
+            if not os.path.isfile(file_real_path):
+                continue
+                
+            if any(filename.lower().endswith(ext) for ext in VALID_EXTENSIONS):
+                allowed.add(f'/static/img/emojis/{filename}')
+                    
     return allowed

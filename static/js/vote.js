@@ -55,11 +55,11 @@ function createFloatingEmoji(emoji) {
     if (!container) return;
 
     const el = document.createElement('div');
-    if (emoji.indexOf('/') > -1 || emoji.indexOf('.png') > -1) {
+     if (typeof emoji === 'string' && emoji.startsWith('/static/img/emojis/')) {  
         const img = document.createElement('img');
         img.src = emoji;
-        img.style.width = '32px';
-        img.style.height = '32px';
+        img.style.width = '32.95px';
+        img.style.height = '32.95px';
         img.style.objectFit = 'contain';
         el.appendChild(img);
     } else {
