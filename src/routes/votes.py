@@ -9,6 +9,9 @@ from markupsafe import escape
 
 ALLOWED_CUSTOM_IMAGES = get_allowed_custom_emojis()
 
+# Constants for emoji validation
+MAX_STANDARD_EMOJI_LENGTH = 10  # Max length for standard Unicode emojis
+
 @socketio.on('start_vote')
 def start_vote(data):
     room_id = data['room_id']
@@ -137,13 +140,14 @@ def send_reaction(data):
     # 1. Dynamic Allowlist Check
     if emoji in ALLOWED_CUSTOM_IMAGES:
         is_valid = True
-    elif len(emoji) <= 10:
+    elif len(emoji) <= MAX_STANDARD_EMOJI_LENGTH:
         is_valid = True
         
     if not is_valid: return
     
-    MAX_EMOJI_LENGTH = 100
-    safe_emoji = escape(emoji)[:MAX_EMOJI_LENGTH]
+    # Escape the emoji for security (custom emojis are already validated via allowlist)
+    safe_emoji = escape(emoji)
+    
     sender_name = participant.get('name') or session.get('user_name', 'Anon')
     # Broadcast the reaction to everyone (including the sender)
     emit('trigger_reaction', {
