@@ -4,7 +4,7 @@ import time
 from flask import jsonify, redirect, render_template, request, session, url_for
 from src import app
 from src.utils import choose_user_avatar, get_allowed_custom_emojis
-from src.store import room_exists, save_room
+from src.store import room_exists, save_room, get_room
 from src.state import get_initial_room_state, DECKS
 from markupsafe import escape
 import os
