@@ -1,7 +1,8 @@
 
 import os
 
-EMOJI_REL_PATH = '../static/img/emojis'
+_BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+_EMOJI_DIR = os.path.join(_BASE_DIR, '..', 'static', 'img', 'emojis')
 VALID_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.webp'}
 AVATARS = ['👾', '👽', '🤖', '👨🏻‍💻', '​😎', '​​🦁​', '👹', '👺', '💀', 
            '🦄', '🐲', '🌵', '🥑', '🍄', '🐙', '🐸', '🦊', '​​🙉​​​',
@@ -41,17 +42,14 @@ def get_allowed_custom_emojis():
     Scans the static/img/emojis directory and returns a set of valid web paths.
     Example: {'/static/img/emojis/dog.png', '/static/img/emojis/cat.gif'}
     """
-    # Calculate absolute path relative to this file (src/utils.py)
-    base_dir = os.path.dirname(__file__)
-    emoji_dir = os.path.join(base_dir, EMOJI_REL_PATH)
 
-    if not os.path.exists(emoji_dir):
-        print(f"Custom emoji directory does not exist: {emoji_dir}", flush=True)
+    if not os.path.exists(_EMOJI_DIR):
+        print(f"Custom emoji directory does not exist: {_EMOJI_DIR}", flush=True)
         return set()
     
     allowed = set()
     
-    emoji_dir_real = os.path.realpath(emoji_dir)
+    emoji_dir_real = os.path.realpath(_EMOJI_DIR)
     if os.path.exists(emoji_dir_real):
         for filename in os.listdir(emoji_dir_real):
             file_real_path = os.path.realpath(os.path.join(emoji_dir_real, filename))
