@@ -193,7 +193,7 @@
                 {% set emoji_filename = emoji_path.split('/')[-1] %}
                 {% set emoji_title = emoji_filename.rsplit('.', 1)[0] | replace('_', ' ') | replace('-', ' ') | title %}
                 <button class="btn btn-sm btn-outline-light border-0 fs-4" 
-                        onclick="sendReaction('{{ emoji_path|tojson }}')" 
+                        onclick="sendReaction('{{ emoji_path }}')" 
                         title="{{ emoji_title }}">
                     <img src="{{ url_for('static', filename=(emoji_path[static_prefix|length:] if emoji_path.startswith(static_prefix) else emoji_path)) }}" 
                         alt="emoji" 
