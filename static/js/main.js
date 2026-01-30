@@ -36,8 +36,6 @@ function sendReaction(emoji) {
     // createFloatingEmoji(emoji, true);
 }
 
-
-
 // 2. Receive Listener
 socket.on('trigger_reaction', (data) => {
     createFloatingEmoji(data.emoji);
