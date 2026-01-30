@@ -113,7 +113,7 @@ def room(room_id):
 
 @app.route('/history')
 def history():
-    """Fetch history directly from Redis Room State"""
+    """Fetch history directly from Room State (Redis or in-memory)"""
     room_id = request.args.get('room_id')
     
     if not room_id:
