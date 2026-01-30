@@ -78,7 +78,7 @@ def reveal_vote(data):
                 total_value += float(val)
                 vote_count += 1
         
-        final_average = round(total_value / vote_count, 1) if vote_count > 0 else None
+        final_average = round(total_value / vote_count, 2) if vote_count > 0 else None
 
         # Create the history entry
         history_entry = {
