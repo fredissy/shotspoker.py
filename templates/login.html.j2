@@ -40,23 +40,29 @@
 
             <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                    <button class="nav-link active" id="pills-join-tab" data-bs-toggle="pill" data-bs-target="#pills-join" type="button">Join Existing</button>
+                    <button class="nav-link {% if prefill_room_id %}active{% endif %}" 
+                            id="pills-join-tab" data-bs-toggle="pill" data-bs-target="#pills-join" type="button">
+                        Join Existing
+                    </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" id="pills-create-tab" data-bs-toggle="pill" data-bs-target="#pills-create" type="button">Create New Room</button>
+                    <button class="nav-link {% if not prefill_room_id %}active{% endif %}" 
+                            id="pills-create-tab" data-bs-toggle="pill" data-bs-target="#pills-create" type="button">
+                        Create New Room
+                    </button>
                 </li>
             </ul>
 
             <div class="tab-content" id="pills-tabContent">
                 
-                <div class="tab-pane fade show active" id="pills-join">
+                <div class="tab-pane fade {% if prefill_room_id %}show active{% endif %}" id="pills-join">
                     <div class="input-group">
                         <input type="text" id="roomIdInput" class="form-control" value="{{ prefill_room_id if prefill_room_id else '' }}" placeholder="e.g. apple-bridge-candle">
                         <button class="btn btn-primary" onclick="joinRoom()">Join</button>
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="pills-create">
+                <div class="tab-pane fade {% if not prefill_room_id %}show active{% endif %}" id="pills-create">
                     <div class="mb-4">
                         <label class="form-label">Voting Deck</label>
                         <select id="deckType" class="form-select">
