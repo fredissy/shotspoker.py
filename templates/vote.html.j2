@@ -20,17 +20,25 @@
     <div class="container py-5" id="mainApp">
         
         <div class="position-absolute top-0 end-0 p-3">
-            <div id="roomInfoDisplay" class="badge bg-light text-dark border room-badge p-2 shadow-sm" style="font-size: 0.9rem;" onclick="copyRoomId()" title="Click to Copy ID">
-                Room ID: <span id="currentRoomDisplay" class="fw-bold font-monospace">{{ room_id }}</span> 📋
-            </div>
+
         </div>
-
-        <h1 class="text-center mb-4">Shots Poker</h1>
-
         <div class="card mb-4">
-            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                <span>Controls (Anyone can act as Admin)</span>
-                
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center p-3">
+    
+                <div class="d-flex align-items-center gap-3">
+                    <span class="fs-5 fw-bold">Shots Poker</span>
+
+                    <div class="vr bg-light" style="height: 24px; width: 2px; opacity: 0.5;"></div>
+
+                    <div class="badge bg-light text-dark border shadow-sm font-monospace d-flex align-items-center gap-2" 
+                        style="cursor: pointer; font-size: 0.9rem;" 
+                        onclick="copyRoomId()" 
+                        title="Click to copy Room ID">
+                        <span>{{ room_id }}</span>
+                        <span>📋</span>
+                    </div>
+                </div>
+
                 <div class="dropdown">
                     <div class="bg-light rounded-pill px-3 py-1 d-flex align-items-center gap-2 shadow-sm border border-secondary"
                         id="userChip"
@@ -43,6 +51,7 @@
                     </div>
 
                     <ul class="dropdown-menu dropdown-menu-end shadow" style="min-width: 220px;">
+                        {# <li><h6 class="dropdown-header">Session Settings</h6></li> #}
                         <li>
                             <div class="dropdown-item-text">
                                 <div class="form-check form-switch">
@@ -55,16 +64,17 @@
                                 </div>
                             </div>
                         </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li>
-                            <button class="dropdown-item" onclick="toggleTheme()">
-                                <span>💡</span>
+                            <button class="dropdown-item d-flex justify-content-between align-items-center" onclick="toggleTheme()">
                                 <span>Dark Mode</span>
+                                <span>💡</span>
                             </button>
                         </li>
                         <li>
-                            <button class="dropdown-item" onclick="logout()">
-                                <span>🚪</span>
+                            <button class="dropdown-item text-danger" onclick="logout()">
                                 <span>Exit Room</span>
+                                <span class="float-end">🚪</span>
                             </button>
                         </li>
                     </ul>
