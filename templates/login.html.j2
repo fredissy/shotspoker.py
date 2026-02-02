@@ -7,9 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/theme.js', v=timestamp) }}"></script>
 </head>
-<body class="d-flex align-items-center justify-content-center" style="height: 100vh;">
-
+<body class="d-flex align-items-center justify-content-center bg-body-tertiary" style="height: 100vh;">
+    <div class="position-absolute top-0 end-0 p-3">
+        <button class="btn btn-outline-secondary shadow-sm" onclick="toggleTheme()" title="Toggle Dark Mode">
+            💡
+        </button>
+    </div>
     <div id="joinScreen">
         <div class="card shadow p-4" style="width: 450px;">
             <h3 class="text-center mb-3">Shots Poker</h3>
