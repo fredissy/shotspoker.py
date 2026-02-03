@@ -1,5 +1,6 @@
 let myChart = null;
 let timerInterval = null;
+let localTimerEnd = null;
 let currentDeckRendered = false;
 let wasRevealed = false;
 let lastDistribution = null;
@@ -192,6 +193,10 @@ function renderParticipants(state) {
         `;
         list.appendChild(li);
     });
+    const header = document.getElementById('participantsHeader');
+    if (header) {
+        header.innerText = `Participants (${participants.length})`;
+    }
 }
 
 function checkConsensus(participants) {
