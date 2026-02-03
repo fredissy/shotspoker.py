@@ -126,6 +126,15 @@ def _get_public_state(room_id, state):
                 'status': 'offline'
             })
 
+    remaining = None
+    if state.get('timer_end'):
+        # Calculate difference between Server End Time and Server Now
+        diff = state['timer_end'] - time.time()
+        if diff > 0:
+            remaining = diff
+        else:
+            remaining = 0 # Timer finished
+
     return {
         'room_id': room_id,
         'active': state['active'],
@@ -136,7 +145,7 @@ def _get_public_state(room_id, state):
         'distribution': vote_counts,
         'admin_sid': state['admin_sid'],
         'queue': state['queue'],
-        'timer_end': state.get('timer_end'),
+        'timer_remaining': remaining,
         'deck': state['deck_config'],
         'stats': {
             'average': average,

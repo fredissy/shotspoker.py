@@ -348,29 +348,32 @@ function updateTimer(state) {
     if (!timerEl) return;
 
     if (timerInterval) clearInterval(timerInterval);
-    if (state.timer_end) {
+
+    if (state.timer_remaining !== null && state.timer_remaining > 0) {
         timerEl.style.display = 'inline-block';
 
-        // Start a local countdown loop
+        if (!localTimerEnd || Math.abs((Date.now() / 1000 + state.timer_remaining) - localTimerEnd) > 1) {
+             localTimerEnd = (Date.now() / 1000) + state.timer_remaining;
+        }
+
         timerInterval = setInterval(() => {
-            // Get client's current time (in seconds, matching Python's time.time())
             const now = Date.now() / 1000;
-            const diff = state.timer_end - now;
+            const diff = localTimerEnd - now;
 
             if (diff <= 0) {
                 timerEl.innerText = "0:00";
                 clearInterval(timerInterval);
-                // Optional: Play a "Ding" sound here if you kept the audio file
+                localTimerEnd = null; // Reset
             } else {
-                // Format MM:SS
                 const m = Math.floor(diff / 60);
                 const s = Math.floor(diff % 60);
                 timerEl.innerText = `${m}:${s.toString().padStart(2, '0')}`;
             }
-        }, 100); // Update every 100ms for smoothness
+        }, 100);
     } else {
         timerEl.style.display = 'none';
         timerEl.innerText = "00:00";
+        localTimerEnd = null;
     }
 }
 
