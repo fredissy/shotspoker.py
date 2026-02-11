@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, request
+from flask_babel import Babel
 from flask_migrate import Migrate
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
@@ -29,6 +30,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['ADMIN_USERNAME'] = os.environ.get('ADMIN_USERNAME', None)
 app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', None)
+
+
+def get_locale():
+    # You can add logic here to check session or user preference
+    return request.accept_languages.best_match(['en', 'es'])
+
+
+app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'translations'
+babel = Babel(app, locale_selector=get_locale)
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
