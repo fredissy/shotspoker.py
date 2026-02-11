@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-11 10:55+0000\n"
+"POT-Creation-Date: 2026-02-11 11:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,338 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: templates/login.html.j2:20
+#: src/i18n_utils.py:10
+msgid "Please enter a Jira Ticket ID"
+msgstr ""
+
+#: src/i18n_utils.py:13
+msgid "Voting on"
+msgstr ""
+
+#: src/i18n_utils.py:14 templates/vote.html.j2:138
+msgid "Waiting for session..."
+msgstr ""
+
+#: src/i18n_utils.py:15 templates/vote.html.j2:196
+msgid "Waiting for reveal..."
+msgstr ""
+
+#: src/i18n_utils.py:16
+msgid "Results are already visible"
+msgstr ""
+
+#: src/i18n_utils.py:17
+msgid "Reveal results"
+msgstr ""
+
+#: src/i18n_utils.py:18
+msgid "Only the starter can reset"
+msgstr ""
+
+#: src/i18n_utils.py:19 templates/vote.html.j2:158
+msgid "Participants"
+msgstr ""
+
+#: src/i18n_utils.py:20
+msgid "No history yet."
+msgstr ""
+
+#: src/i18n_utils.py:21
+msgid "Failed to load history."
+msgstr ""
+
+#: src/i18n_utils.py:22
+msgid "Room ID copied to clipboard!"
+msgstr ""
+
+#: src/i18n_utils.py:23
+msgid "Failed to copy Room ID"
+msgstr ""
+
+#: src/i18n_utils.py:24 templates/partials/queue.html.j2:17
+msgid "Current Queue"
+msgstr ""
+
+#: src/i18n_utils.py:25 templates/partials/queue.html.j2:5
+msgid "Set Voting Queue"
+msgstr ""
+
+#: src/i18n_utils.py:26 templates/partials/queue.html.j2:22
+msgid "Queue is empty"
+msgstr ""
+
+#: src/i18n_utils.py:29
+msgid "Click to start voting on this ticket"
+msgstr ""
+
+#: src/i18n_utils.py:32
+msgid "Connection error"
+msgstr ""
+
+#: src/i18n_utils.py:33 src/routes/main.py:64
+msgid "Name is required"
+msgstr ""
+
+#: src/i18n_utils.py:34 src/routes/main.py:86
+msgid "Room not found"
+msgstr ""
+
+#: src/i18n_utils.py:37 templates/login.html.j2:38
+msgid "Voter"
+msgstr ""
+
+#: src/i18n_utils.py:38 templates/login.html.j2:40
+msgid "Observer"
+msgstr ""
+
+#: src/i18n_utils.py:39
+msgid "Public"
+msgstr ""
+
+#: src/i18n_utils.py:40
+msgid "Private"
+msgstr ""
+
+#: src/i18n_utils.py:41 templates/partials/history.html.j2:16
+msgid "Avg Score"
+msgstr ""
+
+#: src/i18n_utils.py:42 templates/partials/history.html.j2:17
+msgid "Vote Breakdown"
+msgstr ""
+
+#: src/i18n_utils.py:43 templates/partials/history.html.j2:13
+msgid "Date"
+msgstr ""
+
+#: src/i18n_utils.py:44 templates/partials/history.html.j2:14
+msgid "Ticket Key"
+msgstr ""
+
+#: src/i18n_utils.py:45 templates/partials/history.html.j2:15
+msgid "Type"
+msgstr ""
+
+#: src/i18n_utils.py:48
+msgid "Number of votes"
+msgstr ""
+
+#: src/i18n_utils.py:49
+msgid "Votes"
+msgstr ""
+
+#: src/routes/votes.py:116
+msgid "Waiting..."
+msgstr ""
+
+#: templates/admin.html.j2:13
+msgid "Admin Panel"
+msgstr ""
+
+#: templates/admin.html.j2:15
+msgid "Toggle Dark Mode"
+msgstr ""
+
+#: templates/admin.html.j2:18
+msgid "Back to Home"
+msgstr ""
+
+#: templates/admin.html.j2:23
+msgid "Storage Mode"
+msgstr ""
+
+#: templates/admin.html.j2:25
+msgid "Single instance - data will be lost on restart"
+msgstr ""
+
+#: templates/admin.html.j2:34
+msgid "Room ID"
+msgstr ""
+
+#: templates/admin.html.j2:35
+msgid "Ticket"
+msgstr ""
+
+#: templates/admin.html.j2:36
+msgid "Users"
+msgstr ""
+
+#: templates/admin.html.j2:37
+msgid "Created"
+msgstr ""
+
+#: templates/admin.html.j2:38
+msgid "Last Active"
+msgstr ""
+
+#: templates/admin.html.j2:39
+msgid "Action"
+msgstr ""
+
+#: templates/admin.html.j2:51
+msgid "Are you sure? This will kick everyone out."
+msgstr ""
+
+#: templates/admin.html.j2:52
+msgid "Delete"
+msgstr ""
+
+#: templates/admin.html.j2:58
+msgid "No active rooms found."
+msgstr ""
+
+#: templates/login.html.j2:20 templates/vote.html.j2:33
 msgid "Shots Poker"
+msgstr ""
+
+#: templates/login.html.j2:24
+msgid "You've been invited to join"
+msgstr ""
+
+#: templates/login.html.j2:25
+msgid "Please enter your name below."
 msgstr ""
 
 #: templates/login.html.j2:30
 msgid "Your Name"
+msgstr ""
+
+#: templates/login.html.j2:31
+msgid "e.g. Alice"
+msgstr ""
+
+#: templates/login.html.j2:35
+msgid "I am a..."
+msgstr ""
+
+#: templates/login.html.j2:50
+msgid "Join Existing"
+msgstr ""
+
+#: templates/login.html.j2:56
+msgid "Create New Room"
+msgstr ""
+
+#: templates/login.html.j2:66
+msgid "Join"
+msgstr ""
+
+#: templates/login.html.j2:72
+msgid "Voting Deck"
+msgstr ""
+
+#: templates/login.html.j2:82
+msgid "Start New Session"
+msgstr ""
+
+#: templates/vote.html.j2:40
+msgid "Click to copy Room ID"
+msgstr ""
+
+#: templates/vote.html.j2:63
+msgid "Observer Mode"
+msgstr ""
+
+#: templates/vote.html.j2:74
+msgid "Dark Mode"
+msgstr ""
+
+#: templates/vote.html.j2:80
+msgid "Exit Room"
+msgstr ""
+
+#: templates/vote.html.j2:90
+msgid "JIRA Ticket (e.g. PROJ-123)"
+msgstr ""
+
+#: templates/vote.html.j2:95
+msgid "Public Votes"
+msgstr ""
+
+#: templates/vote.html.j2:99
+msgid "Start New Vote"
+msgstr ""
+
+#: templates/vote.html.j2:100
+msgid "Reveal Results"
+msgstr ""
+
+#: templates/vote.html.j2:101
+msgid "Reset"
+msgstr ""
+
+#: templates/vote.html.j2:107
+msgid "Timer"
+msgstr ""
+
+#: templates/vote.html.j2:110
+msgid "30 Seconds"
+msgstr ""
+
+#: templates/vote.html.j2:111
+msgid "1 Minute"
+msgstr ""
+
+#: templates/vote.html.j2:112
+msgid "2 Minutes"
+msgstr ""
+
+#: templates/vote.html.j2:114
+msgid "Stop Timer"
+msgstr ""
+
+#: templates/vote.html.j2:117
+msgid "Manage Queue"
+msgstr ""
+
+#: templates/vote.html.j2:119
+msgid "History"
+msgstr ""
+
+#: templates/vote.html.j2:129
+msgid "Up Next"
+msgstr ""
+
+#: templates/vote.html.j2:146
+msgid "Cast your vote:"
+msgstr ""
+
+#: templates/vote.html.j2:152
+msgid "You are observing this session."
+msgstr ""
+
+#: templates/vote.html.j2:167
+msgid "Results Distribution"
+msgstr ""
+
+#: templates/vote.html.j2:171
+msgid "Bar"
+msgstr ""
+
+#: templates/vote.html.j2:174
+msgid "Pie"
+msgstr ""
+
+#: templates/vote.html.j2:181
+msgid "Average"
+msgstr ""
+
+#: templates/vote.html.j2:187
+msgid "Agreement"
+msgstr ""
+
+#: templates/partials/history.html.j2:5
+msgid "Session History"
+msgstr ""
+
+#: templates/partials/queue.html.j2:11
+msgid "Paste ticket(s) here..."
+msgstr ""
+
+#: templates/partials/queue.html.j2:12
+msgid "Add"
+msgstr ""
+
+#: templates/partials/queue.html.j2:26
+msgid "Close"
 msgstr ""

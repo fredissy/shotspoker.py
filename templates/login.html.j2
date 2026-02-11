@@ -21,23 +21,23 @@
             
             {% if prefill_room_id %}
                 <div class="alert alert-info py-2 mb-3 text-center">
-                    You've been invited to join <strong>{{ prefill_room_id }}</strong> !<br>
-                    Please enter your name below.
+                    {{ _("You've been invited to join") }} <strong>{{ prefill_room_id }}</strong> !<br>
+                    {{ _('Please enter your name below.') }}
                 </div>
             {% endif %}
 
             <div class="mb-3">
                 <label class="form-label">{{ _('Your Name') }}</label>
-                <input type="text" id="joinName" class="form-control" placeholder="e.g. Alice" maxlength="100">
+                <input type="text" id="joinName" class="form-control" placeholder="{{ _('e.g. Alice') }}" maxlength="100">
             </div>
 
             <div class="mb-3">
-                <label class="form-label">I am a...</label>
+                <label class="form-label">{{ _('I am a...') }}</label>
                 <div class="btn-group w-100" role="group">
                     <input type="radio" class="btn-check" name="role" id="roleVoter" value="voter" checked>
-                    <label class="btn btn-outline-primary" for="roleVoter">Voter</label>
+                    <label class="btn btn-outline-primary" for="roleVoter">{{ _('Voter') }}</label>
                     <input type="radio" class="btn-check" name="role" id="roleObserver" value="observer">
-                    <label class="btn btn-outline-secondary" for="roleObserver">Observer 👀</label>
+                    <label class="btn btn-outline-secondary" for="roleObserver">{{ _('Observer') }} 👀</label>
                 </div>
             </div>
 
@@ -47,13 +47,13 @@
                 <li class="nav-item">
                     <button class="nav-link {% if prefill_room_id %}active{% endif %}" 
                             id="pills-join-tab" data-bs-toggle="pill" data-bs-target="#pills-join" type="button">
-                        Join Existing
+                        {{ _('Join Existing') }}
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link {% if not prefill_room_id %}active{% endif %}" 
                             id="pills-create-tab" data-bs-toggle="pill" data-bs-target="#pills-create" type="button">
-                        Create New Room
+                        {{ _('Create New Room') }}
                     </button>
                 </li>
             </ul>
@@ -63,13 +63,13 @@
                 <div class="tab-pane fade {% if prefill_room_id %}show active{% endif %}" id="pills-join">
                     <div class="input-group">
                         <input type="text" id="roomIdInput" class="form-control" value="{{ prefill_room_id if prefill_room_id else '' }}" placeholder="e.g. apple-bridge-candle">
-                        <button class="btn btn-primary" onclick="joinRoom()">Join</button>
+                        <button class="btn btn-primary" onclick="joinRoom()">{{ _('Join') }}</button>
                     </div>
                 </div>
 
                 <div class="tab-pane fade {% if not prefill_room_id %}show active{% endif %}" id="pills-create">
                     <div class="mb-4">
-                        <label class="form-label">Voting Deck</label>
+                        <label class="form-label">{{ _('Voting Deck') }}</label>
                         <select id="deckType" class="form-select">
                             {% for key, values in decks.items() %}
                                 <option value="{{ key }}" {% if key == 'fibonacci' %}selected{% endif %}>
@@ -79,7 +79,7 @@
                         </select>
                     </div>
 
-                    <button class="btn btn-success w-100" onclick="createRoom()">🚀 Start New Session</button>
+                    <button class="btn btn-success w-100" onclick="createRoom()">🚀 {{ _('Start New Session') }}</button>
                 </div>
                 
             </div>
@@ -90,6 +90,12 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.translations = {{ js_translations | tojson }};
+        function t(key) {
+            return (window.translations && window.translations[key]) ? window.translations[key] : key;
+        }
+    </script>
     <script src="{{ url_for('static', filename='js/login.js', v=timestamp) }}"></script>
 </body>
 </html>

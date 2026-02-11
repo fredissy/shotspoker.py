@@ -2,7 +2,7 @@
 function startVote() {
     const ticket = document.getElementById('jiraTicket').value;
     const isPublic = document.getElementById('publicVote').checked;
-    if (!ticket) return alert("Please enter a Jira Ticket ID");
+    if (!ticket) return alert(t("Please enter a Jira Ticket ID"));
 
     socket.emit('start_vote', {
         room_id: currentRoomId,
