@@ -7,12 +7,17 @@ from src.model import TicketSession
 from src.utils import STANDARD_EMOJIS, choose_user_avatar, get_allowed_custom_emojis
 from src.store import room_exists, save_room
 from src.state import get_initial_room_state, DECKS
+from src.i18n_utils import get_js_translations
 from markupsafe import escape
+from flask_babel import _
 import os
 
 @app.context_processor
-def inject_timestamp():
-    return {'timestamp': int(time.time())}
+def inject_global_context():
+    return {
+        'timestamp': int(time.time()),
+        'js_translations': get_js_translations()
+    }
 
 WORDS = []
 
@@ -56,7 +61,7 @@ def login():
     deck_type = data.get('deck_type', 'fibonacci')
 
     if not clean_name:
-        return jsonify({'error': 'Name is required'}), 400
+        return jsonify({'error': _('Name is required')}), 400
 
     if len(clean_name) > 100:
         clean_name = clean_name[:100]
@@ -78,7 +83,7 @@ def login():
             room_id = room_id.strip().lower()
 
         if not room_id or not room_exists:
-            return jsonify({'error': 'Room not found'}), 404
+            return jsonify({'error': _('Room not found')}), 404
             
     # 2. Set Server-Side Session (Cookie)
     session['room_id'] = room_id

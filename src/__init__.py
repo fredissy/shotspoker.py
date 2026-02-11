@@ -34,7 +34,7 @@ app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', None)
 
 def get_locale():
     # You can add logic here to check session or user preference
-    return request.accept_languages.best_match(['en', 'es'])
+    return request.accept_languages.best_match(['en', 'es', 'fr'])
 
 
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'

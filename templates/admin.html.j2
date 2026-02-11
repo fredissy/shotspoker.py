@@ -11,19 +11,19 @@
 <body class="bg-body-tertiary">
     <div class="container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>🔧 Admin Panel</h1>
+            <h1>🔧 {{ _('Admin Panel') }}</h1>
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-secondary" onclick="toggleTheme()" title="Toggle Dark Mode">
+                <button class="btn btn-outline-secondary" onclick="toggleTheme()" title="{{ _('Toggle Dark Mode') }}">
                     💡
                 </button>
-                <a href="/" class="btn btn-outline-primary">Back to Home</a>
+                <a href="/" class="btn btn-outline-primary">{{ _('Back to Home') }}</a>
             </div>
         </div>
 
         <div class="alert alert-info">
-            Storage Mode: <strong>{{ storage_mode }}</strong>
+            {{ _('Storage Mode') }}: <strong>{{ storage_mode }}</strong>
             {% if storage_mode == 'In-Memory' %}
-            (Single instance - data will be lost on restart)
+            ({{ _('Single instance - data will be lost on restart') }})
             {% endif %}
         </div>
 
@@ -126,12 +126,12 @@
                 <table class="table table-hover align-middle">
                     <thead class="table-dark">
                         <tr>
-                            <th>Room ID</th>
-                            <th>Ticket</th>
-                            <th>Users</th>
-                            <th>Created</th>
-                            <th>Last Active</th>
-                            <th>Action</th>
+                            <th>{{ _('Room ID') }}</th>
+                            <th>{{ _('Ticket') }}</th>
+                            <th>{{ _('Users') }}</th>
+                            <th>{{ _('Created') }}</th>
+                            <th>{{ _('Last Active') }}</th>
+                            <th>{{ _('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -143,14 +143,14 @@
                             <td class="small text-muted">{{ room.created_at }}</td>
                             <td class="small text-muted">{{ room.last_updated }}</td>
                             <td>
-                                <form action="{{ url_for('delete_room', room_id=room.id) }}" method="POST" onsubmit="return confirm('Are you sure? This will kick everyone out.');">
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete 🗑️</button>
+                                <form action="{{ url_for('delete_room', room_id=room.id) }}" method="POST" onsubmit="return confirm('{{ _('Are you sure? This will kick everyone out.') }}');">
+                                    <button type="submit" class="btn btn-sm btn-danger">{{ _('Delete') }} 🗑️</button>
                                 </form>
                             </td>
                         </tr>
                         {% else %}
                         <tr>
-                            <td colspan="6" class="text-center py-4">No active rooms found.</td>
+                            <td colspan="6" class="text-center py-4">{{ _('No active rooms found.') }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

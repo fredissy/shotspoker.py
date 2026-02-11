@@ -1,4 +1,4 @@
-# Spanish translations for PROJECT.
+# French translations for PROJECT.
 # Copyright (C) 2026 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
@@ -10,9 +10,9 @@ msgstr ""
 "POT-Creation-Date: 2026-02-11 11:21+0000\n"
 "PO-Revision-Date: 2026-02-11 11:21+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
-"Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: fr\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,156 +20,156 @@ msgstr ""
 
 #: src/i18n_utils.py:10
 msgid "Please enter a Jira Ticket ID"
-msgstr "Por favor, ingrese un ID de ticket de Jira"
+msgstr "Veuillez entrer un ID de ticket Jira"
 
 #: src/i18n_utils.py:13
 msgid "Voting on"
-msgstr "Votando en"
+msgstr "Vote sur"
 
 #: src/i18n_utils.py:14 templates/vote.html.j2:138
 msgid "Waiting for session..."
-msgstr "Esperando sesión..."
+msgstr "En attente de session..."
 
 #: src/i18n_utils.py:15 templates/vote.html.j2:193
 msgid "Waiting for reveal..."
-msgstr "Esperando a revelar..."
+msgstr "En attente de révélation..."
 
 #: src/i18n_utils.py:16
 msgid "Results are already visible"
-msgstr "Los resultados ya son visibles"
+msgstr "Les résultats sont déjà visibles"
 
 #: src/i18n_utils.py:17 templates/vote.html.j2:99
 msgid "Reveal Results"
-msgstr "Revelar Resultados"
+msgstr "Révéler les résultats"
 
 #: src/i18n_utils.py:18
 msgid "Only the starter can reset"
-msgstr "Solo el iniciador puede reiniciar"
+msgstr "Seul le créateur peut réinitialiser"
 
 #: src/i18n_utils.py:19 templates/vote.html.j2:153
 msgid "Participants"
-msgstr "Participantes"
+msgstr "Participants"
 
 #: src/i18n_utils.py:20
 msgid "No history yet."
-msgstr "No hay historial aún."
+msgstr "Pas encore d'historique."
 
 #: src/i18n_utils.py:21
 msgid "Failed to load history."
-msgstr "Error al cargar el historial."
+msgstr "Échec du chargement de l'historique."
 
 #: src/i18n_utils.py:22
 msgid "Room ID copied to clipboard!"
-msgstr "¡ID de la sala copiado!"
+msgstr "ID de la salle copié !"
 
 #: src/i18n_utils.py:23
 msgid "Failed to copy Room ID"
-msgstr "Error al copiar el ID de la sala"
+msgstr "Échec de la copie de l'ID de la salle"
 
 #: src/i18n_utils.py:24 templates/partials/queue.html.j2:15
 msgid "Current Queue"
-msgstr "Cola Actual"
+msgstr "File d'attente actuelle"
 
 #: src/i18n_utils.py:25 templates/partials/queue.html.j2:3
 msgid "Set Voting Queue"
-msgstr "Configurar Cola de Votación"
+msgstr "Définir la file d'attente de vote"
 
 #: src/i18n_utils.py:26 templates/partials/queue.html.j2:20
 msgid "Queue is empty"
-msgstr "La cola está vacía"
+msgstr "La file d'attente est vide"
 
 #: src/i18n_utils.py:29
 msgid "Click to start voting on this ticket"
-msgstr "Haga clic para comenzar a votar en este ticket"
+msgstr "Cliquez pour commencer à voter sur ce ticket"
 
 #: src/i18n_utils.py:32
 msgid "Connection error"
-msgstr "Error de conexión"
+msgstr "Erreur de connexion"
 
 #: src/i18n_utils.py:33 src/routes/main.py:64
 msgid "Name is required"
-msgstr "El nombre es obligatorio"
+msgstr "Le nom est requis"
 
 #: src/i18n_utils.py:34 src/routes/main.py:86
 msgid "Room not found"
-msgstr "Sala no encontrada"
+msgstr "Salle introuvable"
 
 #: src/i18n_utils.py:37 templates/login.html.j2:38
 msgid "Voter"
-msgstr "Votante"
+msgstr "Votant"
 
 #: src/i18n_utils.py:38 templates/login.html.j2:40
 msgid "Observer"
-msgstr "Observador"
+msgstr "Observateur"
 
 #: src/i18n_utils.py:39
 msgid "Public"
-msgstr "Público"
+msgstr "Public"
 
 #: src/i18n_utils.py:40
 msgid "Private"
-msgstr "Privado"
+msgstr "Privé"
 
 #: src/i18n_utils.py:41 templates/partials/history.html.j2:13
 #: templates/vote.html.j2:177
 msgid "Avg Score"
-msgstr "Puntaje Promedio"
+msgstr "Score moyen"
 
 #: src/i18n_utils.py:42 templates/partials/history.html.j2:14
 msgid "Vote Breakdown"
-msgstr "Desglose de Votos"
+msgstr "Répartition des votes"
 
 #: src/i18n_utils.py:43 templates/partials/history.html.j2:10
 msgid "Date"
-msgstr "Fecha"
+msgstr "Date"
 
 #: src/i18n_utils.py:44 templates/partials/history.html.j2:11
 msgid "Ticket Key"
-msgstr "Clave del Ticket"
+msgstr "Clé du ticket"
 
 #: src/i18n_utils.py:45 templates/partials/history.html.j2:12
 msgid "Type"
-msgstr "Tipo"
+msgstr "Type"
 
 #: src/i18n_utils.py:48
 msgid "Number of votes"
-msgstr "Número de votos"
+msgstr "Nombre de votes"
 
 #: src/i18n_utils.py:49
 msgid "Votes"
-msgstr "Votos"
+msgstr "Votes"
 
 #: src/routes/votes.py:116
 msgid "Waiting..."
-msgstr "Esperando..."
+msgstr "En attente..."
 
 #: templates/admin.html.j2:13
 msgid "Admin Panel"
-msgstr "Panel de Administración"
+msgstr "Panneau d'administration"
 
 #: templates/admin.html.j2:15
 msgid "Toggle Dark Mode"
-msgstr "Alternar Modo Oscuro"
+msgstr "Basculer le mode sombre"
 
 #: templates/admin.html.j2:18 templates/vote.html.j2:74
 msgid "Dark Mode"
-msgstr "Modo Oscuro"
+msgstr "Mode sombre"
 
 #: templates/admin.html.j2:18
 msgid "Back to Home"
-msgstr "Volver al Inicio"
+msgstr "Retour à l'accueil"
 
 #: templates/admin.html.j2:23
 msgid "Storage Mode"
-msgstr "Modo de Almacenamiento"
+msgstr "Mode de stockage"
 
 #: templates/admin.html.j2:25
 msgid "Single instance - data will be lost on restart"
-msgstr "Instancia única - los datos se perderán al reiniciar"
+msgstr "Instance unique - les données seront perdues au redémarrage"
 
 #: templates/admin.html.j2:34
 msgid "Room ID"
-msgstr "ID de Sala"
+msgstr "ID de salle"
 
 #: templates/admin.html.j2:35
 msgid "Ticket"
@@ -177,176 +177,176 @@ msgstr "Ticket"
 
 #: templates/admin.html.j2:36
 msgid "Users"
-msgstr "Usuarios"
+msgstr "Utilisateurs"
 
 #: templates/admin.html.j2:37
 msgid "Created"
-msgstr "Creado"
+msgstr "Créé"
 
 #: templates/admin.html.j2:38
 msgid "Last Active"
-msgstr "Último Activo"
+msgstr "Dernière activité"
 
 #: templates/admin.html.j2:39
 msgid "Action"
-msgstr "Acción"
+msgstr "Action"
 
 #: templates/admin.html.j2:51
 msgid "Are you sure? This will kick everyone out."
-msgstr "¿Estás seguro? Esto expulsará a todos."
+msgstr "Êtes-vous sûr ? Cela expulsera tout le monde."
 
 #: templates/admin.html.j2:52
 msgid "Delete"
-msgstr "Eliminar"
+msgstr "Supprimer"
 
 #: templates/admin.html.j2:58
 msgid "No active rooms found."
-msgstr "No se encontraron salas activas."
+msgstr "Aucune salle active trouvée."
 
 #: templates/login.html.j2:20 templates/vote.html.j2:33
 msgid "Shots Poker"
-msgstr "Shots Poker (ES)"
+msgstr "Shots Poker (FR)"
 
 #: templates/login.html.j2:24
 msgid "You've been invited to join"
-msgstr "Has sido invitado a unirte a"
+msgstr "Vous avez été invité à rejoindre"
 
 #: templates/login.html.j2:25
 msgid "Please enter your name below."
-msgstr "Por favor, ingrese su nombre a continuación."
+msgstr "Veuillez entrer votre nom ci-dessous."
 
 #: templates/login.html.j2:30 templates/login.html.j2:63
 msgid "Your Name"
-msgstr "Su Nombre"
+msgstr "Votre nom"
 
 #: templates/login.html.j2:31
 msgid "e.g. Alice"
-msgstr "ej. Alicia"
+msgstr "ex. Alice"
 
 #: templates/login.html.j2:35
 msgid "I am a..."
-msgstr "Soy un..."
+msgstr "Je suis un..."
 
 #: templates/login.html.j2:49 templates/login.html.j2:64
 msgid "Join Existing"
-msgstr "Unirse a Existente"
+msgstr "Rejoindre"
 
 #: templates/login.html.j2:54 templates/login.html.j2:65
 msgid "Create New Room"
-msgstr "Crear Nueva Sala"
+msgstr "Créer une salle"
 
 #: templates/login.html.j2:65
 msgid "Join"
-msgstr "Unirse"
+msgstr "Rejoindre"
 
 #: templates/login.html.j2:72
 msgid "Voting Deck"
-msgstr "Mazo de Votación"
+msgstr "Jeu de cartes"
 
 #: templates/login.html.j2:81
 msgid "Start New Session"
-msgstr "Iniciar Nueva Sesión"
+msgstr "Démarrer une session"
 
 #: templates/partials/history.html.j2:5 templates/vote.html.j2:118
 msgid "Session History"
-msgstr "Historial de Sesión"
+msgstr "Historique de session"
 
 #: templates/partials/queue.html.j2:9
 msgid "Paste ticket(s) here..."
-msgstr "Pegue ticket(s) aquí..."
+msgstr "Collez le(s) ticket(s) ici..."
 
 #: templates/partials/queue.html.j2:10
 msgid "Add"
-msgstr "Añadir"
+msgstr "Ajouter"
 
 #: templates/partials/queue.html.j2:24
 msgid "Close"
-msgstr "Cerrar"
+msgstr "Fermer"
 
 #: templates/vote.html.j2:40
 msgid "Click to copy Room ID"
-msgstr "Clic para copiar ID de Sala"
+msgstr "Cliquez pour copier l'ID"
 
 #: templates/vote.html.j2:63
 msgid "Observer Mode"
-msgstr "Modo Observador"
+msgstr "Mode observateur"
 
 #: templates/vote.html.j2:80
 msgid "Exit Room"
-msgstr "Salir de la Sala"
+msgstr "Quitter la salle"
 
 #: templates/vote.html.j2:93
 msgid "JIRA Ticket (e.g. PROJ-123)"
-msgstr "Ticket JIRA (ej. PROJ-123)"
+msgstr "Ticket JIRA (ex. PROJ-123)"
 
 #: templates/vote.html.j2:98 templates/vote.html.j2:207
 msgid "Public Votes"
-msgstr "Votos Públicos"
+msgstr "Votes publics"
 
 #: templates/vote.html.j2:102
 msgid "Start New Vote"
-msgstr "Iniciar Nueva Votación"
+msgstr "Nouveau vote"
 
 #: templates/vote.html.j2:104
 msgid "Reset"
-msgstr "Reiniciar"
+msgstr "Réinitialiser"
 
 #: templates/vote.html.j2:110
 msgid "Timer"
-msgstr "Temporizador"
+msgstr "Minuteur"
 
 #: templates/vote.html.j2:113
 msgid "30 Seconds"
-msgstr "30 Segundos"
+msgstr "30 Secondes"
 
 #: templates/vote.html.j2:114
 msgid "1 Minute"
-msgstr "1 Minuto"
+msgstr "1 Minute"
 
 #: templates/vote.html.j2:115
 msgid "2 Minutes"
-msgstr "2 Minutos"
+msgstr "2 Minutes"
 
 #: templates/vote.html.j2:117
 msgid "Stop Timer"
-msgstr "Detener Temporizador"
+msgstr "Arrêter"
 
 #: templates/vote.html.j2:120
 msgid "Manage Queue"
-msgstr "Gestionar Cola"
+msgstr "Gérer la file"
 
 #: templates/vote.html.j2:122
 msgid "History"
-msgstr "Historial"
+msgstr "Historique"
 
 #: templates/vote.html.j2:131
 msgid "Up Next"
-msgstr "Siguiente"
+msgstr "Suivant"
 
 #: templates/vote.html.j2:144
 msgid "Cast your vote:"
-msgstr "Emite tu voto:"
+msgstr "Votez :"
 
 #: templates/vote.html.j2:150
 msgid "You are observing this session."
-msgstr "Estás observando esta sesión."
+msgstr "Vous observez cette session."
 
 #: templates/vote.html.j2:162
 msgid "Results Distribution"
-msgstr "Distribución de Resultados"
+msgstr "Répartition des résultats"
 
 #: templates/vote.html.j2:166
 msgid "Bar"
-msgstr "Barras"
+msgstr "Barres"
 
 #: templates/vote.html.j2:169
 msgid "Pie"
-msgstr "Pastel"
+msgstr "Camembert"
 
 #: templates/vote.html.j2:177
 msgid "Average"
-msgstr "Promedio"
+msgstr "Moyenne"
 
 #: templates/vote.html.j2:183
 msgid "Agreement"
-msgstr "Acuerdo"
+msgstr "Accord"
