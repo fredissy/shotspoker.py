@@ -1,5 +1,7 @@
 from flask_babel import _
 
+SUPPORTED_LANGUAGES = ['en', 'es', 'fr']
+
 def get_js_translations():
     """
     Returns a dictionary of English string keys to translated values.

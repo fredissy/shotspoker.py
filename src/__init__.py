@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, request
+from flask import Flask, request, session
+from src.i18n_utils import SUPPORTED_LANGUAGES
 from flask_babel import Babel
 from flask_migrate import Migrate
 from flask_socketio import SocketIO
@@ -31,11 +32,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['ADMIN_USERNAME'] = os.environ.get('ADMIN_USERNAME', None)
 app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', None)
 
-
 def get_locale():
-    # You can add logic here to check session or user preference
-    return request.accept_languages.best_match(['en', 'es', 'fr'])
-
+    # 1. Priority: Check if the user manually selected a language
+    if 'lang' in session and session['lang'] in SUPPORTED_LANGUAGES:
+        return session['lang']
+    
+    # 2. Fallback: Use the browser's default preference
+    return request.accept_languages.best_match(SUPPORTED_LANGUAGES)
 
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'translations'

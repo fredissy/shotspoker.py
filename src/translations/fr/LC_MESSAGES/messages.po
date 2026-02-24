@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-11 11:21+0000\n"
+"POT-Creation-Date: 2026-02-24 14:06+0100\n"
 "PO-Revision-Date: 2026-02-11 11:21+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -18,124 +18,124 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: src/i18n_utils.py:10
+#: src/i18n_utils.py:12
 msgid "Please enter a Jira Ticket ID"
 msgstr "Veuillez entrer un ID de ticket Jira"
 
-#: src/i18n_utils.py:13
+#: src/i18n_utils.py:15
 msgid "Voting on"
 msgstr "Vote sur"
 
-#: src/i18n_utils.py:14 templates/vote.html.j2:138
+#: src/i18n_utils.py:16 templates/vote.html.j2:149
 msgid "Waiting for session..."
 msgstr "En attente de session..."
 
-#: src/i18n_utils.py:15 templates/vote.html.j2:193
+#: src/i18n_utils.py:17 templates/vote.html.j2:207
 msgid "Waiting for reveal..."
 msgstr "En attente de révélation..."
 
-#: src/i18n_utils.py:16
+#: src/i18n_utils.py:18
 msgid "Results are already visible"
 msgstr "Les résultats sont déjà visibles"
 
-#: src/i18n_utils.py:17 templates/vote.html.j2:99
-msgid "Reveal Results"
+#: src/i18n_utils.py:19
+#, fuzzy
+msgid "Reveal results"
 msgstr "Révéler les résultats"
 
-#: src/i18n_utils.py:18
+#: src/i18n_utils.py:20
 msgid "Only the starter can reset"
 msgstr "Seul le créateur peut réinitialiser"
 
-#: src/i18n_utils.py:19 templates/vote.html.j2:153
+#: src/i18n_utils.py:21 templates/vote.html.j2:169
 msgid "Participants"
 msgstr "Participants"
 
-#: src/i18n_utils.py:20
+#: src/i18n_utils.py:22
 msgid "No history yet."
 msgstr "Pas encore d'historique."
 
-#: src/i18n_utils.py:21
+#: src/i18n_utils.py:23
 msgid "Failed to load history."
 msgstr "Échec du chargement de l'historique."
 
-#: src/i18n_utils.py:22
+#: src/i18n_utils.py:24
 msgid "Room ID copied to clipboard!"
 msgstr "ID de la salle copié !"
 
-#: src/i18n_utils.py:23
+#: src/i18n_utils.py:25
 msgid "Failed to copy Room ID"
 msgstr "Échec de la copie de l'ID de la salle"
 
-#: src/i18n_utils.py:24 templates/partials/queue.html.j2:15
+#: src/i18n_utils.py:26 templates/partials/queue.html.j2:17
 msgid "Current Queue"
 msgstr "File d'attente actuelle"
 
-#: src/i18n_utils.py:25 templates/partials/queue.html.j2:3
+#: src/i18n_utils.py:27 templates/partials/queue.html.j2:5
 msgid "Set Voting Queue"
 msgstr "Définir la file d'attente de vote"
 
-#: src/i18n_utils.py:26 templates/partials/queue.html.j2:20
+#: src/i18n_utils.py:28 templates/partials/queue.html.j2:22
 msgid "Queue is empty"
 msgstr "La file d'attente est vide"
 
-#: src/i18n_utils.py:29
+#: src/i18n_utils.py:31
 msgid "Click to start voting on this ticket"
 msgstr "Cliquez pour commencer à voter sur ce ticket"
 
-#: src/i18n_utils.py:32
+#: src/i18n_utils.py:34
 msgid "Connection error"
 msgstr "Erreur de connexion"
 
-#: src/i18n_utils.py:33 src/routes/main.py:64
+#: src/i18n_utils.py:35 src/routes/main.py:64
 msgid "Name is required"
 msgstr "Le nom est requis"
 
-#: src/i18n_utils.py:34 src/routes/main.py:86
+#: src/i18n_utils.py:36 src/routes/main.py:86
 msgid "Room not found"
 msgstr "Salle introuvable"
 
-#: src/i18n_utils.py:37 templates/login.html.j2:38
+#: src/i18n_utils.py:39 templates/login.html.j2:51
 msgid "Voter"
 msgstr "Votant"
 
-#: src/i18n_utils.py:38 templates/login.html.j2:40
+#: src/i18n_utils.py:40 templates/login.html.j2:53
 msgid "Observer"
 msgstr "Observateur"
 
-#: src/i18n_utils.py:39
+#: src/i18n_utils.py:41
 msgid "Public"
 msgstr "Public"
 
-#: src/i18n_utils.py:40
+#: src/i18n_utils.py:42
 msgid "Private"
 msgstr "Privé"
 
-#: src/i18n_utils.py:41 templates/partials/history.html.j2:13
-#: templates/vote.html.j2:177
+#: src/i18n_utils.py:43 templates/partials/history.html.j2:16
 msgid "Avg Score"
 msgstr "Score moyen"
 
-#: src/i18n_utils.py:42 templates/partials/history.html.j2:14
+#: src/i18n_utils.py:44 templates/partials/history.html.j2:17
 msgid "Vote Breakdown"
 msgstr "Répartition des votes"
 
-#: src/i18n_utils.py:43 templates/partials/history.html.j2:10
+#: src/i18n_utils.py:45 templates/partials/history.html.j2:13
 msgid "Date"
 msgstr "Date"
 
-#: src/i18n_utils.py:44 templates/partials/history.html.j2:11
+#: src/i18n_utils.py:46 templates/partials/history.html.j2:14
 msgid "Ticket Key"
 msgstr "Clé du ticket"
 
-#: src/i18n_utils.py:45 templates/partials/history.html.j2:12
+#: src/i18n_utils.py:47 templates/partials/history.html.j2:15
 msgid "Type"
 msgstr "Type"
 
-#: src/i18n_utils.py:48
+#: src/i18n_utils.py:50
 msgid "Number of votes"
 msgstr "Nombre de votes"
 
-#: src/i18n_utils.py:49
+#: src/i18n_utils.py:51
 msgid "Votes"
 msgstr "Votes"
 
@@ -150,10 +150,6 @@ msgstr "Panneau d'administration"
 #: templates/admin.html.j2:15
 msgid "Toggle Dark Mode"
 msgstr "Basculer le mode sombre"
-
-#: templates/admin.html.j2:18 templates/vote.html.j2:74
-msgid "Dark Mode"
-msgstr "Mode sombre"
 
 #: templates/admin.html.j2:18
 msgid "Back to Home"
@@ -203,65 +199,49 @@ msgstr "Supprimer"
 msgid "No active rooms found."
 msgstr "Aucune salle active trouvée."
 
-#: templates/login.html.j2:20 templates/vote.html.j2:33
+#: templates/login.html.j2:33 templates/vote.html.j2:33
 msgid "Shots Poker"
-msgstr "Shots Poker (FR)"
+msgstr "Shots Poker"
 
-#: templates/login.html.j2:24
+#: templates/login.html.j2:37
 msgid "You've been invited to join"
 msgstr "Vous avez été invité à rejoindre"
 
-#: templates/login.html.j2:25
+#: templates/login.html.j2:38
 msgid "Please enter your name below."
 msgstr "Veuillez entrer votre nom ci-dessous."
 
-#: templates/login.html.j2:30 templates/login.html.j2:63
+#: templates/login.html.j2:43
 msgid "Your Name"
 msgstr "Votre nom"
 
-#: templates/login.html.j2:31
+#: templates/login.html.j2:44
 msgid "e.g. Alice"
 msgstr "ex. Alice"
 
-#: templates/login.html.j2:35
+#: templates/login.html.j2:48
 msgid "I am a..."
 msgstr "Je suis un..."
 
-#: templates/login.html.j2:49 templates/login.html.j2:64
+#: templates/login.html.j2:63
 msgid "Join Existing"
 msgstr "Rejoindre"
 
-#: templates/login.html.j2:54 templates/login.html.j2:65
+#: templates/login.html.j2:69
 msgid "Create New Room"
 msgstr "Créer une salle"
 
-#: templates/login.html.j2:65
+#: templates/login.html.j2:79
 msgid "Join"
 msgstr "Rejoindre"
 
-#: templates/login.html.j2:72
+#: templates/login.html.j2:85
 msgid "Voting Deck"
 msgstr "Jeu de cartes"
 
-#: templates/login.html.j2:81
+#: templates/login.html.j2:95
 msgid "Start New Session"
 msgstr "Démarrer une session"
-
-#: templates/partials/history.html.j2:5 templates/vote.html.j2:118
-msgid "Session History"
-msgstr "Historique de session"
-
-#: templates/partials/queue.html.j2:9
-msgid "Paste ticket(s) here..."
-msgstr "Collez le(s) ticket(s) ici..."
-
-#: templates/partials/queue.html.j2:10
-msgid "Add"
-msgstr "Ajouter"
-
-#: templates/partials/queue.html.j2:24
-msgid "Close"
-msgstr "Fermer"
 
 #: templates/vote.html.j2:40
 msgid "Click to copy Room ID"
@@ -271,82 +251,111 @@ msgstr "Cliquez pour copier l'ID"
 msgid "Observer Mode"
 msgstr "Mode observateur"
 
+#: templates/vote.html.j2:74
+msgid "Dark Mode"
+msgstr "Mode sombre"
+
 #: templates/vote.html.j2:80
+msgid "Language"
+msgstr "Langue"
+
+#: templates/vote.html.j2:91
 msgid "Exit Room"
 msgstr "Quitter la salle"
 
-#: templates/vote.html.j2:93
+#: templates/vote.html.j2:101
 msgid "JIRA Ticket (e.g. PROJ-123)"
 msgstr "Ticket JIRA (ex. PROJ-123)"
 
-#: templates/vote.html.j2:98 templates/vote.html.j2:207
+#: templates/vote.html.j2:106
 msgid "Public Votes"
 msgstr "Votes publics"
 
-#: templates/vote.html.j2:102
+#: templates/vote.html.j2:110
 msgid "Start New Vote"
 msgstr "Nouveau vote"
 
-#: templates/vote.html.j2:104
+#: templates/vote.html.j2:111
+msgid "Reveal Results"
+msgstr "Révéler les résultats"
+
+#: templates/vote.html.j2:112
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: templates/vote.html.j2:110
+#: templates/vote.html.j2:118
 msgid "Timer"
 msgstr "Minuteur"
 
-#: templates/vote.html.j2:113
+#: templates/vote.html.j2:121
 msgid "30 Seconds"
 msgstr "30 Secondes"
 
-#: templates/vote.html.j2:114
+#: templates/vote.html.j2:122
 msgid "1 Minute"
 msgstr "1 Minute"
 
-#: templates/vote.html.j2:115
+#: templates/vote.html.j2:123
 msgid "2 Minutes"
 msgstr "2 Minutes"
 
-#: templates/vote.html.j2:117
+#: templates/vote.html.j2:125
 msgid "Stop Timer"
 msgstr "Arrêter"
 
-#: templates/vote.html.j2:120
+#: templates/vote.html.j2:128
 msgid "Manage Queue"
 msgstr "Gérer la file"
 
-#: templates/vote.html.j2:122
+#: templates/vote.html.j2:130
 msgid "History"
 msgstr "Historique"
 
-#: templates/vote.html.j2:131
+#: templates/vote.html.j2:140
 msgid "Up Next"
 msgstr "Suivant"
 
-#: templates/vote.html.j2:144
+#: templates/vote.html.j2:157
 msgid "Cast your vote:"
 msgstr "Votez :"
 
-#: templates/vote.html.j2:150
+#: templates/vote.html.j2:163
 msgid "You are observing this session."
 msgstr "Vous observez cette session."
 
-#: templates/vote.html.j2:162
+#: templates/vote.html.j2:178
 msgid "Results Distribution"
 msgstr "Répartition des résultats"
 
-#: templates/vote.html.j2:166
+#: templates/vote.html.j2:182
 msgid "Bar"
 msgstr "Barres"
 
-#: templates/vote.html.j2:169
+#: templates/vote.html.j2:185
 msgid "Pie"
 msgstr "Camembert"
 
-#: templates/vote.html.j2:177
+#: templates/vote.html.j2:192
 msgid "Average"
 msgstr "Moyenne"
 
-#: templates/vote.html.j2:183
+#: templates/vote.html.j2:198
 msgid "Agreement"
 msgstr "Accord"
+
+#: templates/partials/history.html.j2:5
+msgid "Session History"
+msgstr "Historique de session"
+
+#: templates/partials/queue.html.j2:11
+msgid "Paste ticket(s) here..."
+msgstr "Collez le(s) ticket(s) ici..."
+
+#: templates/partials/queue.html.j2:12
+msgid "Add"
+msgstr "Ajouter"
+
+#: templates/partials/queue.html.j2:26
+msgid "Close"
+msgstr "Fermer"
+

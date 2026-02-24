@@ -10,11 +10,24 @@
     <script src="{{ url_for('static', filename='js/theme.js', v=timestamp) }}"></script>
 </head>
 <body class="d-flex align-items-center justify-content-center bg-body-tertiary" style="height: 100vh;">
-    <div class="position-absolute top-0 end-0 p-3">
-        <button class="btn btn-outline-secondary shadow-sm" onclick="toggleTheme()" title="Toggle Dark Mode">
-            💡
-        </button>
-    </div>
+    <div class="position-absolute top-0 end-0 p-3 d-flex gap-2">
+            
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary shadow-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Change Language">
+                    🌐
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                    <li><a class="dropdown-item" href="{{ url_for('set_lang', lang_code='en') }}">🇬🇧 English</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('set_lang', lang_code='fr') }}">🇫🇷 Français</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('set_lang', lang_code='es') }}">🇪🇸 Español</a></li>
+                </ul>
+            </div>
+
+            <button class="btn btn-outline-secondary shadow-sm" onclick="toggleTheme()" title="Toggle Dark Mode">
+                💡
+            </button>
+            
+        </div>
     <div id="joinScreen">
         <div class="card shadow p-4" style="width: 450px;">
             <h3 class="text-center mb-3">{{ _('Shots Poker') }}</h3>
