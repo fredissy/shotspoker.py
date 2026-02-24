@@ -7,7 +7,7 @@ from src.model import TicketSession
 from src.utils import STANDARD_EMOJIS, choose_user_avatar, get_allowed_custom_emojis
 from src.store import room_exists, save_room
 from src.state import get_initial_room_state, DECKS
-from src.i18n_utils import get_js_translations
+from src.i18n_utils import get_js_translations, SUPPORTED_LANGUAGES
 from markupsafe import escape
 from flask_babel import _
 import os
@@ -100,6 +100,14 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for('index'))
+
+@app.route('/set_lang/<lang_code>')
+def set_lang(lang_code):
+    if lang_code in SUPPORTED_LANGUAGES:
+        session['lang'] = lang_code
+        
+    # Redirect back to the previous page (referrer), or index if missing
+    return redirect(request.referrer or url_for('index'))
 
 @app.route('/room/<room_id>')
 def room(room_id):

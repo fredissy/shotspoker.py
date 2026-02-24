@@ -76,6 +76,17 @@
                             </button>
                         </li>
                         <li>
+                            <div class="dropdown-item d-flex justify-content-between align-items-center">
+                                <span>{{ _('Language') }}</span>
+                                <div>
+                                    <a href="{{ url_for('set_lang', lang_code='en') }}" class="text-decoration-none me-1" title="English">🇬🇧</a>
+                                    <a href="{{ url_for('set_lang', lang_code='fr') }}" class="text-decoration-none me-1" title="Français">🇫🇷</a>
+                                    <a href="{{ url_for('set_lang', lang_code='es') }}" class="text-decoration-none" title="Español">🇪🇸</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
                             <button class="dropdown-item text-danger" onclick="logout()">
                                 <span>{{ _('Exit Room') }}</span>
                                 <span class="float-end">🚪</span>
