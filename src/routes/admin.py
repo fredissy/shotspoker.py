@@ -1,10 +1,11 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from functools import wraps
 from flask import Response, render_template, redirect, request, url_for
 from src import app, socketio, redis_client
+from sqlalchemy import func
 from src.store import get_room, room_exists, _memory_store, _memory_store_lock
+from src.model import TicketSession, Vote, db
 
-# Helper to format time
 def format_ts(ts):
     if not ts: return "-"
     return datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
@@ -86,8 +87,36 @@ def admin_panel():
     
     # Add storage mode info for admin visibility
     storage_mode = 'Redis' if app.config['USE_REDIS'] else 'In-Memory'
+
+    # 2. Global Stats
+    total_sessions = db.session.query(func.count(TicketSession.id)).scalar() or 0
+    total_votes = db.session.query(func.count(Vote.id)).scalar() or 0
+
+    # 3. Chart Data: Sessions per day for the last 7 days
+    seven_days_ago = datetime.utcnow() - timedelta(days=7)
     
-    return render_template('admin.html.j2', rooms=rooms_data, storage_mode=storage_mode)
+    # Note: Exact date extraction depends slightly on your DB dialect (Postgres uses cast to Date)
+    daily_sessions = db.session.query(
+        func.cast(TicketSession.timestamp, db.Date).label('date'),
+        func.count(TicketSession.id).label('count')
+    ).filter(
+        TicketSession.timestamp >= seven_days_ago
+    ).group_by(
+        func.cast(TicketSession.timestamp, db.Date)
+    ).order_by('date').all()
+
+    # Format for Chart.js
+    chart_labels = [row.date.strftime('%b %d') for row in daily_sessions]
+    chart_data = [row.count for row in daily_sessions]
+    
+    return render_template('admin.html.j2',
+                           rooms=rooms_data,
+                           storage_mode=storage_mode,
+                           total_sessions=total_sessions,
+                            total_votes=total_votes,
+                            chart_labels=chart_labels,
+                            chart_data=chart_data
+                           )
 
 @app.route('/admin/delete/<room_id>', methods=['POST'])
 @requires_auth
