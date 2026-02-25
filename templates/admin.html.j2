@@ -56,6 +56,64 @@
 
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-body-tertiary fw-bold">
+                🔍 Search Ticket History
+            </div>
+            <div class="card-body">
+                <form method="GET" action="{{ url_for('admin_panel') }}" class="row g-2 align-items-center mb-3">
+                    <div class="col-auto">
+                        <input type="text" name="ticket" class="form-control" placeholder="e.g. PROJ-123" value="{{ search_ticket }}">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        {% if search_ticket %}
+                        <a href="{{ url_for('admin_panel') }}" class="btn btn-outline-secondary">Clear</a>
+                        {% endif %}
+                    </div>
+                </form>
+
+                {% if search_ticket %}
+                    {% if ticket_history %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Ticket</th>
+                                        <th>Room ID</th>
+                                        <th>Average</th>
+                                        <th>Individual Votes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for session in ticket_history %}
+                                    <tr>
+                                        <td class="small text-muted">{{ session.timestamp }}</td>
+                                        <td><span class="badge bg-secondary">{{ session.ticket_key }}</span></td>
+                                        <td class="font-monospace small">{{ session.room_id }}</td>
+                                        <td class="text-primary fw-bold">{{ session.final_average }}</td>
+                                        <td>
+                                            <div class="d-flex flex-wrap gap-1">
+                                            {% for v in session.votes %}
+                                                <span class="badge bg-light text-dark border shadow-sm">
+                                                    {{ v.user }}: <strong class="ms-1">{{ v.value }}</strong>
+                                                </span>
+                                            {% endfor %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning mb-0">No voting history found for "{{ search_ticket }}".</div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-body-tertiary fw-bold">
                 📈 Activity (Last 7 Days)
             </div>
             <div class="card-body">

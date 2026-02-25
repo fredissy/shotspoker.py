@@ -84,6 +84,26 @@ def admin_panel():
     
     # Sort by most recently updated
     rooms_data.sort(key=lambda x: x['last_updated'], reverse=True)
+
+    search_ticket = request.args.get('ticket', '').strip()
+    ticket_history = []
+
+    if search_ticket:
+        # Query DB for sessions matching the ticket key (case-insensitive partial match)
+        sessions = TicketSession.query.filter(
+            TicketSession.ticket_key.ilike(f"%{search_ticket}%")
+        ).order_by(TicketSession.timestamp.desc()).all()
+        
+        for s in sessions:
+            ticket_history.append({
+                'id': s.id,
+                'room_id': s.room_id,
+                'ticket_key': s.ticket_key,
+                'timestamp': s.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+                'final_average': round(s.final_average, 2) if s.final_average else '-',
+                # Extract individual votes for this session
+                'votes': [{'user': v.user_name, 'value': v.value} for v in s.votes]
+            })
     
     # Add storage mode info for admin visibility
     storage_mode = 'Redis' if app.config['USE_REDIS'] else 'In-Memory'
@@ -113,9 +133,11 @@ def admin_panel():
                            rooms=rooms_data,
                            storage_mode=storage_mode,
                            total_sessions=total_sessions,
-                            total_votes=total_votes,
-                            chart_labels=chart_labels,
-                            chart_data=chart_data
+                           total_votes=total_votes,
+                           chart_labels=chart_labels,
+                           chart_data=chart_data,
+                           search_ticket=search_ticket,
+                           ticket_history=ticket_history
                            )
 
 @app.route('/admin/delete/<room_id>', methods=['POST'])
