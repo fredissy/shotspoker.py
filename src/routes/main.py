@@ -4,7 +4,7 @@ import time
 from flask import jsonify, redirect, render_template, request, session, url_for
 from src import app
 from src.model import TicketSession
-from src.utils import choose_user_avatar, get_allowed_custom_emojis
+from src.utils import STANDARD_EMOJIS, choose_user_avatar, get_allowed_custom_emojis
 from src.store import room_exists, save_room
 from src.state import get_initial_room_state, DECKS
 from markupsafe import escape
@@ -107,6 +107,7 @@ def room(room_id):
     return render_template('vote.html.j2',
                            room_id=room_id,
                            custom_emojis=custom_emojis,
+                           standard_emojis=STANDARD_EMOJIS,
                            user_role=session.get('user_role'),
                            user_name=session.get('user_name'),
                            user_avatar=session.get('user_avatar', '👤'))

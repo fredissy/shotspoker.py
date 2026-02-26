@@ -4,13 +4,11 @@ from src import socketio, db
 from src.state import _get_public_state
 from src.model import TicketSession, Vote
 from src.store import get_room, save_room
-from src.utils import clean_jira_key, get_allowed_custom_emojis
+from src.utils import clean_jira_key, get_allowed_custom_emojis, STANDARD_EMOJIS
 from markupsafe import escape
 
 ALLOWED_CUSTOM_IMAGES = get_allowed_custom_emojis()
 
-# Constants for emoji validation
-MAX_STANDARD_EMOJI_LENGTH = 10  # Max length for standard Unicode emojis
 
 @socketio.on('start_vote')
 def start_vote(data):
@@ -140,7 +138,7 @@ def send_reaction(data):
     # 1. Dynamic Allowlist Check
     if emoji in ALLOWED_CUSTOM_IMAGES:
         is_valid = True
-    elif len(emoji) <= MAX_STANDARD_EMOJI_LENGTH:
+    elif emoji in STANDARD_EMOJIS:
         is_valid = True
         
     if not is_valid: return

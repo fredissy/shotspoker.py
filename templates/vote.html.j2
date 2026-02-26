@@ -202,13 +202,13 @@
 
     <div id="reactionToolbar" class="position-fixed bottom-0 start-50 translate-middle-x mb-4 p-2 bg-light rounded-pill shadow-lg border" style="z-index: 1060; opacity: 0.8">
         <div class="d-flex gap-1 align-items-center">
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👍')" title="Thumbs Up">👍</button>
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('👏')" title="Applause">👏</button>
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🎉')" title="Party">🎉</button>
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🤯')" title="Mind Blown">🤯</button>
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🚀')" title="Rocket">🚀</button>
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐛')" title="Bug">🐛</button>
-            <button class="btn btn-sm btn-outline-light border-0 fs-4" onclick="sendReaction('🐌')" title="Too Slow">🐌</button>
+            {% for emoji_char, emoji_title in standard_emojis.items() %}
+                <button class="btn btn-sm btn-outline-light border-0 fs-4" 
+                        onclick="sendReaction('{{ emoji_char }}')" 
+                        title="{{ emoji_title }}">
+                    {{ emoji_char }}
+                </button>
+            {% endfor %}
             {% set static_prefix = '/static/' %}
             {% for emoji_path in custom_emojis %}
                 {% set emoji_filename = emoji_path.split('/')[-1] %}
