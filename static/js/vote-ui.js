@@ -45,7 +45,7 @@ function updateUserRole(state) {
 
 function updateHeader(state) {
     // 1. Header Info
-    let headerText = state.active ? `Voting on: ${state.ticket_key}` : "Waiting for session...";
+    let headerText = state.active ? `${t("Voting on")}: ${state.ticket_key}` : t("Waiting for session...");
 
     // NEW: Add lock icon if the vote is private
     if (state.active && !state.is_public) {
@@ -113,7 +113,7 @@ function updateAdminButtons(state) {
     if (revealBtn) {
         if (state.active) {
             revealBtn.disabled = state.revealed;
-            revealBtn.title = state.revealed ? "Results are already visible" : "Reveal results";
+            revealBtn.title = state.revealed ? t("Results are already visible") : t("Reveal results");
         } else {
             revealBtn.disabled = true;
         }
@@ -122,7 +122,7 @@ function updateAdminButtons(state) {
     if (resetBtn) {
         if (state.active) {
             resetBtn.disabled = !amIAdmin;
-            resetBtn.title = amIAdmin ? "" : "Only the starter can reset";
+            resetBtn.title = amIAdmin ? "" : t("Only the starter can reset");
         } else {
             resetBtn.disabled = false;
         }
@@ -183,7 +183,7 @@ function renderParticipants(state) {
             <span>
                 <span class="fs-5 me-2" role="img">${p.avatar}</span>
                 <span class="fw-bold">${p.name}</span>
-                ${p.role === 'observer' ? '<small class="text-muted ms-1">(Observer)</small>' : ''}
+                ${p.role === 'observer' ? `<small class="text-muted ms-1">(${t('Observer')})</small>` : ''}
             </span>
             <span class="${animationClass}">
                 <span class="badge ${badgeClass} rounded-pill">
@@ -195,7 +195,7 @@ function renderParticipants(state) {
     });
     const header = document.getElementById('participantsHeader');
     if (header) {
-        header.innerText = `Participants (${participants.length})`;
+        header.innerText = `${t('Participants')} (${participants.length})`;
     }
 }
 
@@ -251,7 +251,7 @@ function updateStatsAndChart(state) {
         lastDistribution = null;
         if (placeholder) {
             placeholder.style.display = 'block';
-            placeholder.innerText = "Waiting for reveal...";
+            placeholder.innerText = t("Waiting for reveal...");
         }
     }
 }
@@ -299,7 +299,7 @@ function renderChart(distribution) {
         scales: isPie ? {} : { // Hide scales for Pie, Show for Bar
             y: {
                 beginAtZero: true,
-                title: { display: true, text: 'Number of votes' },
+                title: { display: true, text: t('Number of votes') },
                 ticks: { stepSize: 1 }
             },
             x: {
@@ -316,7 +316,7 @@ function renderChart(distribution) {
                 data: {
                     labels: sortedLabels,
                     datasets: [{
-                        label: 'Votes',
+                        label: t('Votes'),
                         data: data,
                         backgroundColor: backgroundColors,
                         borderWidth: 1
@@ -337,7 +337,7 @@ function renderChart(distribution) {
             data: {
                 labels: sortedLabels,
                 datasets: [{
-                    label: 'Votes',
+                    label: t('Votes'),
                     data: data,
                     backgroundColor: backgroundColors,
                     borderWidth: 1
@@ -404,10 +404,10 @@ function showToast(message, type = 'primary') {
 
 function copyRoomId() {
     navigator.clipboard.writeText(currentRoomId).then(() => {
-        showToast("📋 Room ID copied to clipboard!", "success");
+        showToast("📋 " + t("Room ID copied to clipboard!"), "success");
     }).catch(err => {
         console.error(err);
-        showToast("❌ Failed to copy Room ID", "danger");
+        showToast("❌ " + t("Failed to copy Room ID"), "danger");
     });
 }
 
@@ -434,7 +434,7 @@ function openHistoryModal() {
             if (!tbody) return;
 
             if (data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No history yet.</td></tr>';
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">${t("No history yet.")}</td></tr>`;
                 return;
             }
 
@@ -479,7 +479,7 @@ function openHistoryModal() {
         .catch(err => {
             console.error(err);
             if (loading) loading.style.display = 'none';
-            if (tbody) tbody.innerHTML = '<tr><td colspan="5" class="text-danger text-center">Failed to load history.</td></tr>';
+            if (tbody) tbody.innerHTML = `<tr><td colspan="5" class="text-danger text-center">${t("Failed to load history.")}</td></tr>`;
         });
 }
 

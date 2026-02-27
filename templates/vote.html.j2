@@ -10,6 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/socket.io@4.8.3/client-dist/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
     <script>
+        window.translations = {{ js_translations | tojson }};
+        function t(key) {
+            return (window.translations && window.translations[key]) ? window.translations[key] : key;
+        }
         const currentRoomId = "{{ room_id }}";
         let myRole = "{{ user_role }}";
         const myName = "{{ user_name }}";
@@ -26,14 +30,14 @@
             <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center p-3">
     
                 <div class="d-flex align-items-center gap-3">
-                    <span class="fs-5 fw-bold">Shots Poker</span>
+                    <span class="fs-5 fw-bold">{{ _('Shots Poker') }}</span>
 
                     <div class="vr bg-light" style="height: 24px; width: 2px; opacity: 0.5;"></div>
 
                     <div class="badge bg-light text-dark border shadow-sm font-monospace d-flex align-items-center gap-2" 
                         style="cursor: pointer; font-size: 0.9rem;" 
                         onclick="copyRoomId()" 
-                        title="Click to copy Room ID">
+                        title="{{ _('Click to copy Room ID') }}">
                         <span>{{ room_id }}</span>
                         <span>📋</span>
                     </div>
@@ -56,7 +60,7 @@
                             <div class="dropdown-item-text">
                                 <div class="form-check form-switch">
                                     <label class="form-check-label" for="roleSwitch" style="cursor:pointer;">
-                                        👀 Observer Mode
+                                        👀 {{ _('Observer Mode') }}
                                     </label>
                                     <input class="form-check-input" type="checkbox" id="roleSwitch" 
                                         onchange="toggleRole()" 
@@ -67,13 +71,24 @@
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <button class="dropdown-item d-flex justify-content-between align-items-center" onclick="toggleTheme()">
-                                <span>Dark Mode</span>
+                                <span>{{ _('Dark Mode') }}</span>
                                 <span>💡</span>
                             </button>
                         </li>
                         <li>
+                            <div class="dropdown-item d-flex justify-content-between align-items-center">
+                                <span>{{ _('Language') }}</span>
+                                <div>
+                                    <a href="{{ url_for('set_lang', lang_code='en') }}" class="text-decoration-none me-1" title="English">🇬🇧</a>
+                                    <a href="{{ url_for('set_lang', lang_code='fr') }}" class="text-decoration-none me-1" title="Français">🇫🇷</a>
+                                    <a href="{{ url_for('set_lang', lang_code='es') }}" class="text-decoration-none" title="Español">🇪🇸</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
                             <button class="dropdown-item text-danger" onclick="logout()">
-                                <span>Exit Room</span>
+                                <span>{{ _('Exit Room') }}</span>
                                 <span class="float-end">🚪</span>
                             </button>
                         </li>
@@ -83,36 +98,36 @@
             <div class="card-body">
                 <div class="row g-2 align-items-center">
                     <div class="col-auto">
-                        <input type="text" id="jiraTicket" class="form-control" placeholder="JIRA Ticket (e.g. PROJ-123)">
+                        <input type="text" id="jiraTicket" class="form-control" placeholder="{{ _('JIRA Ticket (e.g. PROJ-123)') }}">
                     </div>
                     <div class="col-auto">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="publicVote" checked>
-                            <label class="form-check-label" for="publicVote">Public Votes</label>
+                            <label class="form-check-label" for="publicVote">{{ _('Public Votes') }}</label>
                         </div>
                     </div>
                     <div class="col-auto">
-                        <button id="startVoteBtn" class="btn btn-primary" onclick="startVote()">Start New Vote</button>
-                        <button class="btn btn-warning" onclick="revealVote()">Reveal Results</button>
-                        <button class="btn btn-secondary" onclick="resetVote()">Reset</button>
+                        <button id="startVoteBtn" class="btn btn-primary" onclick="startVote()">{{ _('Start New Vote') }}</button>
+                        <button class="btn btn-warning" onclick="revealVote()">{{ _('Reveal Results') }}</button>
+                        <button class="btn btn-secondary" onclick="resetVote()">{{ _('Reset') }}</button>
                         
                         <div class="vr ms-2" style="height: 25px; vertical-align: middle; opacity: 0.3;"></div>
 
                         <div class="btn-group ms-2">
                             <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown">
-                                ⏱️ Timer
+                                ⏱️ {{ _('Timer') }}
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#" onclick="startTimer(30)">30 Seconds</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="startTimer(60)">1 Minute</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="startTimer(120)">2 Minutes</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="startTimer(30)">{{ _('30 Seconds') }}</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="startTimer(60)">{{ _('1 Minute') }}</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="startTimer(120)">{{ _('2 Minutes') }}</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-danger" href="#" onclick="stopTimer()">Stop Timer</a></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="stopTimer()">{{ _('Stop Timer') }}</a></li>
                             </ul>
                         </div>
-                        <button class="btn btn-outline-primary ms-2" onclick="openQueueModal()">Manage Queue</button>
+                        <button class="btn btn-outline-primary ms-2" onclick="openQueueModal()">{{ _('Manage Queue') }}</button>
                         <button class="btn btn-outline-primary ms-2" onclick="openHistoryModal()">
-                            📜 History
+                            📜 {{ _('History') }}
                         </button>
                     </div>
                 </div>
@@ -122,7 +137,7 @@
         <div id="queueSection" class="mb-4" style="display:none;">
             <div class="card bg-light border-0">
                 <div class="card-body py-2 d-flex align-items-center gap-2 overflow-auto">
-                    <strong class="text-nowrap">Up Next:</strong>
+                    <strong class="text-nowrap">{{ _('Up Next') }}:</strong>
                     <div id="queueList" class="d-flex gap-2">
                         </div>
                 </div>
@@ -131,7 +146,7 @@
 
         {% include 'partials/queue.html.j2' %}
         <div class="text-center mb-5">
-            <h2 id="currentTicketDisplay">Waiting for session...</h2>
+            <h2 id="currentTicketDisplay">{{ _('Waiting for session...') }}</h2>
             <div id="timerDisplay" class="badge bg-danger fs-4 mb-2 shadow-sm" style="display:none;">
                0:00
             </div>
@@ -139,19 +154,19 @@
         </div>
 
         <div id="votingInterface" class="row justify-content-center mb-5" style="display:none;">
-            <div class="col-md-10 text-center"> <h5>Cast your vote:</h5>
+            <div class="col-md-10 text-center"> <h5>{{ _('Cast your vote:') }}</h5>
                 <div id="cardsContainer" class="d-flex justify-content-center gap-2 flex-wrap">
                 </div>
             </div>
         </div>
         <div id="observerMessage" class="text-center mb-5 alert alert-info" style="display:none;">
-            <h4>👀 You are observing this session.</h4>
+            <h4>👀 {{ _('You are observing this session.') }}</h4>
         </div>
 
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header" id="participantsHeader">Participants</div>
+                    <div class="card-header" id="participantsHeader">{{ _('Participants') }}</div>
                     <ul class="list-group list-group-flush" id="votersList">
                         </ul>
                 </div>
@@ -160,27 +175,27 @@
             <div class="col-md-6 text-center">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <span>Results Distribution</span>
+                        <span>{{ _('Results Distribution') }}</span>
                         
                         <div class="btn-group btn-group-sm" role="group">
                             <input type="radio" class="btn-check" name="chartType" id="chartBar" autocomplete="off" checked onclick="switchChartType('bar')">
-                            <label class="btn btn-outline-secondary" for="chartBar">📊 Bar</label>
+                            <label class="btn btn-outline-secondary" for="chartBar">📊 {{ _('Bar') }}</label>
 
                             <input type="radio" class="btn-check" name="chartType" id="chartPie" autocomplete="off" onclick="switchChartType('pie')">
-                            <label class="btn btn-outline-secondary" for="chartPie">🍰 Pie</label>
+                            <label class="btn btn-outline-secondary" for="chartPie">🍰 {{ _('Pie') }}</label>
                         </div>
                     </div>
                     <div class="card-body">
                         <div id="statsRow" class="row text-center mb-3" style="display:none;">
                             <div class="col-6">
                                 <div class="border rounded p-2 bg-light stat-box">
-                                    <small class="text-muted d-block text-uppercase fw-bold" style="font-size:0.7rem;">Average</small>
+                                    <small class="text-muted d-block text-uppercase fw-bold" style="font-size:0.7rem;">{{ _('Average') }}</small>
                                     <span id="statAverage" class="fs-4 fw-bold text-primary">--</span>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="border rounded p-2 bg-light stat-box">
-                                    <small class="text-muted d-block text-uppercase fw-bold" style="font-size:0.7rem;">Agreement</small>
+                                    <small class="text-muted d-block text-uppercase fw-bold" style="font-size:0.7rem;">{{ _('Agreement') }}</small>
                                     <span id="statAgreement" class="fs-4 fw-bold text-success">--</span>
                                 </div>
                             </div>
@@ -189,7 +204,7 @@
                         <div id="chartContainer">
                             <canvas id="resultsChart"></canvas>
                         </div>
-                        <p id="chartPlaceholder" class="text-muted mt-5">Waiting for reveal...</p>
+                        <p id="chartPlaceholder" class="text-muted mt-5">{{ _('Waiting for reveal...') }}</p>
                     </div>
                 </div>
             </div>
