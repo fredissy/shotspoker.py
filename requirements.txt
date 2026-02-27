@@ -4,7 +4,7 @@ Flask-SQLAlchemy==3.1.1
 python-engineio==4.13.1
 python-socketio==5.16.1
 SQLAlchemy==2.0.47
-Werkzeug==3.1.5
+Werkzeug==3.1.6
 Jinja2==3.1.6
 psycopg2-binary==2.9.11
 python-dotenv==1.2.1
