@@ -16,7 +16,7 @@ def start_vote(data):
     state = get_room(room_id)
     if not state: return
 
-    clean_key = clean_jira_key(data['ticket_key'])
+    clean_key = clean_jira_key(data['ticket_key'])[:50]
 
     state['active'] = True
     state['ticket_key'] = clean_key
