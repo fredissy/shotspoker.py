@@ -6,6 +6,7 @@ from src.model import TicketSession, Vote
 from src.store import get_room, save_room
 from src.utils import clean_jira_key, get_allowed_custom_emojis, STANDARD_EMOJIS
 from markupsafe import escape
+from flask_babel import _
 
 ALLOWED_CUSTOM_IMAGES = get_allowed_custom_emojis()
 
@@ -110,7 +111,7 @@ def reset(data):
         return
 
     state['active'] = False
-    state['ticket_key'] = "Waiting..."
+    state['ticket_key'] = _("Waiting...")
     state['votes'] = {}
     state['revealed'] = False
     save_room(room_id, state)

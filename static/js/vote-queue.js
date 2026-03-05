@@ -23,7 +23,7 @@ function updateQueueUI(state) {
                 btn.className = "btn btn-sm btn-white border shadow-sm text-primary fw-bold";
                 btn.innerText = ticket;
                 btn.onclick = () => startFromQueue(ticket);
-                btn.title = "Click to start voting on this ticket";
+                btn.title = t("Click to start voting on this ticket");
 
                 queueList.appendChild(btn);
             });

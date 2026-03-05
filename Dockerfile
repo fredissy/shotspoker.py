@@ -12,6 +12,9 @@ COPY requirements.txt ./
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Compile translations
+RUN pybabel compile -d translations
+
 # Copy application files
 COPY . .
 
