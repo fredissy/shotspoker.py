@@ -113,21 +113,33 @@ def admin_panel():
     total_votes = db.session.query(func.count(Vote.id)).scalar() or 0
 
     # 3. Chart Data: Sessions per day for the last 7 days
-    seven_days_ago = datetime.utcnow() - timedelta(days=7)
+    # Generate the last 7 days (including today) initialized to 0
+    today = datetime.utcnow().date()
+    date_counts = {}
+    for i in range(6, -1, -1): # Counts backwards from 6 to 0
+        day = today - timedelta(days=i)
+        date_counts[day] = 0
+
+    # Query DB for records from the start of our 7-day window
+    start_date = today - timedelta(days=6)
     
-    # Note: Exact date extraction depends slightly on your DB dialect (Postgres uses cast to Date)
     daily_sessions = db.session.query(
         func.cast(TicketSession.timestamp, db.Date).label('date'),
         func.count(TicketSession.id).label('count')
     ).filter(
-        TicketSession.timestamp >= seven_days_ago
+        func.cast(TicketSession.timestamp, db.Date) >= start_date
     ).group_by(
         func.cast(TicketSession.timestamp, db.Date)
     ).order_by('date').all()
 
+    # Merge database results into our perfect calendar
+    for row in daily_sessions:
+        if row.date in date_counts:
+            date_counts[row.date] = row.count
+
     # Format for Chart.js
-    chart_labels = [row.date.strftime('%b %d') for row in daily_sessions]
-    chart_data = [row.count for row in daily_sessions]
+    chart_labels = [d.strftime('%b %d') for d in date_counts.keys()]
+    chart_data = list(date_counts.values())
     
     return render_template('admin.html.j2',
                            rooms=rooms_data,
