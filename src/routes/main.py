@@ -98,9 +98,19 @@ def logout():
 
 @app.route('/room/<room_id>')
 def room(room_id):
-    # Security: If trying to access room URL without session, kick them out
-    if 'room_id' not in session or session['room_id'] != room_id:
-        return redirect(url_for('index', room_id=room_id))
+    
+    if 'user_name' not in session:
+        return redirect(url_for('index', room=room_id))
+        
+    current_room = session.get('room_id')
+    if current_room and current_room != room_id:
+        # Render the confirmation prompt
+        return render_template('switch.html.j2', 
+                               current_room=current_room, 
+                               target_room=room_id)
+                               
+    # 3. Ensure session is aligned (useful for first-time joins after login)
+    session['room_id'] = room_id
     
     custom_emojis = sorted(list(get_allowed_custom_emojis()))
         
@@ -112,6 +122,12 @@ def room(room_id):
                            user_name=session.get('user_name'),
                            user_avatar=session.get('user_avatar', '👤'))
 
+@app.route('/force_switch/<target_room>')
+def force_switch(target_room):
+    # Override the old room with the new one
+    session['room_id'] = target_room
+    # Send them back to the room route, which will now pass the check above
+    return redirect(url_for('room', room_id=target_room))
 
 @app.route('/history')
 def history():
