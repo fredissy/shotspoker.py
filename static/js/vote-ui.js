@@ -44,8 +44,18 @@ function updateUserRole(state) {
 }
 
 function updateHeader(state) {
+
     // 1. Header Info
-    let headerText = state.active ? `Voting on: ${state.ticket_key}` : "Waiting for session...";
+    let headerText = "Waiting for session...";
+    
+    if (state.active) {
+        // NEW: Check if there's a URL to make the ticket clickable
+        const ticketDisplay = state.ticket_url 
+            ? `<a href="${state.ticket_url}" target="_blank" title="Open in new tab">${state.ticket_key}</a>` 
+            : state.ticket_key;
+            
+        headerText = `Voting on: ${ticketDisplay}`;
+    }
 
     // NEW: Add lock icon if the vote is private
     if (state.active && !state.is_public) {
@@ -53,7 +63,7 @@ function updateHeader(state) {
     }
 
     const currentTicketDisplay = document.getElementById('currentTicketDisplay');
-    if (currentTicketDisplay) currentTicketDisplay.innerText = headerText;
+    if (currentTicketDisplay) currentTicketDisplay.innerHTML = headerText;
 }
 
 function renderCards(state) {

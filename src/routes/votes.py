@@ -16,10 +16,13 @@ def start_vote(data):
     state = get_room(room_id)
     if not state: return
 
-    clean_key = clean_jira_key(data['ticket_key'])[:50]
+    raw_key = data['ticket_key'].strip()
+    clean_key = clean_jira_key(raw_key)[:50]
+
 
     state['active'] = True
     state['ticket_key'] = clean_key
+    state['ticket_url'] = raw_key if raw_key.startswith(('http://', 'https://')) else None
     state['is_public'] = data['is_public']
     state['votes'] = {}
     state['revealed'] = False
@@ -111,6 +114,7 @@ def reset(data):
 
     state['active'] = False
     state['ticket_key'] = "Waiting..."
+    state['ticket_url'] = None
     state['votes'] = {}
     state['revealed'] = False
     save_room(room_id, state)
