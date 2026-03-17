@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from functools import wraps
 from flask import Response, render_template, redirect, request, url_for
 from src import app, socketio, redis_client
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from src.store import get_room, room_exists, _memory_store, _memory_store_lock
 from src.model import TicketSession, Vote, db
 
@@ -89,9 +89,12 @@ def admin_panel():
     ticket_history = []
 
     if search_ticket:
-        # Query DB for sessions matching the ticket key (case-insensitive partial match)
+        # Query DB for sessions matching the ticket key OR the room ID
         sessions = TicketSession.query.filter(
-            TicketSession.ticket_key.ilike(f"%{search_ticket}%")
+            or_(
+                TicketSession.ticket_key.ilike(f"%{search_ticket}%"),
+                TicketSession.room_id.ilike(f"%{search_ticket}%")
+            )
         ).order_by(TicketSession.timestamp.desc()).all()
         
         for s in sessions:

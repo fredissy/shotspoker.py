@@ -127,12 +127,12 @@
             <div class="tab-pane fade {% if search_ticket %}show active{% endif %}" id="history" role="tabpanel">
                 <div class="card shadow-sm mb-4">
                     <div class="card-header bg-body-tertiary fw-bold">
-                        🔍 Search Ticket History
+                        🔍 Search History (Ticket or Room ID)
                     </div>
                     <div class="card-body">
                         <form method="GET" action="{{ url_for('admin_panel') }}" class="row g-2 align-items-center mb-3">
                             <div class="col-auto">
-                                <input type="text" name="ticket" class="form-control" placeholder="e.g. PROJ-123" value="{{ search_ticket }}">
+                                <input type="text" name="ticket" class="form-control" placeholder="e.g. PROJ-123 or room-name" value="{{ search_ticket }}">
                             </div>
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-primary">Search</button>
