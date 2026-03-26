@@ -100,7 +100,7 @@ def logout():
 def room(room_id):
     
     if 'user_name' not in session:
-        return redirect(url_for('index', room=room_id))
+        return redirect(url_for('index', room_id=room_id))
         
     current_room = session.get('room_id')
     if current_room and current_room != room_id:
