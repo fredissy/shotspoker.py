@@ -1,0 +1,307 @@
+/* Retro 90's Theme for Shotspoker */
+/* Apply this when body has class 'theme-retro' */
+
+/* Import pixel font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Base styles */
+.theme-retro body {
+    background: linear-gradient(135deg, #000080 0%, #000040 100%);
+    color: #FFFFFF;
+    font-family: 'Courier New', monospace;
+    background-attachment: fixed;
+}
+
+/* Headings */
+.theme-retro h1, .theme-retro h2, .theme-retro h3, .theme-retro h4, .theme-retro h5, .theme-retro h6 {
+    font-family: 'Press Start 2P', cursive;
+    color: #00FF00;
+    text-shadow: 2px 2px #000000;
+}
+
+/* Cards */
+.theme-retro .card {
+    background: linear-gradient(145deg, #000040, #000080);
+    border: 3px solid #808080;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.1), 0 4px 8px rgba(0,0,0,0.5);
+}
+
+/* Buttons */
+.theme-retro .btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    border: 2px solid #808080;
+    border-radius: 4px;
+    background: linear-gradient(145deg, #C0C0C0, #808080);
+    color: #000000;
+    text-shadow: none;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.5);
+    transition: all 0.2s;
+}
+
+.theme-retro .btn:hover {
+    background: linear-gradient(145deg, #E0E0E0, #A0A0A0);
+    transform: translateY(-1px);
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.7);
+}
+
+.theme-retro .btn-primary {
+    background: linear-gradient(145deg, #00FFFF, #0080FF);
+    color: #000000;
+    border-color: #00FFFF;
+}
+
+.theme-retro .btn-outline-primary {
+    background: transparent;
+    color: #00FFFF;
+    border-color: #00FFFF;
+}
+
+.theme-retro .btn-outline-primary:hover {
+    background: #00FFFF;
+    color: #000000;
+}
+
+/* Form inputs */
+.theme-retro .form-control {
+    background: #000000;
+    border: 2px inset #808080;
+    color: #00FF00;
+    font-family: 'Courier New', monospace;
+    border-radius: 4px;
+}
+
+.theme-retro .form-control:focus {
+    background: #000000;
+    border-color: #00FFFF;
+    box-shadow: 0 0 8px rgba(0,255,255,0.5);
+}
+
+.theme-retro .form-label {
+    color: #FFFFFF;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+}
+
+/* Voting cards */
+.theme-retro .card-select {
+    background: linear-gradient(145deg, #FF00FF, #800080);
+    border: 3px solid #FFFFFF;
+    color: #FFFFFF;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.2), 0 4px 8px rgba(0,0,0,0.5);
+    transition: all 0.3s;
+}
+
+.theme-retro .card-select:hover {
+    transform: scale(1.05);
+    box-shadow: inset 0 4px 8px rgba(255,255,255,0.4), 0 8px 16px rgba(0,0,0,0.7);
+}
+
+.theme-retro .card-selected {
+    background: linear-gradient(145deg, #FFFF00, #FF8000);
+    color: #000000;
+    border-color: #FFFF00;
+}
+
+/* Badges */
+.theme-retro .badge {
+    font-family: 'Courier New', monospace;
+    border-radius: 4px;
+    border: 1px solid #FFFFFF;
+}
+
+.theme-retro .voted-badge {
+    background: #00FF00;
+    color: #000000;
+}
+
+.theme-retro .waiting-badge {
+    background: #FFFF00;
+    color: #000000;
+}
+
+/* Navigation */
+.theme-retro .nav-link {
+    color: #00FFFF;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+}
+
+.theme-retro .nav-link.active {
+    background: #00FFFF;
+    color: #000000;
+}
+
+/* Alerts */
+.theme-retro .alert {
+    background: #000040;
+    border: 2px solid #00FFFF;
+    color: #FFFFFF;
+    font-family: 'Courier New', monospace;
+}
+
+.theme-retro .alert-info {
+    border-color: #00FFFF;
+}
+
+/* Room badge */
+.theme-retro .room-badge {
+    background: #000000;
+    border: 2px solid #00FFFF;
+    color: #00FFFF;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+}
+
+/* Stats box */
+.theme-retro .stat-box {
+    background: linear-gradient(145deg, #000040, #000080);
+    border: 2px solid #808080;
+    color: #FFFFFF;
+    font-family: 'Courier New', monospace;
+}
+
+/* Chart container */
+.theme-retro #chartContainer {
+    background: #000000;
+    border: 2px solid #00FFFF;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* Reaction toolbar */
+.theme-retro #reactionToolbar {
+    background: linear-gradient(145deg, #000040, #000080) !important;
+    border-color: #00FFFF !important;
+}
+
+/* Ensure text is visible */
+.theme-retro .text-muted {
+    color: #808080 !important;
+}
+
+.theme-retro .text-primary {
+    color: #00FFFF !important;
+}
+
+.theme-retro .text-success {
+    color: #00FF00 !important;
+}
+
+.theme-retro .text-danger {
+    color: #FF0000 !important;
+}
+
+/* Dropdown menus */
+.theme-retro .dropdown-menu {
+    background: #000000;
+    border: 2px solid #00FFFF;
+}
+
+.theme-retro .dropdown-item {
+    color: #FFFFFF;
+}
+
+.theme-retro .dropdown-item:hover {
+    background: #00FFFF;
+    color: #000000;
+}
+
+/* Modal styling */
+.theme-retro .modal-content {
+    background: linear-gradient(145deg, #000040, #000080);
+    border: 3px solid #808080;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,255,255,0.3), inset 0 2px 4px rgba(255,255,255,0.1);
+}
+
+.theme-retro .modal-header {
+    background: linear-gradient(145deg, #000080, #000040);
+    border-bottom: 2px solid #00FFFF;
+    padding: 10px;
+}
+
+.theme-retro .modal-title {
+    color: #00FF00;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    text-shadow: 2px 2px #000000;
+}
+
+.theme-retro .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+.theme-retro .modal-body {
+    background: #000000;
+    color: #FFFFFF;
+    font-family: 'Courier New', monospace;
+    padding: 15px;
+}
+
+.theme-retro .modal-footer {
+    background: linear-gradient(145deg, #000080, #000040);
+    border-top: 2px solid #00FFFF;
+    padding: 10px;
+}
+
+/* Table in history modal */
+.theme-retro .table {
+    color: #FFFFFF;
+    font-family: 'Courier New', monospace;
+    border-color: #808080;
+}
+
+.theme-retro .table thead {
+    background: linear-gradient(145deg, #000080, #000040);
+    border-color: #00FFFF;
+}
+
+.theme-retro .table thead th {
+    color: #00FF00;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    border-color: #00FFFF;
+    text-shadow: 1px 1px #000000;
+}
+
+.theme-retro .table tbody tr {
+    background: #000040;
+    border-color: #808080;
+}
+
+.theme-retro .table tbody tr:hover {
+    background: #000080;
+}
+
+.theme-retro .table tbody td {
+    border-color: #808080;
+    color: #FFFFFF;
+}
+
+/* List group items in queue modal */
+.theme-retro .list-group-item {
+    background: #000040;
+    border: 1px solid #808080;
+    color: #FFFFFF;
+    font-family: 'Courier New', monospace;
+}
+
+.theme-retro .list-group-item:hover {
+    background: #000080;
+    border-color: #00FFFF;
+}
+
+/* Spinner */
+.theme-retro .spinner-border {
+    border-color: #00FFFF !important;
+}
+
+.theme-retro .spinner-border-sm {
+    border-color: #00FFFF !important;
+}

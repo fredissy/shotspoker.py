@@ -89,3 +89,51 @@
     border-color: #495057 !important;     /* Lighter Border */
     color: #f8f9fa;                       /* Light text (just in case) */
 }
+
+/* Modal styling for dark mode */
+[data-bs-theme="dark"] .modal-content {
+    background-color: #212529 !important;
+    border-color: #495057 !important;
+}
+
+[data-bs-theme="dark"] .modal-header {
+    background-color: #1a1e23 !important;
+    border-bottom-color: #495057 !important;
+}
+
+[data-bs-theme="dark"] .modal-title {
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .modal-body {
+    background-color: #212529 !important;
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .modal-footer {
+    background-color: #1a1e23 !important;
+    border-top-color: #495057 !important;
+}
+
+[data-bs-theme="dark"] .table {
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .table thead th {
+    background-color: #1a1e23 !important;
+    border-color: #495057 !important;
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .table tbody tr {
+    background-color: transparent;
+    border-color: #495057 !important;
+}
+
+[data-bs-theme="dark"] .table tbody tr:hover {
+    background-color: #343a40 !important;
+}
+
+[data-bs-theme="dark"] .table tbody td {
+    border-color: #495057 !important;
+}
