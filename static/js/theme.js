@@ -1,11 +1,11 @@
 (function() {
-    const themes = ['light', 'dark', 'retro', 'windows95'];
+    const themes = ['light', 'dark', 'retro', 'windows95', 'windows311', 'windowsvista', 'dos'];
     const savedTheme = localStorage.getItem('theme') || 'light';
     applyTheme(savedTheme);
 })();
 
 function toggleTheme() {
-    const themes = ['light', 'dark', 'retro', 'windows95'];
+    const themes = ['light', 'dark', 'retro', 'windows95', 'windows311', 'windowsvista', 'dos'];
     const currentTheme = localStorage.getItem('theme') || 'light';
     const currentIndex = themes.indexOf(currentTheme);
     const nextIndex = (currentIndex + 1) % themes.length;
@@ -19,7 +19,7 @@ function applyTheme(theme) {
     const body = document.body;
     
     // Remove existing theme classes
-    body.classList.remove('theme-retro', 'theme-windows95');
+    body.classList.remove('theme-retro', 'theme-windows95', 'theme-windows311', 'theme-windowsvista', 'theme-dos');
     document.documentElement.removeAttribute('data-bs-theme');
     
     if (theme === 'retro') {
@@ -38,6 +38,33 @@ function applyTheme(theme) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
             link.href = '/static/css/windows95.css';
+            document.head.appendChild(link);
+        }
+    } else if (theme === 'windows311') {
+        body.classList.add('theme-windows311');
+        // Load Windows 3.11 CSS if not already loaded
+        if (!document.querySelector('link[href*="windows311.css"]')) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = '/static/css/windows311.css';
+            document.head.appendChild(link);
+        }
+    } else if (theme === 'windowsvista') {
+        body.classList.add('theme-windowsvista');
+        // Load Windows Vista CSS if not already loaded
+        if (!document.querySelector('link[href*="windowsvista.css"]')) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = '/static/css/windowsvista.css';
+            document.head.appendChild(link);
+        }
+    } else if (theme === 'dos') {
+        body.classList.add('theme-dos');
+        // Load DOS CSS if not already loaded
+        if (!document.querySelector('link[href*="dos.css"]')) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = '/static/css/dos.css';
             document.head.appendChild(link);
         }
     } else {

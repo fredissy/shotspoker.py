@@ -1,0 +1,501 @@
+/* Windows 3.11 Theme for Shotspoker */
+/* Classic Windows 3.1/3.11 Program Manager aesthetic */
+
+.theme-windows311 {
+    --win311-light-gray: #c0c0c0;
+    --win311-dark-gray: #808080;
+    --win311-face: #c0c0c0;
+    --win311-shadow: #808080;
+    --win311-highlight: #ffffff;
+    --win311-window-bg: #c0c0c0;
+    --win311-title-bg: #000080;
+    --win311-title-text: #ffffff;
+}
+
+.theme-windows311,
+.theme-windows311 html {
+    background: #c0c0c0;
+}
+
+.theme-windows311 body {
+    background: #c0c0c0;
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Window-like containers (cards) */
+.theme-windows311 .card {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+    box-shadow: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #808080;
+}
+
+.theme-windows311 .card-header {
+    background: #000080;
+    color: #ffffff;
+    padding: 2px 4px;
+    border: none;
+    font-weight: bold;
+    font-size: 0.8rem;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+}
+
+.theme-windows311 .card-title {
+    margin: 0;
+    font-size: 0.8rem;
+}
+
+/* Buttons - classic Windows 3.x style */
+.theme-windows311 .btn {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+    padding: 4px 12px;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: normal;
+    cursor: pointer;
+    box-shadow: inset 1px 1px 0 #ffffff;
+    transition: all 0.1s;
+}
+
+.theme-windows311 .btn:hover:not(:active) {
+    border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+.theme-windows311 .btn:active {
+    border-color: #808080 #ffffff #ffffff #808080;
+    box-shadow: inset 1px 1px 0 #808080;
+    padding: 5px 11px 3px 13px; /* Creates pressed effect */
+}
+
+.theme-windows311 .btn-primary {
+    background: #c0c0c0;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+}
+
+.theme-windows311 .btn-outline-primary {
+    background: #c0c0c0;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+}
+
+.theme-windows311 .btn-outline-secondary {
+    background: #c0c0c0;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+}
+
+.theme-windows311 .btn-success {
+    background: #c0c0c0;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+}
+
+.theme-windows311 .btn-warning {
+    background: #c0c0c0;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+}
+
+/* Form controls */
+.theme-windows311 .form-control {
+    background: #ffffff;
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    padding: 2px 4px;
+    box-shadow: inset 1px 1px 0 #808080;
+}
+
+.theme-windows311 .form-control:focus {
+    background: #ffffff;
+    border-color: #808080 #ffffff #ffffff #808080;
+    box-shadow: inset 1px 1px 0 #808080;
+    outline: none;
+}
+
+.theme-windows311 .form-select {
+    background: #ffffff;
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    padding: 2px 4px;
+    box-shadow: inset 1px 1px 0 #808080;
+}
+
+.theme-windows311 .form-label {
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: normal;
+    margin-bottom: 2px;
+}
+
+/* Headings */
+.theme-windows311 h1, .theme-windows311 h2, .theme-windows311 h3,
+.theme-windows311 h4, .theme-windows311 h5, .theme-windows311 h6 {
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-weight: bold;
+}
+
+/* Badges */
+.theme-windows311 .badge {
+    background: #c0c0c0;
+    color: #000000;
+    border: 1px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: normal;
+    padding: 2px 4px;
+}
+
+.theme-windows311 .voted-badge {
+    background: #c0c0c0;
+    color: #000000;
+    border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+.theme-windows311 .waiting-badge {
+    background: #c0c0c0;
+    color: #000000;
+    border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+/* Room badge */
+.theme-windows311 .room-badge {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: normal;
+    padding: 4px 8px;
+}
+
+/* Voting cards */
+.theme-windows311 .card-select {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    padding: 8px 12px;
+    box-shadow: inset 1px 1px 0 #ffffff;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.theme-windows311 .card-select:hover {
+    border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+.theme-windows311 .card-selected {
+    background: #c0c0c0;
+    border-color: #808080 #ffffff #ffffff #808080;
+    box-shadow: inset -1px -1px 0 #ffffff, inset 1px 1px 0 #808080;
+}
+
+/* Navigation */
+.theme-windows311 .nav-link {
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: normal;
+    border: 2px solid transparent;
+    padding: 2px 8px;
+}
+
+.theme-windows311 .nav-link.active {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+}
+
+/* Dropdowns */
+.theme-windows311 .dropdown-menu {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    box-shadow: 1px 1px 0 #ffffff, -1px -1px 0 #808080;
+}
+
+.theme-windows311 .dropdown-item {
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+}
+
+.theme-windows311 .dropdown-item:hover {
+    background: #000080;
+    color: #ffffff;
+}
+
+.theme-windows311 .dropdown-divider {
+    border-color: #808080;
+    margin: 2px 0;
+}
+
+/* Alerts */
+.theme-windows311 .alert {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+}
+
+.theme-windows311 .alert-info {
+    border-color: #ffffff #808080 #808080 #ffffff;
+    box-shadow: inset 1px 1px 0 #ffffff;
+}
+
+/* Stat boxes */
+.theme-windows311 .stat-box {
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    box-shadow: inset 1px 1px 0 #ffffff;
+}
+
+/* Chart container */
+.theme-windows311 #chartContainer {
+    background: #ffffff;
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    box-shadow: inset 1px 1px 0 #808080;
+    padding: 8px;
+}
+
+/* Visitor counter - classic Windows style */
+.theme-windows311 .visitor-counter {
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    color: #000000;
+    font-size: 0.7rem;
+    text-align: center;
+    margin-top: 20px;
+    padding: 2px 4px;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+/* User chip - classic titlebar style */
+.theme-windows311 #userChip {
+    background: #000080;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #ffffff;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: normal;
+    padding: 2px 4px;
+}
+
+.theme-windows311 #userChip .text-dark {
+    color: #ffffff !important;
+}
+
+/* Reaction toolbar - classic panel style */
+.theme-windows311 #reactionToolbar {
+    background: #c0c0c0 !important;
+    border: 2px solid !important;
+    border-color: #ffffff #808080 #808080 #ffffff !important;
+    box-shadow: inset 1px 1px 0 #ffffff;
+}
+
+/* Text utilities */
+.theme-windows311 .text-muted {
+    color: #808080 !important;
+}
+
+.theme-windows311 .text-primary {
+    color: #000080 !important;
+}
+
+.theme-windows311 .text-success {
+    color: #008000 !important;
+}
+
+.theme-windows311 .text-danger {
+    color: #800000 !important;
+}
+
+/* List items */
+.theme-windows311 .list-group-item {
+    background: #c0c0c0;
+    border: 1px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+}
+
+.theme-windows311 .list-group-item:hover {
+    background: #000080;
+    color: #ffffff;
+}
+
+/* HR separator */
+.theme-windows311 .vr {
+    background-color: #808080;
+}
+
+/* Links */
+.theme-windows311 a {
+    color: #0000ff;
+    text-decoration: underline;
+}
+
+.theme-windows311 a:hover {
+    color: #800000;
+}
+
+/* Modal styling */
+.theme-windows311 .modal-content {
+    background: #c0c0c0;
+    border: 3px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+    box-shadow: 1px 1px 0 #ffffff, -1px -1px 0 #808080, 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.theme-windows311 .modal-header {
+    background: #000080;
+    border-bottom: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    padding: 2px 4px;
+}
+
+.theme-windows311 .modal-title {
+    color: #ffffff;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.theme-windows311 .btn-close {
+    opacity: 0.6;
+}
+
+.theme-windows311 .modal-body {
+    background: #c0c0c0;
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    padding: 8px;
+}
+
+.theme-windows311 .modal-footer {
+    background: #c0c0c0;
+    border-top: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    padding: 8px;
+}
+
+/* Table in history modal */
+.theme-windows311 .table {
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+}
+
+.theme-windows311 .table thead {
+    background: #c0c0c0;
+    border-color: #808080;
+}
+
+.theme-windows311 .table thead th {
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border: 1px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    background: #c0c0c0;
+    padding: 4px;
+}
+
+.theme-windows311 .table tbody tr {
+    background: #c0c0c0;
+}
+
+.theme-windows311 .table tbody tr:hover {
+    background: #000080;
+    color: #ffffff;
+}
+
+.theme-windows311 .table tbody td {
+    border-color: #808080;
+    color: #000000;
+    padding: 4px;
+}
+
+.theme-windows311 .table tbody tr:hover td {
+    color: #ffffff;
+}
+
+/* List group items in queue modal */
+.theme-windows311 .list-group-item {
+    background: #c0c0c0;
+    border: 1px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+}
+
+.theme-windows311 .list-group-item:hover {
+    background: #000080;
+    color: #ffffff;
+    border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+/* Spinner */
+.theme-windows311 .spinner-border {
+    border-color: #c0c0c0 !important;
+}
+
+.theme-windows311 .spinner-border-sm {
+    border-color: #c0c0c0 !important;
+}
+
+/* Textarea in queue modal */
+.theme-windows311 textarea {
+    background: #ffffff;
+    border: 2px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    color: #000000;
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    font-size: 0.75rem;
+    padding: 4px;
+    box-shadow: inset 1px 1px 0 #808080;
+}
+
+.theme-windows311 textarea:focus {
+    outline: none;
+    border-color: #808080 #ffffff #ffffff #808080;
+    box-shadow: inset 1px 1px 0 #808080;
+}
