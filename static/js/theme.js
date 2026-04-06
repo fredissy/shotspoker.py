@@ -24,7 +24,7 @@ function applyTheme(theme) {
     
     if (theme === 'retro') {
         body.classList.add('theme-retro');
-        // Load retro CSS if not already loaded
+        // Load Retro CSS if not already loaded
         if (!document.querySelector('link[href*="retro.css"]')) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
