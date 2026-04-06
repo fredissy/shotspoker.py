@@ -285,20 +285,32 @@
     padding: 8px;
 }
 
-/* User chip - window titlebar style */
+/* User chip - button style */
 .theme-windows95 #userChip {
-    background: linear-gradient(to right, #000080 0%, #1084d7 100%);
-    border: 2px solid;
-    border-color: #dfdfdf #808080 #808080 #dfdfdf;
-    color: #dfdfdf;
+    background: linear-gradient(to bottom, #dfdfdf 0%, #c0c0c0 100%) !important;
+    border: 2px solid !important;
+    border-color: #dfdfdf #808080 #808080 #dfdfdf !important;
+    border-radius: 0 !important;
+    color: #000000 !important;
     font-family: 'MS Sans Serif', Arial, sans-serif;
     font-size: 0.75rem;
     font-weight: bold;
-    padding: 2px 4px;
+    padding: 2px 12px !important;
+    box-shadow: inset 1px 1px 0 #ffffff !important;
+    transition: all 0.1s;
+}
+
+.theme-windows95 #userChip:hover:not(:active) {
+    border-color: #dfdfdf #808080 #808080 #dfdfdf !important;
+}
+
+.theme-windows95 #userChip:active {
+    border-color: #808080 #dfdfdf #dfdfdf #808080 !important;
+    box-shadow: inset 1px 1px 0 #808080 !important;
 }
 
 .theme-windows95 #userChip .text-dark {
-    color: #dfdfdf !important;
+    color: #000000 !important;
 }
 
 /* Reaction toolbar - panel style */
