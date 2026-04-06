@@ -1,585 +1,222 @@
-/* DOS/Text Mode Theme for Shotspoker */
-/* Classic MS-DOS Editor color palette */
-
-.theme-dos {
-    --dos-bg: #000080;
-    --dos-panel: #c0c0c0;
-    --dos-panel-dark: #909090;
-    --dos-border: #000060;
-    --dos-titlebar: #000080;
-    --dos-titlebar-text: #ffffff;
-    --dos-text: #000000;
-    --dos-muted: #404040;
-    --dos-accent: #00a0ff;
+/* MS-DOS Theme */
+body.theme-dos {
+    background-color: #0000A8 !important; /* Classic DOS blue */
+    color: #FFFFFF !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 16px;
+    font-weight: bold;
 }
 
-.theme-dos,
-.theme-dos html {
-    background: var(--dos-bg);
-}
-
-.theme-dos body {
-    background: var(--dos-bg);
-    color: var(--dos-titlebar-text);
-    font-family: 'Courier New', 'Lucida Console', monospace;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    font-size: 14px;
-    line-height: 1.2;
-}
-
-/* ASCII Art Header */
-.theme-dos body::before {
-    content: "╔══════════════════════════════════════════════════════════════════════════════╗\A║                                                                              ║\A║                           S H O T S   P O K E R                           ║\A║                                                                              ║\A╚══════════════════════════════════════════════════════════════════════════════╝";
-    white-space: pre;
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--dos-panel);
-    font-family: 'Courier New', monospace;
-    font-size: 10px;
-    line-height: 1.1;
-    text-align: center;
-    z-index: 1000;
-    pointer-events: none;
-    text-shadow: 0 0 3px rgba(255,255,255,0.35);
-}
-
-/* Window-like containers (cards) - Editor panel style */
-.theme-dos .card {
-    background: var(--dos-panel);
-    border: 1px solid var(--dos-border);
-    color: var(--dos-text);
-    font-family: 'Courier New', monospace;
-    box-shadow: none;
-    position: relative;
-}
-
-.theme-dos .card::before,
-.theme-dos .card::after {
-    content: none;
-}
-
-.theme-dos .card-header {
-    background: var(--dos-titlebar);
-    color: var(--dos-titlebar-text);
-    padding: 4px 8px;
-    border: 1px solid var(--dos-border);
-    border-bottom: none;
-    font-weight: normal;
-    font-size: 12px;
-    font-family: 'Courier New', monospace;
+.theme-dos h1, .theme-dos h2, .theme-dos h3, .theme-dos h4, .theme-dos h5, .theme-dos h6 {
+    font-family: 'Courier New', Courier, monospace !important;
+    color: #FFFFFF !important;
     text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.theme-dos .card-header::before,
-.theme-dos .card-header::after {
-    content: none;
-}
-
-.theme-dos .card-title {
-    margin: 0;
-    font-size: 12px;
-}
-
-/* Buttons - Editor control style */
-.theme-dos .btn {
-    background: #ffffff;
-    border: 1px solid #000000;
-    color: #000000;
-    padding: 3px 10px;
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    font-weight: normal;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 2px 2px 0 #000000;
-    border-radius: 0;
-    transition: none;
-}
-
-.theme-dos .btn:hover {
-    background: #f8f8f8;
-    color: #000000;
-    border-color: #000000;
-}
-
-.theme-dos .btn:active {
-    background: #e0e0e0;
-    color: #000000;
-    border-color: #000000;
-    box-shadow: 1px 1px 0 #000000;
-    transform: translate(1px, 1px);
-}
-
-.theme-dos .btn-primary,
-.theme-dos .btn-outline-primary,
-.theme-dos .btn-success,
-.theme-dos .btn-warning {
-    background: #ffffff;
-    border-color: #000000;
-    color: #000000;
-}
-
-.theme-dos .btn-outline-secondary {
-    background: #ffffff;
-    border-color: #000000;
-    color: #000000;
-}
-
-.theme-dos .card-header .btn,
-.theme-dos .modal-footer .btn {
-    background: #ffffff;
-    color: #000000;
-    border-color: #000000;
-    box-shadow: 2px 2px 0 #000000;
-}
-
-/* Form controls - Editor entry fields */
-.theme-dos .form-control {
-    background: var(--dos-panel);
-    border: 1px solid var(--dos-panel-dark);
-    color: var(--dos-text);
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    padding: 2px 4px;
-    box-shadow: none;
-}
-
-.theme-dos .form-control:focus {
-    background: #ffffff;
-    border-color: var(--dos-border);
-    color: #000000;
-    box-shadow: none;
-    outline: none;
-}
-
-.theme-dos .form-control::placeholder {
-    color: var(--dos-muted);
-}
-
-.theme-dos .form-select {
-    background: var(--dos-panel);
-    border: 1px solid var(--dos-panel-dark);
-    color: var(--dos-text);
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    padding: 2px 4px;
-    box-shadow: none;
-}
-
-.theme-dos .form-label {
-    color: var(--dos-text);
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    font-weight: normal;
-    margin-bottom: 2px;
-    text-transform: uppercase;
-}
-
-/* Headings - ASCII style */
-.theme-dos h1, .theme-dos h2, .theme-dos h3,
-.theme-dos h4, .theme-dos h5, .theme-dos h6 {
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 0 3px #00ff00;
-    margin: 10px 0;
-}
-
-.theme-dos h1::before,
-.theme-dos h2::before,
-.theme-dos h3::before {
-    content: ">>> ";
-    color: #00ff00;
-}
-
-.theme-dos h1::after,
-.theme-dos h2::after,
-.theme-dos h3::after {
-    content: " <<<";
-    color: #00ff00;
-}
-
-/* Badges - Status indicator style */
-.theme-dos .badge {
-    background: #000000;
-    color: #00ff00;
-    border: 1px solid #00ff00;
-    font-family: 'Courier New', monospace;
-    font-size: 10px;
-    font-weight: normal;
-    padding: 1px 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.theme-dos .voted-badge {
-    background: #000000;
-    color: #00ff00;
-    border-color: #00ff00;
-}
-
-.theme-dos .waiting-badge {
-    background: #000000;
-    color: #ffff00;
-    border-color: #ffff00;
-}
-
-/* Room badge - File/folder style */
-.theme-dos .room-badge {
-    background: #000000;
-    border: 1px solid #00ff00;
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    font-weight: normal;
-    padding: 2px 6px;
-    text-transform: uppercase;
-    cursor: pointer;
-}
-
-.theme-dos .room-badge:hover {
-    background: #00ff00;
-    color: #000000;
-    border-color: #00ff00;
-}
-
-/* Voting cards - Command button style */
-.theme-dos .card-select,
-.theme-dos .card-selected {
-    background: #ffffff;
-    border: 1px solid #000000;
-    color: #000000;
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    font-weight: normal;
-    padding: 6px 10px;
-    cursor: pointer;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 2px 2px 0 #000000;
-    transition: none;
-    border-radius: 0;
-}
-
-.theme-dos .card-select:hover {
-    background: #f8f8f8;
-    color: #000000;
-    border-color: #000000;
-}
-
-.theme-dos .card-selected {
-    background: #e0e0e0;
-    border-color: #000000;
-}
-
-/* Navigation - Menu style */
-.theme-dos .nav-link {
-    color: var(--dos-titlebar-text);
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 2px 6px;
-    transition: none;
-}
-
-.theme-dos .nav-link.active {
-    background: var(--dos-panel-dark);
-    border: 1px solid var(--dos-border);
-    color: var(--dos-text);
-}
-
-/* Dropdowns - Menu style */
-.theme-dos .dropdown-menu {
-    background: var(--dos-panel);
-    border: 1px solid var(--dos-border);
-    box-shadow: none;
-    border-radius: 0;
-}
-
-.theme-dos .dropdown-item {
-    color: var(--dos-text);
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    padding: 4px 8px;
-    text-transform: uppercase;
-    transition: none;
-}
-
-.theme-dos .dropdown-item:hover {
-    background: var(--dos-titlebar);
-    color: var(--dos-titlebar-text);
-}
-
-.theme-dos .dropdown-divider {
-    border-color: var(--dos-panel-dark);
-    margin: 2px 0;
-}
-
-/* Alerts - System message style */
-.theme-dos .alert {
-    background: #000000;
-    border: 1px solid #ffff00;
-    color: #ffff00;
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.theme-dos .alert-info {
-    border-color: #00ff00;
-    color: #00ff00;
-}
-
-/* Stat boxes - Data display style */
-.theme-dos .stat-box {
-    background: #000000;
-    border: 1px solid #00ff00;
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
     text-align: center;
 }
 
-/* Chart container - Terminal display */
-.theme-dos #chartContainer {
-    background: #000000;
-    border: 1px solid #00ff00;
-    padding: 8px;
+/* Dialog boxes / Cards */
+.theme-dos .card, .theme-dos .modal-content, .theme-dos .toast {
+    background-color: #AAAAAA !important; /* Light grey */
+    color: #000000 !important;
+    border: 2px solid #FFFFFF !important;
+    border-right-color: #555555 !important;
+    border-bottom-color: #555555 !important;
+    box-shadow: 12px 12px 0px 0px #000000 !important;
+    border-radius: 0 !important;
+    margin-bottom: 20px;
 }
 
-/* Visitor counter - System info style */
-.theme-dos .visitor-counter {
-    font-family: 'Courier New', monospace;
-    color: #808080;
-    font-size: 10px;
+.theme-dos .card-header, .theme-dos .modal-header, .theme-dos .toast-header {
+    background-color: #AAAAAA !important;
+    color: #000000 !important;
+    border-bottom: 1px solid #000000 !important;
     text-align: center;
-    margin-top: 20px;
-    padding: 2px 4px;
-    background: #000000;
-    border: 1px solid #808080;
-    text-transform: uppercase;
+    border-radius: 0 !important;
 }
 
-/* User chip - Profile button style */
-.theme-dos #userChip {
-    background: #ffffff;
-    border: 1px solid #000000;
-    color: #000000;
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    font-weight: normal;
-    padding: 4px 8px;
-    text-transform: uppercase;
-    box-shadow: 2px 2px 0 #000000;
-    border-radius: 0;
-}
-
-.theme-dos #userChip .text-dark {
+.theme-dos .card-body, .theme-dos .modal-body, .theme-dos .toast-body {
+    background-color: #AAAAAA !important;
     color: #000000 !important;
 }
 
-/* Reaction toolbar - Function keys */
-.theme-dos #reactionToolbar {
-    background: #000000 !important;
-    border: 1px solid #00ff00 !important;
+.theme-dos .card-footer, .theme-dos .modal-footer {
+    background-color: #AAAAAA !important;
+    border-top: 1px solid #000000 !important;
 }
 
-/* Text utilities */
-.theme-dos .text-muted {
-    color: #808080 !important;
+/* Buttons */
+.theme-dos .btn, .theme-dos button {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: 8px 8px 0px 0px #000000 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: bold;
+    padding: 5px 15px;
+    text-transform: uppercase;
+    transition: none !important;
+    margin: 5px;
+    position: relative;
 }
 
-.theme-dos .text-primary {
-    color: #00ff00 !important;
+.theme-dos .btn:hover, .theme-dos button:hover {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
 }
 
-.theme-dos .text-success {
-    color: #00ff00 !important;
+.theme-dos .btn:active, .theme-dos button:active {
+    box-shadow: none !important;
+    transform: translate(8px, 8px) !important;
 }
 
-.theme-dos .text-danger {
-    color: #ff0000 !important;
+/* Specific overrides for button outlines */
+.theme-dos .btn-outline-primary, .theme-dos .btn-outline-secondary, .theme-dos .btn-outline-dark, .theme-dos .btn-outline-light {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
 }
 
-/* List items - Participants list style */
-.theme-dos #votersList .list-group-item {
-    background: #d0d0d0;
-    border: 1px solid #000000;
-    color: #000000;
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    padding: 6px 8px;
+/* Inputs and Selects (Lists) */
+.theme-dos input, .theme-dos select, .theme-dos textarea, .theme-dos .form-control {
+    background-color: #AAAAAA !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+    border-radius: 0 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: bold;
+}
+
+.theme-dos input:focus, .theme-dos select:focus, .theme-dos textarea:focus, .theme-dos .form-control:focus {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Lists styling (inspired by MS-DOS Edit color selection list) */
+.theme-dos select[multiple], .theme-dos select[size], .theme-dos .list-group-item {
+    background-color: #AAAAAA !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+}
+
+.theme-dos select option:checked, .theme-dos .list-group-item.active {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+}
+
+.theme-dos .list-group-item {
+    border-radius: 0 !important;
+    border-color: #000000 !important;
     margin-bottom: -1px;
 }
 
-.theme-dos #votersList .list-group-item:hover,
-.theme-dos #votersList .list-group-item.active,
-.theme-dos #votersList .list-group-item.active:hover {
-    background: #000000;
-    color: #ffffff;
-    border-color: #000000;
+.theme-dos .list-group-item:hover {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
 }
 
-/* HR separator - ASCII line */
-.theme-dos .vr {
-    background: linear-gradient(to bottom, #00ff00 0%, #00ff00 100%);
-    width: 1px;
+/* Badges / Chips */
+.theme-dos .badge, .theme-dos #userChip, .theme-dos .stat-box {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #FFFFFF !important;
+    border-radius: 0 !important;
+    font-family: 'Courier New', Courier, monospace !important;
 }
 
-/* Links - Hyperlink style */
-.theme-dos a {
-    color: #00ff00;
-    text-decoration: underline;
-    transition: none;
+.theme-dos #userChip .text-dark {
+    color: #FFFFFF !important;
 }
 
-.theme-dos a:hover {
-    color: #ffffff;
-    text-decoration: none;
+.theme-dos .room-badge {
+    background-color: #000000 !important;
+    color: #55FFFF !important; /* Bright cyan for room ID */
+    border: 1px solid #55FFFF !important;
 }
 
-/* Modal styling - Dialog box style */
-.theme-dos .modal-content {
-    background: var(--dos-panel);
-    border: 2px solid var(--dos-border);
-    color: var(--dos-text);
-    font-family: 'Courier New', monospace;
-    box-shadow: none;
-    border-radius: 0;
+/* Navbars / Toolbars */
+.theme-dos .navbar, .theme-dos #reactionToolbar {
+    background-color: #AAAAAA !important;
+    border-bottom: 2px solid #000000 !important;
+    border-top: 2px solid #000000 !important;
 }
 
-.theme-dos .modal-content::before,
-.theme-dos .modal-content::after {
-    content: none;
+.theme-dos .navbar-brand {
+    color: #000000 !important;
+    font-weight: bold;
 }
 
-.theme-dos .modal-header {
-    background: var(--dos-titlebar);
-    border-bottom: 1px solid var(--dos-border);
-    padding: 4px 8px;
-    border-radius: 0;
-}
-
-.theme-dos .modal-title {
-    color: var(--dos-titlebar-text);
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.theme-dos .btn-close {
-    filter: invert(1) brightness(0.5);
-    opacity: 1;
-}
-
-.theme-dos .modal-body {
-    background: var(--dos-panel);
-    color: var(--dos-text);
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    padding: 8px;
-}
-
-.theme-dos .modal-footer {
-    background: var(--dos-panel);
-    border-top: 1px solid var(--dos-border);
-    padding: 4px 8px;
-    border-radius: 0;
-}
-
-/* Table in history modal - Data table style */
+/* Tables */
 .theme-dos .table {
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
-    font-size: 10px;
-    border-color: #00ff00;
+    color: #FFFFFF !important;
+    background-color: #0000A8 !important;
 }
 
-.theme-dos .table thead {
-    background: #000000;
-    border-color: #00ff00;
+.theme-dos .table th, .theme-dos .table thead th {
+    background-color: #AAAAAA !important;
+    color: #000000 !important;
+    border-color: #000000 !important;
 }
 
-.theme-dos .table thead th {
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
-    font-size: 9px;
-    font-weight: normal;
-    border: 1px solid #00ff00;
-    background: #000000;
-    padding: 2px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.theme-dos .table tbody tr {
-    background: #000000;
-    border-color: #404040;
+.theme-dos .table td {
+    border-color: #AAAAAA !important;
 }
 
 .theme-dos .table tbody tr:hover {
-    background: #00ff00;
-    color: #000000;
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
 }
 
-.theme-dos .table tbody td {
-    border-color: #404040;
-    color: #00ff00;
-    padding: 2px;
+/* Scrollbars (Webkit only, but good for effect) */
+.theme-dos ::-webkit-scrollbar {
+    width: 16px;
+    background: #AAAAAA;
+    border-left: 1px solid #000000;
 }
 
-/* List group items in queue modal */
-.theme-dos .list-group-item {
+.theme-dos ::-webkit-scrollbar-thumb {
     background: #000000;
-    border: 1px solid #404040;
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
-    font-size: 10px;
-    padding: 2px 6px;
+    border: 2px solid #AAAAAA;
 }
 
-.theme-dos .list-group-item:hover {
-    background: #00ff00;
-    color: #000000;
-    border-color: #00ff00;
+.theme-dos ::-webkit-scrollbar-button:single-button {
+    background-color: #AAAAAA;
+    display: block;
+    border: 1px solid #000;
+    height: 16px;
+    width: 16px;
 }
 
-/* Spinner - Loading indicator */
-.theme-dos .spinner-border {
-    border-color: #00ff00 !important;
+/* Additional specific overrides */
+.theme-dos .text-muted {
+    color: inherit !important;
+}
+.theme-dos a {
+    color: #55FFFF !important; /* Bright cyan for links */
+    text-decoration: none;
+}
+.theme-dos a:hover {
+    text-decoration: underline;
 }
 
-.theme-dos .spinner-border-sm {
-    border-color: #00ff00 !important;
+/* Specific elements like vote cards */
+.theme-dos .card-select {
+    border: 2px solid #FFFFFF !important;
+}
+.theme-dos .card-select.card-selected {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border-color: #FFFFFF !important;
+    transform: none !important;
+    box-shadow: inset 4px 4px 0px 0px #555555 !important;
 }
 
-/* Textarea in queue modal */
-.theme-dos textarea {
-    background: #000000;
-    border: 1px solid #00ff00;
-    color: #00ff00;
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    padding: 4px;
-    box-shadow: none;
+.theme-dos .voted-badge {
+    background-color: #00AA00 !important; /* DOS Green */
+    color: #FFFFFF !important;
 }
-
-.theme-dos textarea:focus {
-    outline: none;
-    border-color: #ffffff;
-    color: #ffffff;
+.theme-dos .waiting-badge {
+    background-color: #AAAA00 !important; /* DOS Yellow/Brown */
+    color: #000000 !important;
 }
