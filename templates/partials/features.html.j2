@@ -1,0 +1,116 @@
+<!-- Feature Announcement Modal -->
+<div class="modal fade" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="featureModalLabel">
+                    ✨ What's New in Shots Poker
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="lead text-muted mb-4">
+                    Check out the latest features and improvements we've added to enhance your planning poker experience!
+                </p>
+                
+                <div id="featureVersions">
+                    <!-- Dynamic content will be populated here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                    Got it, thanks! 🎉
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Feature notification system
+const FEATURE_STORAGE_KEY = 'shotspoker_last_seen_version';
+
+function checkForNewFeatures() {
+    const lastSeenVersion = localStorage.getItem(FEATURE_STORAGE_KEY);
+    
+    // Build API URL
+    let apiUrl = '/api/version';
+    if (lastSeenVersion) {
+        apiUrl += `?since=${encodeURIComponent(lastSeenVersion)}`;
+    }
+    
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.has_new_features && data.new_features && data.new_features.length > 0) {
+                displayFeatureModal(data.new_features, data.version);
+            }
+            
+            // Always update the last seen version to current
+            localStorage.setItem(FEATURE_STORAGE_KEY, data.version);
+        })
+        .catch(error => {
+            console.log('Failed to check for new features:', error);
+            // Silently fail - feature notifications are not critical
+        });
+}
+
+function displayFeatureModal(newFeatures, currentVersion) {
+    const container = document.getElementById('featureVersions');
+    
+    // Clear existing content
+    container.innerHTML = '';
+    
+    // Generate HTML for each version with new features
+    newFeatures.forEach((versionData, index) => {
+        const versionDiv = document.createElement('div');
+        versionDiv.className = 'mb-4';
+        
+        const versionHeader = document.createElement('h6');
+        versionHeader.className = 'text-primary fw-bold mb-3';
+        versionHeader.innerHTML = `🎯 ${versionData.version_name}`;
+        versionDiv.appendChild(versionHeader);
+        
+        const featuresList = document.createElement('div');
+        featuresList.className = 'ms-3';
+        
+        versionData.features.forEach(feature => {
+            const featureItem = document.createElement('div');
+            featureItem.className = 'border-start border-3 border-primary ps-3 mb-3';
+            
+            const featureTitle = document.createElement('div');
+            featureTitle.className = 'fw-semibold d-flex align-items-center gap-2';
+            featureTitle.innerHTML = `<span class="fs-5">${feature.icon || '✨'}</span> ${feature.title}`;
+            
+            const featureDesc = document.createElement('div');
+            featureDesc.className = 'text-muted small mt-1';
+            featureDesc.textContent = feature.description;
+            
+            featureItem.appendChild(featureTitle);
+            featureItem.appendChild(featureDesc);
+            featuresList.appendChild(featureItem);
+        });
+        
+        versionDiv.appendChild(featuresList);
+        
+        // Add separator between versions (except for the last one)
+        if (index < newFeatures.length - 1) {
+            const separator = document.createElement('hr');
+            separator.className = 'my-4';
+            versionDiv.appendChild(separator);
+        }
+        
+        container.appendChild(versionDiv);
+    });
+    
+    // Show the modal
+    const featureModal = new bootstrap.Modal(document.getElementById('featureModal'));
+    featureModal.show();
+}
+
+// Check for new features when the page loads (after socket connection is established)
+document.addEventListener('DOMContentLoaded', function() {
+    // Delay the check slightly to ensure all resources are loaded
+    setTimeout(checkForNewFeatures, 1000);
+});
+</script>

@@ -36,6 +36,11 @@
                     🔍 Ticket History
                 </button>
             </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="testing-tab" data-bs-toggle="tab" data-bs-target="#testing" type="button" role="tab">
+                    🧪 Testing
+                </button>
+            </li>
         </ul>
 
         <div class="tab-content" id="adminTabsContent">
@@ -184,10 +189,69 @@
                 </div>
             </div>
 
+            <!-- Testing Tab -->
+            <div class="tab-pane fade" id="testing" role="tabpanel">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0">🧪 Feature Notification Testing</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted mb-4">
+                            Test the feature notification system by simulating different user scenarios.
+                        </p>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h6 class="mb-0">Reset User State</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="small text-muted">Clear localStorage to simulate a new user who hasn't seen any feature announcements.</p>
+                                        <button class="btn btn-primary" onclick="testResetUserState()">
+                                            🔄 Reset & Test Modal
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card border-info">
+                                    <div class="card-header bg-info text-white">
+                                        <h6 class="mb-0">API Endpoints</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="small text-muted">Test the feature notification API endpoints.</p>
+                                        <div class="d-flex gap-2">
+                                            <a href="/api/version" class="btn btn-outline-info btn-sm" target="_blank">
+                                                📡 Version API
+                                            </a>
+                                            <a href="/api/features" class="btn btn-outline-info btn-sm" target="_blank">
+                                                📋 Features API
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info mt-4" role="alert">
+                            <strong>Note:</strong> The feature modal will only appear if there are new features since the last visit. Use the "Reset & Test Modal" button to simulate a first-time user.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div> </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Testing functions
+        function testResetUserState() {
+            localStorage.removeItem('shotspoker_last_seen_version');
+            alert('✅ User state reset! Visit the main voting page to see the feature modal.');
+        }
+        
         document.addEventListener("DOMContentLoaded", function() {
             const ctx = document.getElementById('usageChart');
             if (ctx) {

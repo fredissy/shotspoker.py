@@ -1,0 +1,47 @@
+{
+  "1711900800": {
+    "version_name": "March 2026 Release",
+    "features": [
+      {
+        "title": "Enhanced Queue System",
+        "description": "Improved bulk ticket import with better validation and Jira link generation",
+        "icon": "📋"
+      },
+      {
+        "title": "Session Timer Improvements", 
+        "description": "More reliable countdown timer with better synchronization across all participants",
+        "icon": "⏱️"
+      },
+      {
+        "title": "Voting Analytics",
+        "description": "Enhanced vote distribution charts with consensus percentage indicators",
+        "icon": "📊"
+      }
+    ]
+  },
+  "1743436800": {
+    "version_name": "April 2026 Update",
+    "features": [
+      {
+        "title": "Feature Notifications",
+        "description": "Stay informed about new features with automatic update notifications when you visit the app",
+        "icon": "🔔"
+      },
+      {
+        "title": "Dark Mode Support",
+        "description": "Toggle between light and dark themes with persistent user preference",
+        "icon": "🌙"
+      },
+      {
+        "title": "Reaction System",
+        "description": "Send emoji reactions during voting sessions with floating animations",
+        "icon": "🎉"
+      },
+      {
+        "title": "Administrator Panel",
+        "description": "Monitor all active rooms and search voting history from admin interface",
+        "icon": "⚙️"
+      }
+    ]
+  }
+}
