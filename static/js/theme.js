@@ -12,7 +12,7 @@ if (document.readyState === 'loading') {
 }
 
 function toggleTheme() {
-    const themes = ['light', 'dark', 'retro', 'windows95', 'windows311', 'windowsvista', 'dos'];
+    const themes = ['light', 'dark', 'retro', 'terminal', 'windows95', 'windows311', 'windowsvista', 'dos'];
     const currentTheme = localStorage.getItem('theme') || 'light';
     const currentIndex = themes.indexOf(currentTheme);
     const nextIndex = (currentIndex + 1) % themes.length;
@@ -26,7 +26,7 @@ function applyTheme(theme) {
     const body = document.body;
     
     // Remove existing theme classes
-    body.classList.remove('theme-retro', 'theme-windows95', 'theme-windows311', 'theme-windowsvista', 'theme-dos');
+    body.classList.remove('theme-retro', 'theme-terminal', 'theme-windows95', 'theme-windows311', 'theme-windowsvista', 'theme-dos');
     document.documentElement.removeAttribute('data-bs-theme');
     
     if (theme === 'retro') {
@@ -36,6 +36,15 @@ function applyTheme(theme) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
             link.href = '/static/css/retro.css';
+            document.head.appendChild(link);
+        }
+    } else if (theme === 'terminal') {
+        body.classList.add('theme-terminal');
+        // Load Terminal CSS if not already loaded
+        if (!document.querySelector('link[href*="terminal.css"]')) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = '/static/css/terminal.css';
             document.head.appendChild(link);
         }
     } else if (theme === 'windows95') {
