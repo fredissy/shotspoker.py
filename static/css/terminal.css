@@ -1,0 +1,200 @@
+/* UNIX Terminal Theme */
+
+body.theme-terminal {
+    background-color: #000000 !important;
+    background-image: none !important;
+    color: #00ff00 !important;
+}
+
+.theme-terminal, .theme-terminal * {
+    font-family: 'Courier New', Courier, monospace !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border-color: #00ff00 !important;
+}
+
+/* Glowing text with subtle hollow effect and emoji neutralization */
+/* We only target text-containing elements to avoid breaking layouts */
+.theme-terminal, 
+.theme-terminal p, 
+.theme-terminal h1, 
+.theme-terminal h2, 
+.theme-terminal h3, 
+.theme-terminal h4, 
+.theme-terminal h5, 
+.theme-terminal h6, 
+.theme-terminal span, 
+.theme-terminal a, 
+.theme-terminal button, 
+.theme-terminal label, 
+.theme-terminal .badge,
+.theme-terminal td,
+.theme-terminal th,
+.theme-terminal li,
+.theme-terminal small,
+.theme-terminal strong,
+.theme-terminal em {
+    color: transparent !important;
+    text-shadow: 0 0 1px #00ff00, 0 0 3px #00ff00 !important;
+    -webkit-text-stroke: 0.5px #00ff00 !important;
+}
+
+/* Backgrounds for specific container elements ONLY */
+body.theme-terminal,
+.theme-terminal .card, 
+.theme-terminal .modal-content, 
+.theme-terminal .toast,
+.theme-terminal .dropdown-menu,
+.theme-terminal .list-group-item,
+.theme-terminal .btn,
+.theme-terminal button,
+.theme-terminal input,
+.theme-terminal select,
+.theme-terminal textarea,
+.theme-terminal .form-control,
+.theme-terminal .badge,
+.theme-terminal .room-badge,
+.theme-terminal .card-select,
+.theme-terminal .navbar,
+.theme-terminal #reactionToolbar {
+    background-color: #000000 !important;
+}
+
+/* Inputs and textareas */
+.theme-terminal input, 
+.theme-terminal select, 
+.theme-terminal textarea, 
+.theme-terminal .form-control {
+    color: transparent !important;
+    text-shadow: 0 0 0 #00ff00 !important;
+    caret-color: #00ff00 !important;
+    border: 1px solid #00ff00 !important;
+}
+
+/* Form outlines */
+.theme-terminal input:focus, 
+.theme-terminal select:focus, 
+.theme-terminal textarea:focus, 
+.theme-terminal .form-control:focus {
+    outline: 1px solid #00ff00 !important;
+    background-color: #002200 !important;
+}
+
+/* Borders */
+.theme-terminal .card, 
+.theme-terminal .modal-content, 
+.theme-terminal .toast,
+.theme-terminal .dropdown-menu,
+.theme-terminal .list-group-item,
+.theme-terminal .btn,
+.theme-terminal button,
+.theme-terminal .table,
+.theme-terminal .badge,
+.theme-terminal #userChip,
+.theme-terminal .room-badge,
+.theme-terminal .card-select {
+    border: 1px solid #00ff00 !important;
+}
+
+.theme-terminal .card-header, 
+.theme-terminal .modal-header, 
+.theme-terminal .toast-header {
+    border-bottom: 1px solid #00ff00 !important;
+}
+
+.theme-terminal .card-footer, 
+.theme-terminal .modal-footer {
+    border-top: 1px solid #00ff00 !important;
+}
+
+.theme-terminal .navbar, 
+.theme-terminal #reactionToolbar {
+    border-top: 1px solid #00ff00 !important;
+    border-bottom: 1px solid #00ff00 !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+
+/* Hidden elements */
+.theme-terminal hr, .theme-terminal .vr {
+    background-color: #00ff00 !important;
+    opacity: 1 !important;
+}
+
+/* Inverted state for hovers and selected elements */
+.theme-terminal .btn:hover, 
+.theme-terminal button:hover,
+.theme-terminal .dropdown-item:hover,
+.theme-terminal .list-group-item:hover,
+.theme-terminal .card-select.card-selected,
+.theme-terminal .table tbody tr:hover,
+.theme-terminal a:hover {
+    background-color: #00ff00 !important;
+}
+
+/* Change text to black when background is green */
+.theme-terminal .btn:hover, 
+.theme-terminal button:hover,
+.theme-terminal .dropdown-item:hover,
+.theme-terminal .list-group-item:hover,
+.theme-terminal .card-select.card-selected,
+.theme-terminal .table tbody tr:hover td,
+.theme-terminal a:hover,
+.theme-terminal .btn:hover *, 
+.theme-terminal button:hover *,
+.theme-terminal .dropdown-item:hover *,
+.theme-terminal .list-group-item:hover *,
+.theme-terminal .card-select.card-selected *,
+.theme-terminal .table tbody tr:hover td *,
+.theme-terminal a:hover * {
+    text-shadow: 0 0 0 #000000 !important;
+    -webkit-text-stroke: 0px transparent !important;
+    border-color: #000000 !important;
+}
+
+/* Links */
+.theme-terminal a {
+    text-decoration: underline !important;
+}
+.theme-terminal a:hover {
+    text-decoration: none !important;
+}
+
+/* Hide Bootstrap specific styles */
+.theme-terminal .bg-light,
+.theme-terminal .bg-dark,
+.theme-terminal .bg-white,
+.theme-terminal .bg-primary,
+.theme-terminal .bg-secondary,
+.theme-terminal .bg-success,
+.theme-terminal .bg-danger,
+.theme-terminal .bg-warning,
+.theme-terminal .bg-info {
+    background-color: transparent !important;
+}
+
+.theme-terminal .text-muted,
+.theme-terminal .text-primary,
+.theme-terminal .text-success,
+.theme-terminal .text-danger,
+.theme-terminal .text-dark,
+.theme-terminal .text-light {
+    color: transparent !important;
+}
+
+/* Table borders */
+.theme-terminal .table th, 
+.theme-terminal .table td {
+    border-bottom: 1px solid #00ff00 !important;
+}
+
+/* Hide images that are purely graphical */
+.theme-terminal img {
+    display: none !important;
+}
+
+/* Badges */
+.theme-terminal .voted-badge,
+.theme-terminal .waiting-badge {
+    border: 1px solid #00ff00 !important;
+}
