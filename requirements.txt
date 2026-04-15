@@ -10,6 +10,6 @@ psycopg2-binary==2.9.11
 python-dotenv==1.2.2
 gunicorn==25.2.0
 redis==7.4.0
-gevent==25.9.1
+gevent==26.4.0
 gevent-websocket==0.10.1
 Flask-Migrate==4.1.0
