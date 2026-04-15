@@ -28,7 +28,7 @@
 
 <script>
 // Feature notification system
-const FEATURE_STORAGE_KEY = 'shotspoker_last_seen_version';
+const FEATURE_STORAGE_KEY = 'shotspoker_last_seen_feature_version';
 
 function checkForNewFeatures() {
     const lastSeenVersion = localStorage.getItem(FEATURE_STORAGE_KEY);
@@ -43,11 +43,13 @@ function checkForNewFeatures() {
         .then(response => response.json())
         .then(data => {
             if (data.has_new_features && data.new_features && data.new_features.length > 0) {
-                displayFeatureModal(data.new_features, data.version);
+                displayFeatureModal(data.new_features, data.feature_version || data.version);
             }
             
-            // Always update the last seen version to current
-            localStorage.setItem(FEATURE_STORAGE_KEY, data.version);
+            // Persist the latest feature version if available
+            if (data.feature_version || data.version) {
+                localStorage.setItem(FEATURE_STORAGE_KEY, data.feature_version || data.version);
+            }
         })
         .catch(error => {
             console.log('Failed to check for new features:', error);
