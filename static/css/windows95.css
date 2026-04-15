@@ -11,13 +11,14 @@
     --win95-face: #c0c0c0;
 }
 
-.theme-windows95,
-.theme-windows95 html {
-    background: #008080;
+html.theme-windows95,
+body.theme-windows95 {
+    background: #008080 !important;
 }
 
-.theme-windows95 body {
-    background: #008080;
+html.theme-windows95 body,
+body.theme-windows95 {
+    background: #008080 !important;
     color: #000000;
     font-family: 'MS Sans Serif', Arial, sans-serif;
     margin: 0;
