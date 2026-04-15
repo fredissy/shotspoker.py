@@ -1,0 +1,21 @@
+{
+  "releases": [
+    {
+      "id": "2026-04-15",
+      "released_at": 1776254879,
+      "version_name": "April 16, 2026 Update",
+      "features": [
+        {
+          "title": "New themes",
+          "description": "See by yourself ! Have a look at User Menu/Themes",
+          "icon": "🎨​"
+        },
+        {
+          "title": "New features modal window",
+          "description": "This modal window now lists new features of the app when a new version is deployed",
+          "icon": "🔔"
+        }
+      ]
+    }
+  ]
+}
