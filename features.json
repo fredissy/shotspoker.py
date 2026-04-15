@@ -3,7 +3,7 @@
     {
       "id": "2026-04-15",
       "released_at": 1776254879,
-      "version_name": "April 16, 2026 Update",
+      "version_name": "April 15, 2026 Update",
       "features": [
         {
           "title": "New themes",
@@ -14,6 +14,11 @@
           "title": "New features modal window",
           "description": "This modal window now lists new features of the app when a new version is deployed",
           "icon": "🔔"
+        },
+        {
+          "title": "Dependencies update",
+          "description": "Usual python dependencies updates",
+          "icon": "⚙️"
         }
       ]
     }
