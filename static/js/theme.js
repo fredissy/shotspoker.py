@@ -1,8 +1,15 @@
-(function() {
-    const themes = ['light', 'dark', 'retro', 'windows95', 'windows311', 'windowsvista', 'dos'];
+const themes = ['light', 'dark', 'retro', 'terminal', 'windows95', 'windows311', 'windowsvista', 'dos'];
+
+function initTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     applyTheme(savedTheme);
-})();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTheme);
+} else {
+    initTheme();
+}
 
 function toggleTheme() {
     const themes = ['light', 'dark', 'retro', 'windows95', 'windows311', 'windowsvista', 'dos'];
