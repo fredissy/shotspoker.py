@@ -21,6 +21,18 @@
           "icon": "⚙️"
         }
       ]
+    },
+    {
+      "id": "2026-05-13",
+      "released_at": 1778700872,
+      "version_name": "May 13, 2026 Update",
+      "features": [
+        {
+          "title": "Dependencies update",
+          "description": "Maintenance release",
+          "icon": "⚙️"
+        }
+      ]
     }
   ]
 }
