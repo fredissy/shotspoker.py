@@ -61,7 +61,7 @@ function displayFeatureModal(newFeatures, currentVersion) {
     container.innerHTML = '';
     
     // Generate HTML for each version with new features
-    newFeatures.forEach((versionData, index) => {
+    [...newFeatures].reverse().forEach((versionData, index) => {
         const versionDiv = document.createElement('div');
         versionDiv.className = 'mb-4';
         
