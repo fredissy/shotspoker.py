@@ -46,10 +46,7 @@ if app.config['REDIS_URL']:
         use_redis = True
         print("✓ Using Redis for state storage and SocketIO message queue")
     except Exception as e:
-        print(f"⚠ Redis connection failed: {e}")
-        print("✓ Falling back to in-memory storage (single instance only)")
-        redis_client = None
-        use_redis = False
+        raise RuntimeError("REDIS_URL is configured but Redis is unavailable") from e
 else:
     print("✓ No REDIS_URL configured, using in-memory storage (single instance only)")
 

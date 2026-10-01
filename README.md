@@ -12,6 +12,12 @@ This will spin-up Shots Poker instance, running with in-memory store and embedde
 
 TODO : further options are available to use external PostgreSQL database or Redis store. 
 
+## Multi-instance deployment
+
+For multiple application instances, configure the same `REDIS_URL`, `DATABASE_URL`, and `SECRET_KEY` on every instance. Redis stores shared room state and carries the Socket.IO message queue; use a shared PostgreSQL database for history, since embedded SQLite files are local to each instance. If `REDIS_URL` is configured but Redis is unavailable, the application fails to start rather than falling back to per-instance memory. Without `REDIS_URL`, the in-memory store remains suitable only for a single instance.
+
+Run database migrations once as a deployment step before starting or scaling application instances. Set `RUN_MIGRATIONS=false` on each application instance to prevent the container entrypoint from running migrations concurrently.
+
 ## Screenshots :
 
 Login Page :

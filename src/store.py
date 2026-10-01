@@ -58,6 +58,24 @@ def save_room(room_id, state):
                 'expires_at': time.time() + ROOM_TTL
             }
 
+def create_room(room_id, state):
+    """Create a room only if it does not already exist."""
+    state['last_updated'] = time.time()
+    key = f"room:{room_id}"
+    if app.config['USE_REDIS']:
+        return bool(redis_client.set(key, json.dumps(state), ex=ROOM_TTL, nx=True))
+
+    current_time = time.time()
+    with _memory_store_lock:
+        entry = _memory_store.get(key)
+        if entry and entry.get('expires_at', float('inf')) > current_time:
+            return False
+        _memory_store[key] = {
+            'data': state,
+            'expires_at': current_time + ROOM_TTL
+        }
+        return True
+
 def room_exists(room_id):
     """Check if room exists in Redis or memory."""
     if app.config['USE_REDIS']:
@@ -69,6 +87,26 @@ def room_exists(room_id):
             entry = _memory_store.get(key)
             return entry is not None and entry.get('expires_at', float('inf')) > time.time()
 
+def remove_room(room_id):
+    """Remove a room while excluding concurrent room updates."""
+    if app.config['USE_REDIS']:
+        lock = redis_client.lock(f"lock:room:{room_id}", timeout=30, blocking_timeout=5)
+        if not lock.acquire():
+            return False
+        try:
+            return bool(redis_client.delete(f"room:{room_id}"))
+        finally:
+            lock.release()
+
+    room_lock = _get_memory_lock(room_id)
+    if not room_lock.acquire(timeout=5):
+        return False
+    try:
+        with _memory_store_lock:
+            return _memory_store.pop(f"room:{room_id}", None) is not None
+    finally:
+        room_lock.release()
+
 @contextmanager
 def change_room(room_id):
     """
@@ -79,7 +117,7 @@ def change_room(room_id):
     if app.config['USE_REDIS']:
         # Redis implementation (existing code)
         lock_key = f"lock:room:{room_id}"
-        lock = redis_client.lock(lock_key, timeout=5, blocking_timeout=2)
+        lock = redis_client.lock(lock_key, timeout=30, blocking_timeout=5)
         
         acquired = lock.acquire()
         if not acquired:

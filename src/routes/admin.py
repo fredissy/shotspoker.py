@@ -3,7 +3,7 @@ from functools import wraps
 from flask import Response, render_template, redirect, request, url_for
 from src import app, socketio, redis_client
 from sqlalchemy import func, or_
-from src.store import get_room, room_exists, _memory_store, _memory_store_lock
+from src.store import get_room, remove_room, _memory_store, _memory_store_lock
 from src.model import TicketSession, Vote, db
 
 def format_ts(ts):
@@ -48,17 +48,6 @@ def get_all_room_ids():
                     room_id = key.replace("room:", "")
                     room_ids.append(room_id)
             return room_ids
-
-def delete_room_data(room_id):
-    """Delete room data from Redis or memory."""
-    if app.config['USE_REDIS']:
-        redis_client.delete(f"room:{room_id}")
-    else:
-        # Delete from in-memory store
-        key = f"room:{room_id}"
-        with _memory_store_lock:
-            if key in _memory_store:
-                del _memory_store[key]
 
 @app.route('/admin')
 @requires_auth
@@ -158,11 +147,6 @@ def admin_panel():
 @app.route('/admin/delete/<room_id>', methods=['POST'])
 @requires_auth
 def delete_room(room_id):
-    if room_exists(room_id):
-        # 1. Notify all users in that room to leave
+    if remove_room(room_id):
         socketio.emit('room_closed', {'msg': 'Room deleted by admin'}, to=room_id)
-        
-        # 2. Delete from storage (Redis or memory)
-        delete_room_data(room_id)
-        
     return redirect(url_for('admin_panel'))

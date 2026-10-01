@@ -5,7 +5,7 @@ from flask import jsonify, redirect, render_template, request, session, url_for
 from src import app
 from src.model import TicketSession
 from src.utils import STANDARD_EMOJIS, choose_user_avatar, get_allowed_custom_emojis
-from src.store import room_exists, save_room
+from src.store import create_room, room_exists
 from src.state import get_initial_room_state, DECKS
 from markupsafe import escape
 import os
@@ -63,21 +63,19 @@ def login():
 
     # Logic for Creating a Room
     if action == 'create':
-        room_id = generate_room_id()
-
-        attempts = 0
-        while room_exists(room_id) and attempts < 10:
+        for _ in range(10):
             room_id = generate_room_id()
-            attempts += 1
+            if create_room(room_id, get_initial_room_state(deck_type)):
+                break
+        else:
+            return jsonify({'error': 'Unable to create a room'}), 503
 
-        save_room(room_id, get_initial_room_state(deck_type))
-    
     # Logic for Joining a Room
     elif action == 'join':
         if room_id:
             room_id = room_id.strip().lower()
 
-        if not room_id or not room_exists:
+        if not room_id or not room_exists(room_id):
             return jsonify({'error': 'Room not found'}), 404
             
     # 2. Set Server-Side Session (Cookie)
