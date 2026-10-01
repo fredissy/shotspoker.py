@@ -1,5 +1,27 @@
 {
   "releases": [
+        {
+      "id": "2026-10-01",
+      "released_at": 1790853912,
+      "version_name": "October 1st, 2026 Update",
+      "features": [
+        {
+          "title": "Room names",
+          "description": "Room names are now based on real people names",
+          "icon": "​👩🏻‍💻"
+        },
+        {
+          "title": "What's new modal",
+          "description": "Reorder content with newest versions first",
+          "icon": "🎉"
+        },
+        {
+          "title": "Dependencies update",
+          "description": "Usual python dependencies updates",
+          "icon": "⚙️"
+        }
+      ]
+    },
     {
       "id": "2026-04-15",
       "released_at": 1776254879,
