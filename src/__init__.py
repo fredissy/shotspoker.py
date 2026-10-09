@@ -24,6 +24,14 @@ if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
 
 app.config['REDIS_URL'] = os.environ.get('REDIS_URL', '')
+app.config['REACTION_RATE_LIMIT_BURST'] = int(os.environ.get('REACTION_RATE_LIMIT_BURST', '5'))
+app.config['REACTION_RATE_LIMIT_REFILL_PER_SECOND'] = float(
+    os.environ.get('REACTION_RATE_LIMIT_REFILL_PER_SECOND', '0.5')
+)
+if app.config['REACTION_RATE_LIMIT_BURST'] < 1:
+    raise ValueError('REACTION_RATE_LIMIT_BURST must be at least 1')
+if app.config['REACTION_RATE_LIMIT_REFILL_PER_SECOND'] <= 0:
+    raise ValueError('REACTION_RATE_LIMIT_REFILL_PER_SECOND must be greater than 0')
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
