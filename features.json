@@ -1,6 +1,28 @@
 {
   "releases": [
         {
+        "id": "2026-10-15",
+        "released_at": 1792094698,
+        "version_name": "October 15th, 2026 Update",
+        "features": [
+          {
+            "title": "Add sleep card",
+            "description": "New sleep card included in voting decks",
+            "icon": "​😴"
+          },
+          {
+            "title": "Rate limiter for reaction emoji",
+            "description": "Optional rate limitation for reaction emojis",
+            "icon": "😶‍🌫️"
+          },
+          {
+            "title": "Dependencies update",
+            "description": "Usual python dependencies updates, switch to psycopg 3",
+            "icon": "⚙️"
+          }
+        ]
+      },
+        {
       "id": "2026-10-01",
       "released_at": 1790853912,
       "version_name": "October 1st, 2026 Update",
