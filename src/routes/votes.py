@@ -38,6 +38,9 @@ return allowed
 
 
 def _allow_reaction(room_id, user_name):
+    if not app.config.get('REACTION_LIMITER', True):
+        return True
+
     capacity = app.config['REACTION_RATE_LIMIT_BURST']
     refill_rate = app.config['REACTION_RATE_LIMIT_REFILL_PER_SECOND']
     identity = hashlib.sha256(f'{room_id}\0{user_name}'.encode('utf-8')).hexdigest()

@@ -24,6 +24,7 @@ if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
 
 app.config['REDIS_URL'] = os.environ.get('REDIS_URL', '')
+app.config['REACTION_LIMITER'] = os.environ.get('REACTION_LIMITER', 'true').strip().lower() not in ('false', '0', 'no', 'off')
 app.config['REACTION_RATE_LIMIT_BURST'] = int(os.environ.get('REACTION_RATE_LIMIT_BURST', '5'))
 app.config['REACTION_RATE_LIMIT_REFILL_PER_SECOND'] = float(
     os.environ.get('REACTION_RATE_LIMIT_REFILL_PER_SECOND', '0.5')
