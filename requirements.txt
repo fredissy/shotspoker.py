@@ -13,3 +13,4 @@ redis==8.1.0
 gevent==26.9.0
 gevent-websocket==0.10.1
 Flask-Migrate==4.1.0
+packaging==26.3
