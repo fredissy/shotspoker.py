@@ -100,6 +100,9 @@ def start_vote(data):
 
     if state['ticket_key'] in state['queue']:
         state['queue'].remove(state['ticket_key'])
+        queued_url = state.get('queue_urls', {}).pop(state['ticket_key'], None)
+        if not state['ticket_url']:
+            state['ticket_url'] = queued_url
 
     save_room(room_id, state)
     emit('state_update', _get_public_state(room_id, state), to=room_id)

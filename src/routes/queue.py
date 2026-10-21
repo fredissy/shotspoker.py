@@ -15,12 +15,16 @@ def queue_add(data):
         # Append only new unique tickets to avoid duplicates
         # We use a set for fast lookup of current queue
         current_set = set(state['queue'])
+        queue_urls = state.setdefault('queue_urls', {})
         
         for ticket in new_tickets:
-            clean_ticket = clean_jira_key(ticket.strip())
+            raw_ticket = ticket.strip()
+            clean_ticket = clean_jira_key(raw_ticket)[:50]
             if clean_ticket and clean_ticket not in current_set:
                 state['queue'].append(clean_ticket)
                 current_set.add(clean_ticket) # Update local set for next iteration
+            if clean_ticket and raw_ticket.startswith(('http://', 'https://')):
+                queue_urls[clean_ticket] = raw_ticket
                 
     emit('state_update', _get_public_state(room_id, state), to=room_id)
 
@@ -34,5 +38,6 @@ def queue_remove(data):
         
         if ticket_to_remove in state['queue']:
             state['queue'].remove(ticket_to_remove)
+            state.get('queue_urls', {}).pop(ticket_to_remove, None)
             
     emit('state_update', _get_public_state(room_id, state), to=room_id)

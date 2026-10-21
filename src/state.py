@@ -26,6 +26,7 @@ def get_initial_room_state(deck_type='fibonacci'):
         'admin_sid': None,
         'participants': {},
         'queue': [],
+        'queue_urls': {},
         'timer_end': None,
         'deck_config': selected_deck
     }
@@ -147,6 +148,7 @@ def _get_public_state(room_id, state):
         'distribution': vote_counts,
         'admin_sid': state['admin_sid'],
         'queue': state['queue'],
+        'queue_urls': state.get('queue_urls', {}),
         'timer_remaining': remaining,
         'deck': state['deck_config'],
         'stats': {

@@ -1,4 +1,20 @@
 let currentQueue = [];
+let currentQueueUrls = {};
+
+function createQueueTicketLabel(ticket) {
+    const url = currentQueueUrls[ticket];
+    const hasUrl = typeof url === 'string' && /^https?:\/\//.test(url);
+    const label = document.createElement(hasUrl ? 'a' : 'span');
+    label.textContent = ticket;
+    label.className = 'text-break';
+    if (hasUrl) {
+        label.href = url;
+        label.target = '_blank';
+        label.rel = 'noopener noreferrer';
+        label.title = 'Open Jira ticket in a new tab';
+    }
+    return label;
+}
 
 function updateQueueUI(state) {
     const queueSection = document.getElementById('queueSection');
@@ -6,6 +22,7 @@ function updateQueueUI(state) {
     const manageBtn = document.querySelector('button[onclick="openQueueModal()"]');
 
     currentQueue = state.queue || [];
+    currentQueueUrls = state.queue_urls || {};
     if (manageBtn) manageBtn.style.display = 'inline-block';
 
     const modalList = document.getElementById('modalQueueList');
@@ -25,7 +42,18 @@ function updateQueueUI(state) {
                 btn.onclick = () => startFromQueue(ticket);
                 btn.title = "Click to start voting on this ticket";
 
-                queueList.appendChild(btn);
+                const label = createQueueTicketLabel(ticket);
+                if (label.tagName === 'A') {
+                    const group = document.createElement('div');
+                    group.className = 'btn-group flex-shrink-0';
+                    label.className = btn.className;
+                    btn.textContent = 'Start';
+                    btn.setAttribute('aria-label', `Start voting on ${ticket}`);
+                    group.append(label, btn);
+                    queueList.appendChild(group);
+                } else {
+                    queueList.appendChild(btn);
+                }
             });
         }
     } else {
@@ -69,12 +97,14 @@ function renderModalQueueList(queue) {
     queue.forEach(ticket => {
         const li = document.createElement('li');
         li.className = "list-group-item d-flex justify-content-between align-items-center p-2";
-        li.innerHTML = `
-            <span>${ticket}</span>
-            <button class="btn btn-sm btn-outline-danger border-0" onclick="removeQueueItem('${ticket}')">
-                <i class="bi bi-trash"></i> ✕
-            </button>
-        `;
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'btn btn-sm btn-outline-danger border-0 flex-shrink-0';
+        removeBtn.textContent = '\u00d7';
+        removeBtn.title = `Remove ${ticket} from queue`;
+        removeBtn.setAttribute('aria-label', removeBtn.title);
+        removeBtn.onclick = () => removeQueueItem(ticket);
+        li.append(createQueueTicketLabel(ticket), removeBtn);
         list.appendChild(li);
     });
 }
@@ -115,7 +145,7 @@ function removeQueueItem(ticket) {
 function startFromQueue(ticketKey) {
     // Fill the input and start
     const ticketInput = document.getElementById('jiraTicket');
-    if (ticketInput) ticketInput.value = ticketKey;
+    if (ticketInput) ticketInput.value = currentQueueUrls[ticketKey] || ticketKey;
     if (typeof startVote === 'function') {
         startVote();
     }
